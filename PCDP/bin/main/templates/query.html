@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Aone Platform</title>
+	<link rel="stylesheet"
+		th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<script type="text/javascript"
+		th:src="@{webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+	<!—在此处补充代码 -->
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	    <a class="navbar-brand" href="#">PCDP-用户表-查询所有</a>
+	</nav>
+	<div class="content_div  table-responsive" >
+		<h1>查询</h1>
+		<table class="table table-striped" >
+			<thead>
+				<tr >
+					<th>#</th>
+					<th>ID</th>
+					<th>姓名</th>
+					<th>密码</th>
+					<th>Email</th>
+					<th>照片</th>
+					<th>电话</th>
+					<th>性别</th>
+					<th>注册日期</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="Users: ${userList}" >
+					<td th:text="${UsersStat.count}">1</td>
+					<td th:text="${Users.getUserId()}">1</td>
+					<td th:text="${Users.getUserName()}">1</td>
+					<td th:text="${Users.getPassword()}">1</td>
+					<td th:text="${Users.getEmail()}">1</td>
+					<td >
+						<div class="col-sm-6 col-md-3">
+							<img class="head_img img-responsive img-circle" th:src="${Users.getPhoto()}"/>
+						</div>
+					</td>
+					<td th:text="${Users.getPhone()}">1</td>
+					<td th:text="${Users.getGender()}">1</td>
+					<td th:text="${Users.getRegDate()}">1</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+</body>
+</html>

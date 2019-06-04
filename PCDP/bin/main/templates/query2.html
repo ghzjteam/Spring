@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Aone Platform</title>
+	<link rel="stylesheet"
+		th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<script type="text/javascript"
+		th:src="@{webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+	<!—在此处补充代码 -->
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	    <a class="navbar-brand" href="#">PCDP-用户表-查询所有</a>
+	</nav>
+	<div class="content_div  table-responsive" >
+		<h1>查询</h1>
+		<table class="table table-striped" >
+			<thead>
+				<tr >
+					<th>#</th>
+					<th>ID</th>
+					<th>名称</th>
+					<th>备注</th>
+					<th>创建日期</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item: ${list}" >
+					<td th:text="${itemStat.count}">1</td>
+					<td th:text="${item.getTeamId()}">1</td>
+					<td th:text="${item.getTeamName()}">1</td>
+					<td th:text="${item.getNote()}">1</td>
+					<td th:text="${item.getCreateDate()}">1</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+</body>
+</html>
