@@ -7,13 +7,12 @@ import javax.persistence.Id;
 @Entity
 public class Teams {
 	@Id
-	@GeneratedValue(strategy =GenerationType.IDENTITY)	
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int teamId;
 	private String teamName;
 	private String note;
 	private String createDate;
-
-
+	
 	public int getTeamId() {
 		return teamId;
 	}

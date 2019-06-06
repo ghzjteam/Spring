@@ -28,18 +28,28 @@ public class UMController {
 	public String login() {
 		return "login";
 	}
+	@GetMapping("/settings")
+	public String settings(Model model) {
+		Optional<Users> oUser = userRepository.findById(1);
+		if(oUser.isPresent()) {
+			model.addAttribute("curruser", oUser.get());
+		}
 
+		return "settings";
+	}
 	@PostMapping("/loginSubmit")
-	public String longSubmit(String id,String password,Model model) {
+	public String loginSubmit(String id,String password,Model model) {
 		System.out.println(id +"=" +password);
 		String message = "";
 		int idnum = -1;
 		boolean success = false;
+		Users users = new Users();
 		try {
 			idnum = Integer.parseInt(id);
 			Optional<Users> oUser = userRepository.findById(idnum);
 			if(oUser.isPresent()) {
 				if(password.equals(oUser.get().getPassword())) {
+					users = oUser.get();
 					success = true;
 				}
 				else {
@@ -54,19 +64,24 @@ public class UMController {
 		}
 		model.addAttribute("id", id);
 		model.addAttribute("success", success);
-		if(success)
+		if(success) {
+			String src = users.getPhoto();
+			users.setPhoto(Preferences.EXTERNAL_PATH+Preferences.HEAD_IMG_PATH+src);
+			System.out.println(users.toString());
+			model.addAttribute("curruser", users);
 			return "index";
+		}
 		else {
 			return "login";
 		}
 	}
 	@PostMapping("/registerSubmit")
-	public String registerSubmit(String id,String name,String password,String email,String phone,String gender,Model model) {
+	public String registerSubmit(String number,String name,String password,String email,String phone,String gender,Model model) {
 		String message = "";
 		Users user = new Users();
-
+		boolean flag = false;
 		try {
-			int idnum = Integer.parseInt(id);
+			int idnum = Integer.parseInt(number);
 			user.setUserName(name);
 			user.setPassword(password);
 			user.setEmail(email);
@@ -75,20 +90,89 @@ public class UMController {
 			user.setUserId(idnum);
 			user.setRegDate(Preferences.getDateTime());
 			user.setPhoto(Preferences.DEFAULT_PHOTO);
+			
 			System.out.println(user.toString());
 			Optional<Users> oUser = userRepository.findById(idnum);
 			if(!oUser.isPresent()) {
 				userRepository.save(user);
+				flag = true;
 			}
 			else {
-				message = "保存错误";
-				System.out.println(message);
+				message = "账号已存在";
 			}
 		} catch (Exception e) {
-			 message = "保存错误";
-			 System.out.println(message);
+			 message = "转换或者sql错误";
+			 e.printStackTrace();
 		}
-		return "login";
+		System.out.println(message);
+		if(flag) {
+			model.addAttribute("id", number);
+			return "login";
+		}
+		else {
+			model.addAttribute("number", number);
+			return "login#signup";
+		}
+	}
+	@PostMapping("/settingsSubmit")
+	public String settingsSubmit(String number,String name,String email,String phone,String gender,Model model) {
+		String message = "";
+		Users user = new Users();
+		boolean flag = false;
+		try {
+			int idnum = Integer.parseInt(number);
+			user.setUserId(idnum);
+			Optional<Users> oUser = userRepository.findById(idnum);
+			user=oUser.get();
+			user.setUserName(name);
+			user.setEmail(email);
+			user.setPhone(phone);
+			user.setGender(gender);
+			System.out.println(user.toString());
+			if(oUser.isPresent()) {
+				userRepository.save(user);
+				flag = true;
+			}
+			else {
+				message = "账号不存在";
+			}
+		} catch (Exception e) {
+			 message = "转换或者sql错误";
+			 e.printStackTrace();
+		}
+		System.out.println(message);
+
+		model.addAttribute("curruser",user);
+		return "index";
+	}
+	
+	@PostMapping("/changePasswordSubmit")
+	public String changePasswordSubmit(String number,String password,Model model) {
+		String message = "";
+		Users user = new Users();
+		boolean flag = false;
+		try {
+			int idnum = Integer.parseInt(number);
+			Optional<Users> oUser = userRepository.findById(idnum);
+			user = oUser.get();
+			user.setPassword(password);
+			System.out.println(user.toString());
+
+			if(oUser.isPresent()) {
+				userRepository.save(user);
+				flag = true;
+			}
+			else {
+				message = "账号不存在";
+			}
+		} catch (Exception e) {
+			 message = "转换或者sql错误";
+			 e.printStackTrace();
+		}
+		System.out.println(message);
+
+		model.addAttribute("id", number);
+		return "settings";
 	}
 	@GetMapping("/allteams")
     public String allteams(Model model) {
