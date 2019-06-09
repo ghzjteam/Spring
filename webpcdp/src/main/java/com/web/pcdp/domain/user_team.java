@@ -1,7 +1,6 @@
 package com.web.pcdp.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class user_team {

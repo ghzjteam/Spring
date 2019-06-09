@@ -1,12 +1,12 @@
 package com.web.pcdp.controller;
 
-import com.web.pcdp.domain.Meeting;
-import com.web.pcdp.domain.Team;
-import com.web.pcdp.domain.User;
+import com.web.pcdp.domain.*;
 import com.web.pcdp.service.TeamService;
 import com.web.pcdp.service.UserService;
+import com.web.pcdp.service.UserTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -24,6 +25,15 @@ public class TeamController {
     @Autowired
     @Qualifier("team")
     private TeamService teamService;
+
+    @Autowired
+    @Qualifier("user_team")
+    private UserTeamService userTeamService;
+
+    @Autowired
+    @Qualifier("user")
+    private UserService userService;
+
     private Date date;
 
 
@@ -99,9 +109,70 @@ public class TeamController {
                                       @RequestParam("team_id") int team_id,
                                       Model model){
 
+        List<user_team> user_teams = null;
+        List<teamposition> teampositions = new ArrayList<>();
+
+        model.addAttribute("team_id",team_id);
+        model.addAttribute("user_id",user_id);
+
+
+        int myposition;
+
+        user_teams = userTeamService.findmemberUser(team_id);
+
+        for (int i = 0;i<user_teams.size();i++){
+
+
+            User user = userService.findUser(user_teams.get(i).getUser_id());
+            String name = user.getUserName();
+            int user_id1 = user.getUserId();
+            int team_id1 = user_teams.get(i).getTeam_id();
+            int position = user_teams.get(i).getPosition();
+
+            if (user_id == user_id1){
+                myposition = position;
+                model.addAttribute("myposition",myposition);
+            }
+            teamposition teamposition = new teamposition();
+            teamposition.setUser_id(user_id1);
+            teamposition.setTeam_id(team_id1);
+            teamposition.setUser_name(name);
+            if (position == 0){
+                teamposition.setUser_position("队长");
+            }else if (position == 1){
+                teamposition.setUser_position("副队长");
+            }else if (position == 2){
+                teamposition.setUser_position("队员");
+            }
+
+            //System.out.println(teamposition.getTeam_id()+"\t"+teamposition.getUser_name()+"\t"+teamposition.getUser_position()+"\n");
+            teampositions.add(teamposition);
+
+//            users.add(user);
+//            System.out.println(users.get(i).toString());
+        }
+
+
+        model.addAttribute("teampositions",teampositions);
+        String flag = "队长";
+        model.addAttribute("flag",flag);
 
         return "groupInformation";
 
 
     }
+
+    @GetMapping("/deletemember")
+    public String deletemember(@Param("user_id") int user_id,
+                               @Param("team_id") int team_id,
+                               Model model){
+
+        userTeamService.deletemember(user_id,team_id);
+
+        return "redirect:/groupInformation?user_id="+user_id+"&team_id=" +team_id;
+
+    }
+
+    @GetMapping("/Insertemember")
+    public void
 }

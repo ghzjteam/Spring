@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -81,19 +82,15 @@
 
                 <li><a href="#team1" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>团队管理 </a>
                     <ul id="team1" class="collapse list-unstyled ">
-                        <li><a href="/groupInformation?user_id=+${user_id}+&team_id=+${team_id}">团队信息</a></li>
-                        <li><a href="/groupMember">成员管理</a></li>
+                        <li><a th:href="@{'/groupInformation?user_id='+${user_id}+'&team_id='+${team.team_id}}">成员管理</a>
+
                         <li><a href="/groupSetting">团队设置</a></li>
 
                     </ul>
                 </li>
 
                 <li><a href="#team2" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>团队项目 </a>
-                    <ul id="team2" class="collapse list-unstyled ">
-                        <li><a href="/1">团队信息</a></li>
-                        <li><a href="/2">成员管理</a></li>
-                        <li><a href="#">团队设置</a></li>
-                    </ul>
+
                 </li>
                 <li><a href="forms.html"> <i class="icon-padnote"></i>团队会议 </a></li>
 
