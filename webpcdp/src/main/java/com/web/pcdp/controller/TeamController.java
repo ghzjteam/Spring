@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -173,24 +172,40 @@ public class TeamController {
 
     }
 
-    @GetMapping("/ERROR")
-    public String ERROR(){
+    @GetMapping("/ERROR1")
+    public String ERROR1(){
 
-        return "ERROR";
+        return "ERROR1";
+    }
+
+    @GetMapping("/ERROR2")
+    public String ERROR2(){
+
+        return "ERROR2";
     }
 
     @PostMapping("/Insertemember")
-    public String Insertemember(@RequestParam("user_id") int user_id,
-                              @RequestParam("team_id") int team_id,
-                              @RequestParam("team_position") int position){
+    public String Insertemember(@RequestParam("user_id1") int user_id1,
+                                @RequestParam("team_id") int team_id,
+                                @RequestParam("team_position") int position,
+                                @RequestParam("user_id") int user_id){
 
-        User user = userService.findUser(user_id);
+        User user = userService.findUser(user_id1);
+        List<user_team> users = new ArrayList<>();
+        users = userTeamService.findmemberUser(team_id);
         if (user == null){
-            return "redirect:/ERROR";
+            return "redirect:/ERROR1";
         }
 
-        System.out.println(user_id+"\t"+team_id+"\t"+position);
-        userTeamService.Insertemember(user_id,team_id,position);
+        for (int i=0;i<users.size();i++){
+            if (users.get(i).getUser_id() == user_id1){
+                return "redirect:/ERROR2";
+            }
+        }
+
+
+        System.out.println(user_id1+"\t"+team_id+"\t"+position);
+        userTeamService.Insertemember(user_id1,team_id,position);
         return "redirect:/groupInformation?user_id="+user_id+"&team_id=" +team_id;
     }
 }

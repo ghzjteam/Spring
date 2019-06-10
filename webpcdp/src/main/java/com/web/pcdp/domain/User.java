@@ -3,6 +3,7 @@ package com.web.pcdp.domain;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.*;
+import java.sql.DatabaseMetaData;
 
 @Entity
 public class User {
@@ -16,6 +17,19 @@ public class User {
     private String photo;
     private String phone;
     private String gender;
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(String regDate) {
+        this.regDate = regDate;
+    }
+
     private String regDate;
 
     public User() {
@@ -60,15 +74,7 @@ public class User {
     public String getGender() {
         return gender;
     }
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-    public String getRegDate() {
-        return regDate;
-    }
-    public void setRegDate(String regDate) {
-        this.regDate = regDate;
-    }
+
     @Override
     public String toString() {
         return "Users [userId=" + userId + ", userName=" + userName + ", password=" + password + ", email=" + email

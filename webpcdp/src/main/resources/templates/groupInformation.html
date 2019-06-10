@@ -102,7 +102,7 @@
                 <div class="container-fluid">
                     <div style="display: inline-flex">
                         <h2 class="no-margin-bottom" style="float: left;font-size: 20px">成员管理</h2>
-                        <button type="button" class="btn btn-primary" style="float: right;margin-left: 800px;font-size: 16px" data-toggle="modal" data-target="#myModal">
+                        <button th:if="${myposition != 2}" type="button" class="btn btn-primary" style="float: right;margin-left: 800px;font-size: 16px" data-toggle="modal" data-target="#myModal">
                             添加成员
                         </button>
                     </div>
@@ -122,8 +122,8 @@
                         <div class="modal-body">
                             <form action="/Insertemember" method="post">
                                 <div class="form-group">
-                                    <label for="user_id" class="control-label">成员ID:</label>
-                                    <input type="text" class="form-control" id="user_id" name="user_id">
+                                    <label for="user_id1" class="control-label">成员ID:</label>
+                                    <input type="text" class="form-control" id="user_id1" name="user_id1">
                                 </div>
                                 <div class="form-group">
                                     <label for="team_id" class="control-label">团队ID:</label>
@@ -135,9 +135,14 @@
                                     <label for="team_position1" class="control-label">成员职位:</label>
                                     <input id="team_position1" name="team_position"  type="radio" value="1" />副队长
                                     <label for="team_position2" class="control-label"></label>
-                                    <input id="team_position2" name="team_position"  type="radio" value="2" />队员
+                                    <input id="team_position2" name="team_position"  type="radio" value="2" checked/>队员
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="user_id" class="control-label">操作者ID:</label>
+                                    <input type="text"  id="user_id" class="user_id" th:value="${user_id}" readonly="readonly" name="user_id">
+
+                                </div>
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
