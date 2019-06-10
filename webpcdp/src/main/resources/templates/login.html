@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Meta, title, CSS, favicons, etc. -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>项目协作开发平台</title>
+
+<!-- Bootstrap -->
+<link href="css/vendors/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="css/vendors/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="css/vendors/nprogress.css" rel="stylesheet">
+<!-- Animate.css -->
+<link href="css/vendors/animate.min.css" rel="stylesheet">
+
+<!-- Custom Theme Style -->
+<link href="css/vendors/custom.min.css" rel="stylesheet">
+
+<link rel="shortcut icon" href="img/favicon.ico">
+
+<link rel="stylesheet" th:href="@{/css/login_css.css}" />
+
+<script type="text/javascript"
+	th:src="@{webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+
+</head>
+
+<body class="login">
+	<div>
+		<a class="hiddenanchor" id="signup"></a> <a class="hiddenanchor"
+			id="signin"></a>
+
+		<div class="login_wrapper">
+			<div class="animate form login_form">
+				<section class="login_content">
+					<form action="loginSubmit" method="Post">
+						<h1>登录 界面</h1>
+						<div>
+							<input type="text" class="form-control" placeholder="Username"
+								th:value="${id}" name="id" required="" />
+						</div>
+						<div>
+							<input type="password" class="form-control" name="password"
+								placeholder="password" required="" />
+						</div>
+						<span th:if="${success}!=null and ${success}==false"
+							class="redalert">密码错误</span>
+						<div>
+							<input type="submit" class="btn btn-default submit" value="登录">
+							<a class="reset_pass" href="#">忘记密码?</a>
+						</div>
+
+						<div class="clearfix"></div>
+
+						<div class="separator">
+							<p class="change_link">
+								第一次到来? <a href="#signup" class="to_register">去注册一个账户 </a>
+							</p>
+
+							<div class="clearfix"></div>
+							<br />
+
+							<div>
+								<h1>
+									<i class="fa fa-paw"></i> 项目协作开发平台
+								</h1>
+								<p>16204126.占文勋 16204107.郭进航 16204109.黄川沂 16204130.姜新炜</p>
+							</div>
+						</div>
+					</form>
+				</section>
+			</div>
+
+			<div id="register" class="x_content animate form registration_form">
+				<section class="login_content">
+					<form action="registerSubmit" method="Post"
+						class="form-horizontal form-label-left" novalidate>
+						<h1>创建 账户</h1>
+						<div class="item form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12"
+								for="number">账号 <span class="required">*</span>
+							</label>
+							<div class="col-md-8 col-sm-6 col-xs-12">
+								<input type="number" id="number" name="number"
+									required="required" data-validate-minmax="1,10"
+									class="form-control col-md-7 col-xs-12">
+							</div>
+						</div>
+
+						<div class="item form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12"
+								for="name">姓名 <span class="required">*</span>
+							</label>
+							<div class="col-md-8 col-sm-6 col-xs-12">
+								<input id="name" class="form-control col-md-7 col-xs-12"
+									data-validate-length-range="4" data-validate-words="2"
+									name="name" required="required" type="text">
+							</div>
+						</div>
+						<div class="item form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12"
+								for="email">Email <span class="required">*</span>
+							</label>
+							<div class="col-md-8 col-sm-6 col-xs-12">
+								<input type="email" id="email" name="email" required="required"
+									class="form-control col-md-7 col-xs-12">
+							</div>
+						</div>
+
+						<div class="item form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">性别
+								<span class="required">*</span>
+							</label>
+							<div class="col-md-8 col-sm-6 col-xs-12">
+								<label class="control-label col-md-5 col-sm-3 col-xs-12">男:
+									<input type="radio" class="flat" name="gender" id="genderM"
+									value="男" checked="" required />
+								</label> <label class="control-label col-md-5 col-sm-3 col-xs-12">女:
+									<input type="radio" class="flat" name="gender" id="genderF"
+									value="女" />
+								</label>
+
+							</div>
+						</div>
+
+						<div class="item form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12"
+								for="telephone">电话 <span class="required">*</span>
+							</label>
+							<div class="col-md-8 col-sm-6 col-xs-12">
+								<input type="tel" id="telephone" name="phone"
+									required="required" data-validate-length-range="8,20"
+									class="form-control col-md-7 col-xs-12">
+							</div>
+						</div>
+
+						<div class="item form-group">
+							<label for="password" class="control-label col-md-3">密码</label>
+							<div class="col-md-8 col-sm-6 col-xs-12">
+								<input id="password" type="password" name="password"
+									data-validate-length="6,8"
+									class="form-control col-md-7 col-xs-12" required="required">
+							</div>
+						</div>
+						<div class="item form-group">
+							<label for="password2"
+								class="control-label col-md-3 col-sm-3 col-xs-12">确认密码</label>
+							<div class="col-md-8 col-sm-6 col-xs-12">
+								<input id="password2" type="password" name="password2"
+									data-validate-linked="password"
+									class="form-control col-md-7 col-xs-12" required="required">
+							</div>
+						</div>
+
+
+						<div class="col-md-10 ">
+							<input type="submit" class="btn btn-default submit" value="注册">
+							<button type="reset" class="btn btn-default submit">重置</button>
+						</div>
+
+						<div class="clearfix"></div>
+
+						<div class="separator">
+							<p class="change_link">
+								已经有账户 ? <a href="#signin" class="to_register"> 去登录 </a>
+							</p>
+
+							<div class="clearfix"></div>
+							<br />
+
+							<div>
+								<h1>
+									<i class="fa fa-paw"></i> 项目协作开发平台
+								</h1>
+								<p>16204126.占文勋 16204107.郭进航 16204109.黄川沂 16204130.姜新炜</p>
+							</div>
+						</div>
+					</form>
+				</section>
+			</div>
+		</div>
+	</div>
+	
+	
+	<script src="vendors/jquery-validation/jquery.validate.js"></script>
+	<script src="vendors/jquery-validation/jquery.validate.min.js"></script>
+</body>
+</html>

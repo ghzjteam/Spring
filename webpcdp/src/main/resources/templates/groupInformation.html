@@ -82,8 +82,7 @@
 
                 <li><a href="#team1" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>团队管理 </a>
                     <ul id="team1" class="collapse list-unstyled ">
-                        <li><a th:href="@{'/groupInformation?user_id='+${user_id}+'&team_id='+${team.team_id}}">成员管理</a>
-
+                        <li><a th:href="@{'/groupInformation?user_id='+${user_id}+'&team_id='+${team_id}}">成员管理</a>
                         <li><a href="/groupSetting">团队设置</a></li>
 
                     </ul>
@@ -95,27 +94,126 @@
                 <li><a href="forms.html"> <i class="icon-padnote"></i>团队会议 </a></li>
 
             </ul>
+
         </nav>
         <div class="content-inner">
             <!-- Page Header-->
             <header class="page-header">
                 <div class="container-fluid">
                     <div style="display: inline-flex">
-                        <h2 class="no-margin-bottom" style="float: left;font-size: 20px" th:text="${team.team_name}+团队">团队管理</h2>
+                        <h2 class="no-margin-bottom" style="float: left;font-size: 20px">成员管理</h2>
+                        <button th:if="${myposition != 2}" type="button" class="btn btn-primary" style="float: right;margin-left: 800px;font-size: 16px" data-toggle="modal" data-target="#myModal">
+                            添加成员
+                        </button>
                     </div>
 
                 </div>
             </header>
 
-            <div style="margin-top: 120px;margin-left: 100px">
-                <h1 style="font-size: 65px">欢迎回到团队！！！</h1>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 style="float: left">添加成员</h1>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/Insertemember" method="post">
+                                <div class="form-group">
+                                    <label for="user_id1" class="control-label">成员ID:</label>
+                                    <input type="text" class="form-control" id="user_id1" name="user_id1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="team_id" class="control-label">团队ID:</label>
+                                    <input type="text"  id="team_id" class="team_id" th:value="${team_id}" readonly="readonly" name="team_id">
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="team_position1" class="control-label">成员职位:</label>
+                                    <input id="team_position1" name="team_position"  type="radio" value="1" />副队长
+                                    <label for="team_position2" class="control-label"></label>
+                                    <input id="team_position2" name="team_position"  type="radio" value="2" checked/>队员
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="user_id" class="control-label">操作者ID:</label>
+                                    <input type="text"  id="user_id" class="user_id" th:value="${user_id}" readonly="readonly" name="user_id">
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" class="btn btn-primary">确认创建</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+
+
+            <div>
+                <section class="tables">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table" id="table">
+                                                <thead>
+                                                <tr >
+                                                    <th>成员ID</th>
+                                                    <th>成员昵称</th>
+                                                    <th>成员职位</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+
+                                                <tr th:each="teamposition : ${teampositions}">
+                                                    <td class="id" id="id" th:text="${teamposition.getUser_id()}" scope="row"></td>
+                                                    <td th:text="${teamposition.getUser_name()}"></td>
+                                                    <td th:text="${teamposition.getUser_position()}"></td>
+                                                    <td th:if="${teamposition.getUser_position()}!=${flag}">
+
+                                                        <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"></button>
+                                                        <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow">
+                                                            <a class="dropdown-item">查看</a>
+                                                            <a class="dropdown-item" th:if="${myposition} != 2" th:href="@{'/deletemember?user_id='+${teamposition.getUser_id()} +'&team_id='+${team_id}}">删除</a>
+
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+
 
 
         </div>
     </div>
 </div>
 <!-- JavaScript files-->
+
+
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/popper.js/umd/popper.min.js"> </script>
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>

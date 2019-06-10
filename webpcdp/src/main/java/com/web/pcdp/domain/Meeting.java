@@ -18,6 +18,9 @@ public class Meeting {
     private String start_date;
     private String place;
 
+    protected Meeting(){
+
+    }
 
     public Integer getMeeting_id() {
         return meeting_id;
