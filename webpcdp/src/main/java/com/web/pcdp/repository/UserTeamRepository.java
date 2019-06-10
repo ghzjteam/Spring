@@ -30,4 +30,12 @@ public interface UserTeamRepository extends JpaRepository<user_team,Integer> {
     void deletemember(@Param("user_id") int user_id,
                  @Param("team_id") int team_id);
 
+    //添加成员
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO user_team values (?,?,?)",nativeQuery = true)
+    void Insertemember(@Param("user_id") int user_id,
+                       @Param("team_id") int team_id,
+                       @Param("position") int position);
+
 }

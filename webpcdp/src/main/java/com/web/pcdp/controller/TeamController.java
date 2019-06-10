@@ -173,6 +173,24 @@ public class TeamController {
 
     }
 
-    @GetMapping("/Insertemember")
-    public void
+    @GetMapping("/ERROR")
+    public String ERROR(){
+
+        return "ERROR";
+    }
+
+    @PostMapping("/Insertemember")
+    public String Insertemember(@RequestParam("user_id") int user_id,
+                              @RequestParam("team_id") int team_id,
+                              @RequestParam("team_position") int position){
+
+        User user = userService.findUser(user_id);
+        if (user == null){
+            return "redirect:/ERROR";
+        }
+
+        System.out.println(user_id+"\t"+team_id+"\t"+position);
+        userTeamService.Insertemember(user_id,team_id,position);
+        return "redirect:/groupInformation?user_id="+user_id+"&team_id=" +team_id;
+    }
 }

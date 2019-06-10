@@ -36,4 +36,8 @@ public class UserTeamService {
     public void deletemember(int user_id,int team_id){
         userTeamRepository.deletemember(user_id,team_id);
     }
+
+    public void Insertemember(int user_id,int team_id,int position){
+        userTeamRepository.Insertemember(user_id,team_id,position);
+    }
 }
