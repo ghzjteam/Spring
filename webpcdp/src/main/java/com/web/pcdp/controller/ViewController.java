@@ -14,11 +14,14 @@ public class ViewController {
         return "projects";
     }
 
+<<<<<<< HEAD
     @RequestMapping("/group")
     public String group(){
         return "groups";
     }
 
+=======
+>>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
     @RequestMapping("/meeting")
     public String meeting(){
         return "meetings";

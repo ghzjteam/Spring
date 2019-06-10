@@ -36,7 +36,11 @@ span:focus {
 }
 
 section {
+<<<<<<< HEAD
   padding: 50px 0;
+=======
+  padding: 20px 0;
+>>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
 }
 
 canvas {
@@ -484,7 +488,11 @@ nav.side-navbar ul li a {
 
 nav.side-navbar ul li a:hover {
   background: #796AEE;
+<<<<<<< HEAD
   border-left: 4px solid #3b25e6;
+=======
+
+>>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
   color: #fff;
 }
 
@@ -496,7 +504,11 @@ nav.side-navbar ul li li a {
 nav.side-navbar ul li.active > a {
   background: #796AEE;
   color: #fff;
+<<<<<<< HEAD
   border-left: 4px solid #3b25e6;
+=======
+
+>>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
 }
 
 nav.side-navbar ul li.active > a:hover {
@@ -2138,6 +2150,7 @@ STYLE SWITCHER FOR DEMO
   color: rgba(255, 255, 255, 0.5);
 }
 
+<<<<<<< HEAD
 /*
  * 2. BUTTONS
  */
@@ -2793,6 +2806,8 @@ STYLE SWITCHER FOR DEMO
   line-height: 1.5;
   border-radius: 0.2rem;
 }
+=======
+>>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
 
 /*
  * 3. TYPE  

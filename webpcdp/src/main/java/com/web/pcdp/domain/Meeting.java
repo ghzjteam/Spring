@@ -18,6 +18,12 @@ public class Meeting {
     private String start_date;
     private String place;
 
+<<<<<<< HEAD
+=======
+    protected Meeting(){
+
+    }
+>>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
 
     public Integer getMeeting_id() {
         return meeting_id;
