@@ -1,11 +1,5 @@
 package com.web.pcdp.repository;
 
-<<<<<<< HEAD
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface TeamRepository  {
-}
-=======
 import com.web.pcdp.domain.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -28,21 +22,21 @@ public interface TeamRepository extends JpaRepository<Team, Integer> {
     @Query(value = "SELECT * FROM team WHERE team_id = ?", nativeQuery = true)
     Team findMyTeam(@Param("team_id") int id);
 
-
+    //添加团队
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO team(team_id,team_name,note,create_date) VALUES(?,?,?,?)", nativeQuery = true)
     void insertTeam(@Param("team_id") int team_id,
-                                    @Param("team_name") String team_name,
-                                    @Param("note") String note,
-                                    @Param("create_date") Date create_date);
+                    @Param("team_name") String team_name,
+                    @Param("note") String note,
+                    @Param("create_date") Date create_date);
 
+    //团队添加成员
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO user_team(user_id,team_id,position) VALUES(?,?,?)", nativeQuery = true)
     void insertUser_Team(@Param("user_id") int user_id,
-                                         @Param("team_id") int team_id,
-                                         @Param("position") int position);
+                         @Param("team_id") int team_id,
+                         @Param("position") int position);
 
 }
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6

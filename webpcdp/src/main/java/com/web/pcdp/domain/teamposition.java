@@ -1,12 +1,10 @@
 package com.web.pcdp.domain;
 
-import javax.persistence.*;
+import javax.persistence.Id;
 
 /**
  * @program: pcdp
  * @description: 成员职位实体类
- * @author: jiang
- * @create: 2019-06-09 16:50
  **/
 public class teamposition {
 

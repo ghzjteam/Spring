@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html>
-=======
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -63,14 +59,10 @@
                 </li>
                 
                 <!-- Logout    -->
-<<<<<<< HEAD
-                <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
-=======
                 <!--<li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>-->
                 <li class="nav-item"><a href="/login"
                                         class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i
                         class="fa fa-sign-out"></i></a></li>
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
               </ul>
             </div>
           </div>
@@ -80,14 +72,10 @@
         <!-- Side Navbar -->
         <nav class="side-navbar">
           <!-- Sidebar Header-->
-<<<<<<< HEAD
-          <div class="sidebar-header d-flex align-items-center">
-=======
           <a href="/settings">
             <div class="nav-link sidebar-header d-flex align-items-center ">
               <div class="avatar">
-                <img src="img/avatar-1.jpg" alt="..." th:src="${curruser.getPhoto()}"
-                     class="img-fluid rounded-circle" />
+                <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle" />
               </div>
               <div class="title">
                 <h1 class="h4" th:text="${curruser.getUserName()}">VVong
@@ -98,32 +86,20 @@
             </div>
           </a>
          <!-- <div class="sidebar-header d-flex align-items-center">
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
             <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
               <h1 class="h4">VVong Tory</h1>
               <p>个人签名</p>
             </div>
-<<<<<<< HEAD
-          </div>
-          <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
-          <ul class="list-unstyled">
-                    <li class="active"><a href="index.html"> <i class="icon-home"></i>主界面 </a></li>
-                    <li><a href="tables.html"> <i class="icon-grid"></i>团队信息 </a></li>
-                    <li><a href="subjects.html"> <i class="fa fa-bar-chart"></i>项目信息 </a></li>
-=======
           </div>-->
           <!-- Sidebar Navidation Menus-->
           <span class="heading">Main</span>
           <ul class="list-unstyled">
-                    <li class="active"><a href="/"> <i class="icon-home"></i>主界面 </a></li>
-                    <li><a href="/team?user_id=1"> <i class="icon-grid"></i>团队 </a></li>
-                    <li><a href="subjects.html"> <i class="fa fa-bar-chart"></i>项目 </a></li>
-                    <li><a href="/GroupMeeting?user_id=1"> <i class="fa fa-bar-chart"></i>会议 </a></li>
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
-                    
+                    <li class="active"><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面 </a></li>
+                    <li><a th:href="@{'team?user_id='+${session.session_user_id}}"> <i class="icon-grid"></i>团队 </a></li>
+                    <li><a th:href="@{'project?user_id='+${session.session_user_id}}"> <i class="fa fa-bar-chart"></i>项目 </a></li>
+                    <li><a th:href="@{'GroupMeeting?user_id='+${session.session_user_id}}" > <i class="icon-padnote"></i>会议 </a></li>
           </ul>
-
         </nav>
         <div class="content-inner">
           <!-- Page Header-->
@@ -132,9 +108,6 @@
               <h2 class="no-margin-bottom">主界面</h2>
             </div>
           </header>
-<<<<<<< HEAD
-         
-=======
 
 
 
@@ -142,7 +115,6 @@
             <h1 style="font-size: 65px">欢迎使用PCDP管理系统！！！</h1>
           </div>
 
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
         
 
         </div>

@@ -1,9 +1,9 @@
 package com.web.pcdp.controller;
 
-<<<<<<< HEAD
-public class TeamController {
-=======
-import com.web.pcdp.domain.*;
+import com.web.pcdp.domain.Team;
+import com.web.pcdp.domain.User;
+import com.web.pcdp.domain.teamposition;
+import com.web.pcdp.domain.user_team;
 import com.web.pcdp.service.TeamService;
 import com.web.pcdp.service.UserService;
 import com.web.pcdp.service.UserTeamService;
@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -59,8 +61,7 @@ public class TeamController {
     }
 
 
-
-
+    /*
     @GetMapping("/group")
     public String GetMyTeam(@RequestParam("team_id") int team_id,
                             @RequestParam("user_id") int user_id,
@@ -80,6 +81,7 @@ public class TeamController {
         }
         return "groups";
     }
+    */
 
     @PostMapping("/InsertTeam")
     public String InsertMeeting(@RequestParam("team_id") int team_id,
@@ -211,5 +213,4 @@ public class TeamController {
         userTeamService.Insertemember(user_id1,team_id,position);
         return "redirect:/groupInformation?user_id="+user_id+"&team_id=" +team_id;
     }
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
 }

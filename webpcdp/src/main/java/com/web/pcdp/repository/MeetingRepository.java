@@ -1,19 +1,6 @@
 package com.web.pcdp.repository;
 
 import com.web.pcdp.domain.Meeting;
-<<<<<<< HEAD
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
-@Repository
-public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
-    @Query("select m from Meeting m where meeting_id=:meeting_id")
-    Meeting findMeetingByMeeting_id(@Param("meeting_id") int id);
-
-=======
-import com.web.pcdp.domain.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -44,6 +31,7 @@ public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
     @Query(value = "delete from meeting where meeting_id=?",nativeQuery = true)
     void deleteMeeting(@Param("meeting_id") int id);
 
+    //添加会议
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO meeting(team_id,meeting_name,note,type,file,start_date,place) VALUES(?,?,?,?,?,?,?)",nativeQuery = true)
@@ -55,6 +43,7 @@ public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
                        @Param("start_date") String start_date,
                        @Param("place") String place);
 
+    //根据meeting_id更新会议
     @Modifying
     @Transactional
     @Query(value = "UPDATE meeting SET meeting_name=?,type=?,place=?,note=?,start_date=? WHERE meeting_id=?;",nativeQuery = true)
@@ -65,5 +54,4 @@ public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
                        @Param("start_date") String start_date,
                        @Param("meeting_id") int meeting_id);
 
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
 }

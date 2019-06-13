@@ -1,20 +1,13 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html>
-=======
 <html xmlns:th="http://www.w3.org/1999/xhtml">
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bootstrap Material Admin by Bootstrapious.com</title>
+    <title>项目协作开发平台</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
-<<<<<<< HEAD
-=======
     <link rel="stylesheet" href="vendor/bootstrap/css/meeting.css">
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
@@ -51,11 +44,7 @@
                     <div class="navbar-holder d-flex align-items-center justify-content-between">
                         <!-- Navbar Header-->
                         <div class="navbar-header">
-<<<<<<< HEAD
-                            <!-- Navbar Brand --><a href="index.html" class="navbar-brand d-none d-sm-inline-block">
-=======
                             <!-- Navbar Brand --><a href="/" class="navbar-brand d-none d-sm-inline-block">
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
                             <div class="brand-text d-none d-lg-inline-block"><span>项目协作开发平台</span></div>
                             <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div></a>
                             <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
@@ -91,19 +80,11 @@
                 </div>
                 <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
                 <ul class="list-unstyled">
-<<<<<<< HEAD
-                    <li><a href="index.html"> <i class="icon-home"></i>主界面 </a></li>
-                    <li><a href="tables.html"> <i class="icon-grid"></i>团队管理 </a></li>
-                    <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>团队项目 </a></li>
-                    <li class="active"><a href="forms.html"> <i class="icon-padnote"></i>团队会议 </a></li>
-
-=======
-                    <li><a href="/"> <i class="icon-home"></i>主界面 </a></li>
-                    <li><a href="tables.html"> <i class="icon-grid"></i>团队 </a></li>
+                    <li><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面 </a></li>
+                    <li><a th:href="@{'team?user_id='+${session.session_user_id}}"> <i class="icon-grid"></i>团队 </a></li>
                     <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>项目 </a></li>
                     <li class="active"><a href="forms.html"> <i class="icon-padnote"></i>会议 </a></li>
                 </ul>
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
             </nav>
             <div class="content-inner">
                 <!-- Page Header-->
@@ -115,14 +96,7 @@
                 <!-- Breadcrumb-->
                 <div class="breadcrumb-holder container-fluid">
                     <ul class="breadcrumb">
-<<<<<<< HEAD
-                        <li class="breadcrumb-item"><a href="index.html">主界面</a></li>
-                        <li class="breadcrumb-item active">团队会议            </li>
-                    </ul>
-                </div>
-
-=======
-                        <li class="breadcrumb-item"><a href="/">主界面</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{'index?user_id='+${session.session_user_id}}">主界面</a></li>
                         <li class="breadcrumb-item active">团队会议</li>
                     </ul>
                 </div>
@@ -187,15 +161,11 @@
                         </div>
                     </div>
                 </section>
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
 
             </div>
         </div>
 
     </div>
-<<<<<<< HEAD
-
-=======
 </div>
 <!-- Modal -->
 <div th:each="team : ${teams}">
@@ -305,7 +275,6 @@
 
 
 <!-- Modal  update-->
-
 <div th:each="team : ${teams}">
     <div th:each="meeting : ${meetings}">
     <div class="modal fade" th:id="'MyModal'+${team.team_id}+'and'+${meeting.meeting_id}" tabindex="-1" role="dialog"  th:attr="aria-labelledby=@{'ModalLabel'+${team.team_id}}">
@@ -388,7 +357,6 @@
     </div>
     </div>
 </div>
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
     <!-- JavaScript files-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/popper.js/umd/popper.min.js"> </script>

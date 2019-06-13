@@ -1,53 +1,31 @@
 package com.web.pcdp.controller;
 
-<<<<<<< HEAD
-import com.web.pcdp.repository.MeetingRepository;
 import com.web.pcdp.domain.Meeting;
-import com.web.pcdp.service.MeetingService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-=======
 import com.web.pcdp.domain.Team;
-import com.web.pcdp.repository.MeetingRepository;
-import com.web.pcdp.domain.Meeting;
 import com.web.pcdp.service.MeetingService;
 import com.web.pcdp.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @Controller
 public class MeetingController {
     @Autowired//授权
-<<<<<<< HEAD
-    private MeetingService meetingService;
-    //MeetingRepository meetingRepository;
-=======
     @Qualifier("meeting")
     private MeetingService meetingService;
 
     @Autowired
     @Qualifier("team")
     private TeamService teamService;
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
 
-    /*
-    *jason格式返回测试
-    @RequestMapping(value = "/findAllMeeting",method = RequestMethod.GET)
-    public List<Meeting> findAllMeeting(){
-        List<Meeting> MeetingList = meetingRepository.findAll();
-        for(int i=0;i<MeetingList.size();i++) {
-            System.out.println(MeetingList.get(i));
-        }
-        return MeetingList;
-        }
-    */
+
 
    /**
     * 根据id查询会议
@@ -66,8 +44,6 @@ public class MeetingController {
             return meeting.toString();
         }
     }
-<<<<<<< HEAD
-=======
 
     //删除会议 用的重定向 拼接地址
     @GetMapping("/DeleteMeeting")
@@ -125,5 +101,16 @@ public class MeetingController {
         }
         return "meetings";
     }
->>>>>>> c03938eddc2acb005e8a348f4ae7b480aae981f6
+
+    /*
+    *jason格式返回测试
+    @RequestMapping(value = "/findAllMeeting",method = RequestMethod.GET)
+    public List<Meeting> findAllMeeting(){
+        List<Meeting> MeetingList = meetingRepository.findAll();
+        for(int i=0;i<MeetingList.size();i++) {
+            System.out.println(MeetingList.get(i));
+        }
+        return MeetingList;
+        }
+    */
 }
