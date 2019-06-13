@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -44,7 +44,7 @@
                     <div class="navbar-holder d-flex align-items-center justify-content-between">
                         <!-- Navbar Header-->
                         <div class="navbar-header">
-                            <!-- Navbar Brand --><a href="index.html" class="navbar-brand d-none d-sm-inline-block">
+                            <!-- Navbar Brand --><a href="/" class="navbar-brand d-none d-sm-inline-block">
                             <div class="brand-text d-none d-lg-inline-block"><span>项目协作开发平台</span></div>
                             <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div></a>
                             <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
@@ -80,8 +80,8 @@
                 </div>
                 <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
                 <ul class="list-unstyled">
-                    <li><a href="index.html"> <i class="icon-home"></i>主界面 </a></li>
-                    <li><a href="tables.html"> <i class="icon-grid"></i>团队 </a></li>
+                    <li><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面 </a></li>
+                    <li><a th:href="@{'team?user_id='+${session.session_user_id}}"> <i class="icon-grid"></i>团队 </a></li>
                     <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>项目 </a></li>
                     <li class="active"><a href="forms.html"> <i class="icon-padnote"></i>会议 </a></li>
                 </ul>
@@ -96,14 +96,10 @@
                 <!-- Breadcrumb-->
                 <div class="breadcrumb-holder container-fluid">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">主界面</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{'index?user_id='+${session.session_user_id}}">主界面</a></li>
                         <li class="breadcrumb-item active">团队会议</li>
                     </ul>
                 </div>
-
-
-
-
 
                 <section class="tables">
                     <div class="container-fluid">
@@ -116,35 +112,27 @@
                                         <div style="width: 90% ">
                                             <h3 th:text="${team.team_name}" class="h4"></h3>
                                         </div>
-
                                         <div style="width: 10%">
                                             <!-- Button trigger modal   data-target="@{'#myModal'+${team.team_id}}" -->
                                             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" th:attr="data-target=@{'#myModal'+${team.team_id}}"  style="font-size: small">添加会议</button>
                                         </div>
-
-
-
                                     </div>
-
-
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
                                                 <tr >
-                                                    <th>序号</th>
+                                                    <th>序号ID</th>
                                                     <th>会议名称</th>
                                                     <th>会议类型</th>
                                                     <th>会议时间</th>
                                                     <th>会议地点</th>
                                                     <th>备注信息</th>
+
                                                     <th>操作</th>
-
-
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-
                                                 <tr th:each="meeting : ${meetings}">
                                                     <th th:if="${team.team_id==meeting.team_id}" th:text="${meeting.meeting_id}" scope="row"></th>
                                                     <td th:if="${team.team_id==meeting.team_id}" th:text="${meeting.meeting_name}"></td>
@@ -152,29 +140,24 @@
                                                     <td th:if="${team.team_id==meeting.team_id}" th:text="${meeting.start_date}"></td>
                                                     <td th:if="${team.team_id==meeting.team_id}" th:text="${meeting.place}"></td>
                                                     <td th:if="${team.team_id==meeting.team_id}" th:text="${meeting.note}"></td>
+
                                                     <td th:if="${team.team_id==meeting.team_id}">
 
                                                                 <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"></button>
                                                                 <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow">
-                                                                    <a data-toggle="modal" th:attr="data-target=@{'#MyModal'+${team.team_id}}" class="dropdown-item edit">修改会议信息</a>
+                                                                    <a data-toggle="modal" th:attr="data-target=@{'#MyModal'+${team.team_id}+'and'+${meeting.meeting_id}}" class="dropdown-item edit">修改会议信息</a>
                                                                     <a href="#" class="dropdown-item edit">上传会议文件</a>
                                                                     <a href="#" class="dropdown-item edit">查看会议文件</a>
                                                                     <a th:href="@{'DeleteMeeting?user_id=1&meeting_id='+${meeting.meeting_id}}" class="dropdown-item edit">删除会议</a>
                                                                 </div>
-
                                                     </td>
-
                                                 </tr>
-
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                 </section>
@@ -194,7 +177,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header d-flex align-items-center">
@@ -248,7 +230,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="line"></div>
                                 <div class="form-group row">
                                     <label class="col-sm-3 form-control-label">会议备注</label>
@@ -273,11 +254,9 @@
                                     </div>
                                 </div>
 
-
                                 <div class="line"></div>
                                 <div class="form-group row">
                                     <div class="col-sm-4 offset-sm-3">
-
                                         <button type="submit" class="btn btn-primary">提交</button>
                                     </div>
                                 </div>
@@ -288,7 +267,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
             </div>
         </div>
     </div>
@@ -296,46 +274,39 @@
 </div>
 
 
-<!-- Modal -->
+<!-- Modal  update-->
+
 <div th:each="team : ${teams}">
-    <div class="modal fade" th:id="'MyModal'+${team.team_id}" tabindex="-1" role="dialog"  th:attr="aria-labelledby=@{'ModalLabel'+${team.team_id}}">
+    <div th:each="meeting : ${meetings}">
+    <div class="modal fade" th:id="'MyModal'+${team.team_id}+'and'+${meeting.meeting_id}" tabindex="-1" role="dialog"  th:attr="aria-labelledby=@{'ModalLabel'+${team.team_id}}">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="'ModalLabel'+${team.team_id}">添加会议</h4>
+                    <h4 class="modal-title" id="'ModalLabel'+${team.team_id}">修改会议信息</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
                                 <h3 class="h4">会议信息</h3>
                             </div>
                             <div class="card-body">
-                                <form class="form-horizontal" action="InsertMeeting" method="post">
-
-                                    <div class="line"></div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 form-control-label">团队编号</label>
-                                        <div class="col-sm-9">
-
-                                            <input  type="text" class="form-control" name="team_id" readonly = "readonly" th:value="${team.team_id}" >
-
-                                        </div>
+                                <form class="form-horizontal" action="UpdateMeeting" method="post">
+                                    <div style="display:none">
+                                        <input type="text" name="meeting_id" th:value="${meeting.meeting_id}">
                                     </div>
-
                                     <div class="form-group row">
                                         <label class="col-sm-3 form-control-label">会议名称</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="meeting_name">
+                                            <input type="text" class="form-control" name="meeting_name" th:value="${meeting.meeting_name}">
                                         </div>
                                     </div>
 
                                     <div class="line"></div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 form-control-label">会议类型</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-9"><!-- th:value="${meeting.type}" -->
                                             <select name="type" class="form-control mb-3">
                                                 <option value="临时会议">临时会议</option>
                                                 <option value="定期会议">定期会议</option>
@@ -348,49 +319,30 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 form-control-label">会议地点</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="place">
+                                            <input type="text" class="form-control" name="place" th:value="${meeting.place}">
                                         </div>
                                     </div>
 
                                     <div class="line"></div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 form-control-label">会议时间</label>
-                                        <div class="col-sm-9">
-                                            <input type="datetime-local" name="start_date" class="form-control">
+                                        <div class="col-sm-9"><!--  th:value="${meeting.start_date}" -->
+                                            <input type="datetime-local" name="start_date" class="form-control" value="2019-06-10T12:30:00">
                                         </div>
                                     </div>
-
 
                                     <div class="line"></div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 form-control-label">会议备注</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="note">
+                                            <input type="text" class="form-control" name="note" th:value="${meeting.note}">
                                         </div>
                                     </div>
-
-                                    <div class="line"></div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 form-control-label">会议文件</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="file">
-                                        </div>
-                                    </div>
-
-                                    <div class="line"></div>
-                                    <div class="form-group row">
-                                        <label  class="col-sm-3 form-control-label">会议文件</label>
-                                        <div class="col-sm-9">
-                                            <input  type="file" class="form-control-file">
-                                        </div>
-                                    </div>
-
 
                                     <div class="line"></div>
                                     <div class="form-group row">
                                         <div class="col-sm-4 offset-sm-3">
-
-                                            <button type="submit" class="btn btn-primary">提交</button>
+                                            <button type="submit" class="btn btn-primary">修改</button>
                                         </div>
                                     </div>
                                 </form>
@@ -400,10 +352,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
     <!-- JavaScript files-->

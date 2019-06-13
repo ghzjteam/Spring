@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -58,7 +59,10 @@
                 </li>
                 
                 <!-- Logout    -->
-                <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
+                <!--<li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>-->
+                <li class="nav-item"><a href="/login"
+                                        class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i
+                        class="fa fa-sign-out"></i></a></li>
               </ul>
             </div>
           </div>
@@ -68,19 +72,33 @@
         <!-- Side Navbar -->
         <nav class="side-navbar">
           <!-- Sidebar Header-->
-          <div class="sidebar-header d-flex align-items-center">
+          <a href="/settings">
+            <div class="nav-link sidebar-header d-flex align-items-center ">
+              <div class="avatar">
+                <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle" />
+              </div>
+              <div class="title">
+                <h1 class="h4" th:text="${curruser.getUserName()}">VVong
+                  Tory</h1>
+                <p th:text="${curruser.getEmail()}">Email</p>
+              </div>
+
+            </div>
+          </a>
+         <!-- <div class="sidebar-header d-flex align-items-center">
             <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
               <h1 class="h4">VVong Tory</h1>
               <p>个人签名</p>
             </div>
-          </div>
-          <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+          </div>-->
+          <!-- Sidebar Navidation Menus-->
+          <span class="heading">Main</span>
           <ul class="list-unstyled">
-                    <li class="active"><a href="index.html"> <i class="icon-home"></i>主界面 </a></li>
-                    <li><a href="tables.html"> <i class="icon-grid"></i>团队 </a></li>
+                    <li class="active"><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面 </a></li>
+                    <li><a th:href="@{'team?user_id='+${session.session_user_id}}"> <i class="icon-grid"></i>团队 </a></li>
                     <li><a href="subjects.html"> <i class="fa fa-bar-chart"></i>项目 </a></li>
-                    <li ><a href="forms.html"> <i class="icon-padnote"></i>会议 </a></li>
+                    <li><a th:href="@{'GroupMeeting?user_id='+${session.session_user_id}}" > <i class="icon-padnote"></i>会议 </a></li>
                     
           </ul>
 
@@ -92,7 +110,13 @@
               <h2 class="no-margin-bottom">主界面</h2>
             </div>
           </header>
-         
+
+
+
+          <div style="margin-top: 120px;margin-left: 100px">
+            <h1 style="font-size: 65px">欢迎使用PCDP管理系统！！！</h1>
+          </div>
+
         
 
         </div>

@@ -1,16 +1,17 @@
 package com.web.pcdp.controller;
 
-import com.web.pcdp.domain.Team;
-import com.web.pcdp.repository.MeetingRepository;
 import com.web.pcdp.domain.Meeting;
+import com.web.pcdp.domain.Team;
 import com.web.pcdp.service.MeetingService;
 import com.web.pcdp.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -24,17 +25,7 @@ public class MeetingController {
     @Qualifier("team")
     private TeamService teamService;
 
-    /*
-    *jason格式返回测试
-    @RequestMapping(value = "/findAllMeeting",method = RequestMethod.GET)
-    public List<Meeting> findAllMeeting(){
-        List<Meeting> MeetingList = meetingRepository.findAll();
-        for(int i=0;i<MeetingList.size();i++) {
-            System.out.println(MeetingList.get(i));
-        }
-        return MeetingList;
-        }
-    */
+
 
    /**
     * 根据id查询会议
@@ -61,6 +52,7 @@ public class MeetingController {
         return "redirect:/GroupMeeting?user_id="+user_id;
     }
 
+
     @PostMapping("/InsertMeeting")
     public String InsertMeeting(@RequestParam("team_id") int team_id,
                                 @RequestParam("meeting_name") String meeting_name,
@@ -71,7 +63,18 @@ public class MeetingController {
                                 @RequestParam("place") String place){
         System.out.println("From form:"+team_id+"|"+meeting_name+"|"+note+"|"+type+"|"+file+"|"+start_date+"|"+place);
         meetingService.insertMeeting(team_id,meeting_name,note,type,file,start_date,place);
-        return "redirect:/GroupMeeting?user_id=1";
+        return "redirect:/GroupMeeting?user_id=1";//整合之后再设置用户id 此处修改
+    }
+
+    @PostMapping("/UpdateMeeting")
+    public String UpdateMeeting(@RequestParam("meeting_name") String meeting_name,
+                                @RequestParam("type") String type,
+                                @RequestParam("place") String place,
+                                @RequestParam("note") String note,
+                                @RequestParam("start_date") String start_date,
+                                @RequestParam("meeting_id") int meeting_id){
+        meetingService.updateMeeting(meeting_name,type,place,note,start_date,meeting_id);
+        return "redirect:/GroupMeeting?user_id=1";//整合之后再设置用户id 此处修改
     }
     @GetMapping("/GroupMeeting")
     public String GMeeting(@RequestParam("user_id") int user_id,Model model){
@@ -98,4 +101,16 @@ public class MeetingController {
         }
         return "meetings";
     }
+
+    /*
+    *jason格式返回测试
+    @RequestMapping(value = "/findAllMeeting",method = RequestMethod.GET)
+    public List<Meeting> findAllMeeting(){
+        List<Meeting> MeetingList = meetingRepository.findAll();
+        for(int i=0;i<MeetingList.size();i++) {
+            System.out.println(MeetingList.get(i));
+        }
+        return MeetingList;
+        }
+    */
 }

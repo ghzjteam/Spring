@@ -1,7 +1,5 @@
 package com.web.pcdp.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -14,7 +12,6 @@ public class Team {
     private Integer team_id;
     private String team_name;
     private String note;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date create_date;
 
     public Integer getTeam_id() {
