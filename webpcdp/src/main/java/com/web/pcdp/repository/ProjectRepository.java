@@ -48,13 +48,11 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     //修改项目信息
     @Modifying
     @Transactional
-    @Query(value = "UPDATE project SET project_id=?, project_name=?, team_id=?, create_date=?, note=? " +
+    @Query(value = "UPDATE project SET project_name=?, note=? " +
             "WHERE project_id=?;", nativeQuery = true)
-    void updateProject(@Param("project_id") int project_id,
-                       @Param("project_name") String project_name,
-                       @Param("team_id") int team_id,
-                       @Param("create_date") Date create_date,
-                       @Param("note") String note);
+    void updateProject(@Param("project_name") String project_name,
+                       @Param("note") String note,
+                       @Param("project_id") int project_id);
 
     //上传项目文件
     @Modifying

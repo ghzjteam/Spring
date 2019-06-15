@@ -95,25 +95,27 @@ public class ProjectController {
 
         System.out.println(project_id+"\t"+project_name+"\t"+team_id+"\t"+create_date+"\t"+note);
         projectService.insertProject(project_id, project_name, team_id, date, note);
-        return "redirect:/projectAdmin?project_id="+project_id;
+        return "redirect:/projectAdmin?project_id="+project_id+"&user_id=1";
     }
 
     //删除项目
     @GetMapping("/DeleteProject")
     public String DeleteProject(@RequestParam("user_id") int user_id,@RequestParam("project_id") int project_id) {
         projectService.deleteProject(project_id);
-        return "redirect:/projects?user_id="+user_id;
+        System.out.println(user_id+project_id);
+        return "redirect:/project?user_id=1";
     }
 
     //修改项目信息
     @PostMapping("/UpdateProject")
     public String UpdateProject(@RequestParam("project_id") int project_id,
                                 @RequestParam("project_name") String project_name,
-                                @RequestParam("team_id") int team_id,
-                                @RequestParam("create_date") Date create_date,
                                 @RequestParam("note") String note){
-        projectService.updateProject(project_id, project_name, team_id, create_date, note);
-        return "redirect:/projectAdmin?project_id="+project_id;
+
+        System.out.println(project_id+project_name);
+
+        projectService.updateProject(project_name, note, project_id);
+        return "redirect:/projectAdmin?project_id="+project_id+"&user_id=1";
     }
 
     //上传项目文件
@@ -132,7 +134,13 @@ public class ProjectController {
                                @RequestParam("user_id") int user_id,
                                Model model) {
 
+        Project project = projectService.findProjectByProject_id((project_id));
+
         model.addAttribute("project_id", project_id);
+        model.addAttribute("project_name", project.getProject_name());
+        model.addAttribute("team_id", project.getTeam_id());
+        model.addAttribute("create_date", project.getCreate_date());
+        model.addAttribute("note", project.getNote());
         model.addAttribute("user_id", user_id);
 
         return "projectAdmin";

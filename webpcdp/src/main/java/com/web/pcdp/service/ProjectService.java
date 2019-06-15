@@ -67,18 +67,18 @@ public class ProjectService {
     //添加项目
     public void insertProject(int project_id, String project_name, int team_id, Date create_date, String note) {
         projectRepository.insertProject(project_id, project_name, team_id, create_date, note);
-        //System.out.println("成功添加"+project_id);
+        System.out.println("成功添加"+project_id);
     }
 
     //删除项目
     public void deleteProject(int project_id) {
         projectRepository.deleteProject(project_id);
-        //System.out.println("成功删除"+project_id);
+        System.out.println("成功删除"+project_id);
     }
 
     //修改项目信息
-    public void updateProject(int project_id, String project_name, int team_id, Date create_date, String note) {
-        projectRepository.updateProject(project_id, project_name, team_id, create_date, note);
+    public void updateProject(String project_name, String note, int project_id) {
+        projectRepository.updateProject(project_name, note, project_id);
     }
 
     //上传项目文件

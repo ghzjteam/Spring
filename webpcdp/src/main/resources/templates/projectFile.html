@@ -25,6 +25,7 @@
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
 </head>
 <body>
 <div class="page">
@@ -111,17 +112,24 @@
                 </div>
             </header>
 
+            <!-- Breadcrumb-->
+            <div class="breadcrumb-holder container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{'index?user_id='+${session.session_user_id}}">主界面</a></li>
+                    <li class="breadcrumb-item active">项目文件</li>
+                </ul>
+            </div>
 
 
             <div style="margin-top: 120px;margin-left: 100px">
-                <h1 style="font-size: 65px">欢迎项目文件管理界面！</h1>
+                <h1 style="font-size: 65px">欢迎进入项目文件管理界面！</h1>
             </div>
-
 
 
         </div>
     </div>
 </div>
+
 <!-- JavaScript files-->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/popper.js/umd/popper.min.js"> </script>
@@ -130,6 +138,8 @@
 <script src="vendor/chart.js/Chart.min.js"></script>
 <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
 <script src="js/charts-home.js"></script>
+
+
 <!-- Main File-->
 <script src="js/front.js"></script>
 </body>
