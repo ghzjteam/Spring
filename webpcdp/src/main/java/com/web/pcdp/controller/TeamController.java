@@ -1,6 +1,9 @@
 package com.web.pcdp.controller;
 
-import com.web.pcdp.domain.*;
+import com.web.pcdp.domain.Team;
+import com.web.pcdp.domain.User;
+import com.web.pcdp.domain.Teamposition;
+import com.web.pcdp.domain.User_team;
 import com.web.pcdp.service.TeamService;
 import com.web.pcdp.service.UserService;
 import com.web.pcdp.service.UserTeamService;
@@ -9,7 +12,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,7 +62,7 @@ public class TeamController {
 
 
 
-
+   /* //
     @GetMapping("/group")
     public String GetMyTeam(@RequestParam("team_id") int team_id,
                             @RequestParam("user_id") int user_id,
@@ -76,7 +81,7 @@ public class TeamController {
 
         }
         return "groups";
-    }
+    }*/
 
     @PostMapping("/InsertTeam")
     public String InsertMeeting(@RequestParam("team_id") int team_id,
@@ -108,8 +113,8 @@ public class TeamController {
                                       @RequestParam("team_id") int team_id,
                                       Model model){
 
-        List<user_team> user_teams = null;
-        List<teamposition> teampositions = new ArrayList<>();
+        List<User_team> user_teams = null;
+        List<Teamposition> teampositions = new ArrayList<>();
 
         model.addAttribute("team_id",team_id);
         model.addAttribute("user_id",user_id);
@@ -132,7 +137,7 @@ public class TeamController {
                 myposition = position;
                 model.addAttribute("myposition",myposition);
             }
-            teamposition teamposition = new teamposition();
+            Teamposition teamposition = new Teamposition();
             teamposition.setUser_id(user_id1);
             teamposition.setTeam_id(team_id1);
             teamposition.setUser_name(name);
@@ -144,7 +149,7 @@ public class TeamController {
                 teamposition.setUser_position("队员");
             }
 
-            //System.out.println(teamposition.getTeam_id()+"\t"+teamposition.getUser_name()+"\t"+teamposition.getUser_position()+"\n");
+            //System.out.println(Teamposition.getTeam_id()+"\t"+Teamposition.getUser_name()+"\t"+Teamposition.getUser_position()+"\n");
             teampositions.add(teamposition);
 
 //            users.add(user);
@@ -156,6 +161,8 @@ public class TeamController {
         String flag = "队长";
         model.addAttribute("flag",flag);
 
+
+
         return "groupInformation";
 
 
@@ -164,11 +171,12 @@ public class TeamController {
     @GetMapping("/deletemember")
     public String deletemember(@Param("user_id") int user_id,
                                @Param("team_id") int team_id,
+                               @Param("user_id1") int user_id1,
                                Model model){
 
         userTeamService.deletemember(user_id,team_id);
 
-        return "redirect:/groupInformation?user_id="+user_id+"&team_id=" +team_id;
+        return "redirect:/groupInformation?user_id="+user_id1+"&team_id=" +team_id;
 
     }
 
@@ -191,7 +199,7 @@ public class TeamController {
                                 @RequestParam("user_id") int user_id){
 
         User user = userService.findUser(user_id1);
-        List<user_team> users = new ArrayList<>();
+        List<User_team> users = new ArrayList<>();
         users = userTeamService.findmemberUser(team_id);
         if (user == null){
             return "redirect:/ERROR1";
@@ -202,10 +210,33 @@ public class TeamController {
                 return "redirect:/ERROR2";
             }
         }
-
-
-        System.out.println(user_id1+"\t"+team_id+"\t"+position);
+        System.out.println(user_id+"\t"+user_id1+"\t"+team_id+"\t"+position);
         userTeamService.Insertemember(user_id1,team_id,position);
         return "redirect:/groupInformation?user_id="+user_id+"&team_id=" +team_id;
     }
+
+    @PostMapping("/updateteam")
+    public String updateteam(@RequestParam("user_id2") int user_id,
+                           @RequestParam("team_id1") int team_id,
+                           @RequestParam("team_name") String team_name,
+                           @RequestParam("note") String note){
+
+
+        teamService.updateteam(team_name,note,team_id);
+
+        return "redirect:/team?user_id="+user_id;
+    }
+
+
+    //查看个人信息
+    @GetMapping("/groupmemberinf")
+    public String settings(@Param("user_id") int user_id,Model model) {
+        User oUser = userService.findUser(user_id);
+        if(oUser!=null) {
+            model.addAttribute("curruser", oUser);
+        }
+        return "groupmemberinf";
+    }
+
+
 }

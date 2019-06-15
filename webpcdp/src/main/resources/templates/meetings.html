@@ -80,8 +80,8 @@
                 </div>
                 <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
                 <ul class="list-unstyled">
-                    <li><a href="/"> <i class="icon-home"></i>主界面 </a></li>
-                    <li><a href="tables.html"> <i class="icon-grid"></i>团队 </a></li>
+                    <li><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面 </a></li>
+                    <li><a th:href="@{'team?user_id='+${session.session_user_id}}"> <i class="icon-grid"></i>团队 </a></li>
                     <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>项目 </a></li>
                     <li class="active"><a href="forms.html"> <i class="icon-padnote"></i>会议 </a></li>
                 </ul>
@@ -96,7 +96,7 @@
                 <!-- Breadcrumb-->
                 <div class="breadcrumb-holder container-fluid">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">主界面</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{'index?user_id='+${session.session_user_id}}">主界面</a></li>
                         <li class="breadcrumb-item active">团队会议</li>
                     </ul>
                 </div>

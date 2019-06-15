@@ -78,7 +78,7 @@
             </div>
             <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
             <ul class="list-unstyled">
-                <li><a href="/"> <i class="icon-home"></i>主界面 </a></li>
+                <li><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面 </a></li>
                 <li class="active"><a href="/team?user_id=1"> <i class="icon-grid"></i>团队信息 </a></li>
                 <li><a href="subjects.html"> <i class="fa fa-bar-chart"></i>项目信息 </a></li>
 
@@ -168,8 +168,7 @@
                                                     <td class="id" id="id" th:text="${team.team_id}" scope="row"></td>
                                                     <td th:text="${team.team_name}"></td>
                                                     <td th:text="${team.create_date}"></td>
-                                                    <td>
-                                                        <button onclick="clicke(this)">进入</button>
+                                                    <td><button onclick="clicke(this)">进入</button>
 
                                                     </td>
 
@@ -216,8 +215,9 @@
         var index = x.parentNode.parentNode.rowIndex;
         var team = $("table tr:eq("+index+") td:eq(0)").text();
         var userid = document.getElementById("userid").innerHTML
-       // alert("要进入的团队编号为："+team);
-        parent.location.href = "http://localhost:8080/group?team_id=" + team +"&user_id="+userid;
+        alert("要进入的团队编号为："+team);
+        parent.location.href = "http://localhost:8080/groupInformation?team_id=" + Number(team) +"&user_id="+userid;
+
 
     }
 </script>
