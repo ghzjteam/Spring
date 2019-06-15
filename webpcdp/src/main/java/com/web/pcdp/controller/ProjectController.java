@@ -126,14 +126,27 @@ public class ProjectController {
         return "redirect:/projectAdmin?project_id="+project_id;
     }
 
-    //进入某项目管理界面
+    //进入某项目信息管理界面
     @GetMapping("/projectAdmin")
     public String projectAdmin(@RequestParam("project_id") int project_id,
                                @RequestParam("user_id") int user_id,
                                Model model) {
 
         model.addAttribute("project_id", project_id);
+        model.addAttribute("user_id", user_id);
 
-        return "redirect:/projectAdmin?project_id="+project_id+"&user_id"+user_id;
+        return "projectAdmin";
+    }
+
+    //进入某项目管理界面
+    @GetMapping("/projectFile")
+    public String projectFile(@RequestParam("project_id") int project_id,
+                               @RequestParam("user_id") int user_id,
+                               Model model) {
+
+        model.addAttribute("project_id", project_id);
+        model.addAttribute("user_id", user_id);
+
+        return "projectFile";
     }
 }
