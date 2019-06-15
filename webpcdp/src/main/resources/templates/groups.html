@@ -89,8 +89,8 @@
                     </ul>
                 </li>
 
-                <li><a href="#team2" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>团队项目 </a>
-
+                <li><a th:href="@{'gproject?user_id='+${user.user_id}+'&team_id='+${team.team_id}}"> <i
+                        class="fa fa-bar-chart"></i>团队项目 </a>
                 </li>
                 <li><a href="forms.html"> <i class="icon-padnote"></i>团队会议 </a></li>
 

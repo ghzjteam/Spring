@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bootstrap Material Admin by Bootstrapious.com</title>
+    <title>团队项目管理</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
+    <link rel="stylesheet" href="vendor/bootstrap/css/meeting.css">
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
@@ -27,7 +28,6 @@
 </head>
 <body>
 <div class="page">
-
     <!-- Main Navbar-->
     <div class="page">
         <!-- Main Navbar-->
@@ -44,7 +44,7 @@
                     <div class="navbar-holder d-flex align-items-center justify-content-between">
                         <!-- Navbar Header-->
                         <div class="navbar-header">
-                            <!-- Navbar Brand --><a href="index.html" class="navbar-brand d-none d-sm-inline-block">
+                            <!-- Navbar Brand --><a href="/" class="navbar-brand d-none d-sm-inline-block">
                             <div class="brand-text d-none d-lg-inline-block"><span>项目协作开发平台</span></div>
                             <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div></a>
                             <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
@@ -80,96 +80,33 @@
                 </div>
                 <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
                 <ul class="list-unstyled">
-                    <li><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面 </a></li>
-                    <li class="active"><a href="/team?user_id=1"> <i class="icon-grid"></i>团队信息 </a></li>
-                    <li><a href="/gprojects?user_id=1"> <i class="fa fa-bar-chart"></i>项目信息 </a></li>
+                    <li><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面</a></li>
+                    <li><a th:href="@{'/groupInformation?user_id='+${user_id}+'&team_id='+${team_id}}"> <i class="icon-grid"></i>团队管理</a></li>
 
+                    <li class="active"><a th:href="@{'gproject?user_id='+${user_id}+'&team_id='+${team_id}}"> <i
+                            class="fa fa-bar-chart"></i>团队项目 </a>
                 </ul>
             </nav>
+
             <div class="content-inner">
                 <!-- Page Header-->
                 <header class="page-header">
                     <div class="container-fluid">
-                        <div style="display: inline-flex">
-                            <h2 class="no-margin-bottom" style="float: left;font-size: 20px">主界面</h2>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" style="float: right;margin-left: 800px;font-size: 16px" data-toggle="modal" data-target="#myModal">
-                                新建项目
-                            </button>
-                        </div>
-
+                        <h2 class="no-margin-bottom">项目</h2>
                     </div>
                 </header>
-
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 style="float: left">创建团队</h1>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="col-lg-12">
-                                    <div class="card">
-                                        <div class="card-header d-flex align-items-center">
-                                            <h3 class="h4">项目信息</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <form class="form-horizontal" action="InsertMeeting" method="post">
-
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 form-control-label">项目名称</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control" name="meeting_name">
-                                                    </div>
-                                                </div>
-
-                                                <div class="line"></div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 form-control-label">团队编号</label>
-                                                    <div class="col-sm-9">
-
-                                                        <input  type="text" class="form-control" name="team_id" readonly = "readonly" th:value="${team.team_id}" >
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="line"></div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 form-control-label">会议时间</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="datetime-local" name="start_date" class="form-control">
-                                                    </div>
-                                                </div>
-
-                                                <div class="line"></div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 form-control-label">项目备注</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control" name="note">
-                                                    </div>
-                                                </div>
-
-                                                <div class="line"></div>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-4 offset-sm-3">
-                                                        <button type="submit" class="btn btn-primary">提交</button>
-                                                        <!-- 提交按钮功能在哪里改？ -->
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Breadcrumb-->
+                <div class="breadcrumb-holder container-fluid">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{'index?user_id='+${session.session_user_id}}">主界面</a></li>
+                        <li class="breadcrumb-item active">团队项目</li>
+                    </ul>
                 </div>
 
                 <section class="tables">
                     <div class="container-fluid">
                         <div class="row">
-                            <div th:each="team : ${teams}" class="col-lg-12">
+                            <div class="col-lg-12">
                                 <div class="card">
 
                                     <div class="card-header d-flex align-items-center">
@@ -198,25 +135,18 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:each="meeting : ${meetings}">
-                                                    <th th:if="${team.team_id==project.team_id}"
-                                                        th:text="${project.project_id}" scope="row"></th>
-                                                    <td th:if="${team.team_id==project.team_id}"
-                                                        th:text="${project.project_name}"></td>
-                                                    <td th:if="${team.team_id==project.team_id}"
-                                                        th:text="${project.team_id}"></td>
-                                                    <td th:if="${team.team_id==project.team_id}"
-                                                        th:text="${project.create_date}"></td>
-                                                    <td th:if="${team.team_id==project.team_id}"
-                                                        th:text="${project.note}"></td>
+                                                <tr th:each="gproject : ${gprojects}">
+                                                    <th th:text="${gproject.project_id}" scope="row"></th>
+                                                    <td th:text="${gproject.project_name}"></td>
+                                                    <td th:text="${gproject.team_id}"></td>
+                                                    <td th:text="${gproject.create_date}"></td>
+                                                    <td th:text="${gproject.note}"></td>
 
-                                                    <td th:if="${team.team_id==project.team_id}">
-
-                                                        <button type="button">
-                                                            <!-- 这里怎么在session里设置project_id -->
-                                                            <a
-                                                                    th:href="@{'projectAdmin?project_id'+${session.session_project_id}}"/>
-                                                            进入项目</button>
+                                                    <td>
+                                                        <a
+                                                                th:href="@{'projectAdmin?project_id='+${gproject.project_id}+'&user_id='+${session.session_user_id}}">
+                                                            <button type="button">
+                                                                进入项目</button></a>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -224,22 +154,103 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </section>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Modal -->
+<div th:each="team : ${teams}">
+    <div class="modal fade" th:id="'myModal'+${team.team_id}" tabindex="-1" role="dialog"  th:attr="aria-labelledby=@{'myModalLabel'+${team.team_id}}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="'myModalLabel'+${team.team_id}">新建项目</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h3 class="h4">项目信息</h3>
+                            </div>
+                            <div class="card-body">
+                                <form class="form-horizontal" action="InsertProject" method="post">
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label">项目编号</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="project_id">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label">项目名称</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="project_name">
+                                        </div>
+                                    </div>
+
+                                    <div class="line"></div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label">团队编号</label>
+                                        <div class="col-sm-9">
+
+                                            <!-- 这里要设置下拉菜单，显示用户所有的团队 -->
+                                            <input  type="text" class="form-control" name="team_id" readonly="readonly"
+                                                    th:value="${team.team_id}" >
+
+                                        </div>
+                                    </div>
+
+                                    <div class="line"></div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label">创立时间</label>
+                                        <div class="col-sm-9">
+                                            <input type="datetime-local" name="create_date" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="line"></div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label">项目备注</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="note">
+                                        </div>
+                                    </div>
+
+                                    <div class="line"></div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4 offset-sm-3">
+                                            <button type="submit" class="btn btn-primary">
+                                                <a th:href="@{'projectAdmin?user_id=1'}"></a>提交</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-                <!-- JavaScript files-->
-                <script src="vendor/jquery/jquery.min.js"></script>
-                <script src="vendor/popper.js/umd/popper.min.js"> </script>
-                <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-                <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-                <script src="vendor/chart.js/Chart.min.js"></script>
-                <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
-                <script src="js/charts-custom.js"></script>
-                <!-- Main File-->
-                <script src="js/front.js"></script>
+
+<!-- JavaScript files-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/popper.js/umd/popper.min.js"> </script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+<script src="vendor/chart.js/Chart.min.js"></script>
+<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+<!-- Main File-->
+<script src="js/front.js"></script>
 </body>
 </html>

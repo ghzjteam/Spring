@@ -81,7 +81,8 @@
                 <li><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面</a></li>
                 <li class="active"><a th:href="@{'/groupInformation?user_id='+${user_id}+'&team_id='+${team_id}}"> <i class="icon-grid"></i>团队管理</a></li>
 
-                <li><a href="#team2" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>团队项目 </a></li>
+                <li><a th:href="@{'gproject?user_id='+${user_id}+'&team_id='+${team_id}}"> <i
+                        class="fa fa-bar-chart"></i>团队项目 </a>
 
             </ul>
 

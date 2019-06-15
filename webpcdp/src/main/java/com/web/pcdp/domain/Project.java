@@ -8,12 +8,16 @@ public class Project {
     @Id
     @Column(name = "project_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Integer project_id;
+
     private String project_name;
     private Integer team_id;
     private Date create_date;
     private String note;
+
+    protected Project(){
+
+    }
 
     public Integer getProject_id() {
         return project_id;
@@ -53,5 +57,15 @@ public class Project {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public String toString(){
+        return "Project【 " + "\n" +
+                "project_id = [" + project_id + "]、" +
+                "project_name = [" + project_name + "]、" +
+                "team_id = [" + team_id + "]、" +
+                "create_date = [" + create_date + "]、" +
+                "note = [" + note + "]、" ;
     }
 }

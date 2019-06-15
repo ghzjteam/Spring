@@ -11,16 +11,20 @@ import java.util.*;
 
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
-    //查询用户所有项目
-    @Query(value = "SELECT project_id, project _name, team_id, create_date, note " +
-            "FROM project, team WHERE team_id IN" +
-            "(SELECT team_id FROM user_team WHERE user_id =?)",
-            nativeQuery = true)
+    //根据项目ID查询项目信息
+    @Query("select p from Project p where project_id=:project_id")
+    Project findProjectByProject_id(@Param("project_id") int id);
+
+    //查询某用户所有团队的项目
+    @Query(value = "select * from project where team_id in(select team_id from user_team where user_id=?)",nativeQuery = true)
     List<Project> findUserAllProject(@Param("user_id") int id);
 
+    //查询某个用户的所有团队的ID
+    @Query(value = "select team_id from user_team where user_id =?",nativeQuery = true)
+    List<Integer> findUserTeam(@Param("user_id") int id);
+
     //查询团队所有项目
-    @Query(value = "SELECT project_id, project _name, team_id, create_date, note " +
-            "FROM project, team WHERE team_id =?)",
+    @Query(value = "select * from project where team_id = ?",
             nativeQuery = true)
     List<Project> findTeamAllProject(@Param("team_id") int id);
 

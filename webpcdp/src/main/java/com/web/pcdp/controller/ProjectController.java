@@ -1,6 +1,6 @@
 package com.web.pcdp.controller;
 
-import com.web.pcdp.domain.Project;
+import com.web.pcdp.domain.*;
 import com.web.pcdp.service.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -21,46 +21,68 @@ public class ProjectController {
     @Qualifier("team")
     private TeamService teamService;
 
-    @Autowired
-    @Qualifier("user")
-    private UserService userService;
-
     private Date date;
 
-    //查询用户所有项目
-    @GetMapping("/projects")
-    public String GetUserAllProject(@RequestParam("user_id") int user_id, Model model) {
-        List<Project> projects = null;
-        projects = projectService.findUserAllProject(user_id);
-        for (int i=0; i<projects.size(); i++){
-            //System.out.println(projects.get(i).getProject_name());
+    //根据id查询项目
+    @GetMapping("/findProjectById")
+    @ResponseBody
+    public String findProjectById(@RequestParam("project_id") int project_id){
+        System.out.println("controller：接到传递的参数是 project_id = " + project_id);
+
+        Project project = null;
+        project = projectService.findProjectByProject_id(project_id);
+        if(project == null){
+            return "查找的项目不存在";
         }
-        if(projects == null){
-            // System.out.println("None Project");
+        else {
+            return project.toString();
+        }
+    }
+
+    //查询用户所有项目
+    @GetMapping("/project")
+    public String GetUserAllProject(@RequestParam("user_id") int user_id, Model model) {
+        List<Project> project = null;
+        project = projectService.findUserAllProject(user_id);
+
+        List<Integer> teamid = null;
+        teamid = projectService.findUserTeam(user_id);
+        model.addAttribute("teamids",teamid);
+        //System.out.println("team->"+team.get(0));
+
+        List<Team> team =null;
+        team = teamService.findUserAllTeam(user_id);
+        model.addAttribute("teams",team);
+
+        if(project == null){
+            System.out.println("None Project");
         }
         else{
-            model.addAttribute("user_id",user_id);
+            model.addAttribute("projects", project);
         }
 
         return "projects";
     }
 
     //查询团队所有项目
-    @GetMapping("/gprojects")
-    public String GetTeamAllProject(@RequestParam("team_id") int team_id, Model model) {
-        List<Project> projects = null;
-        projects = projectService.findTeamAllProject(team_id);
-        for (int i=0; i<projects.size(); i++){
-            //System.out.println(projects.get(i).getProject_name());
-        }
-        if(projects == null){
-            // System.out.println("None Project");
+    @GetMapping("/gproject")
+    public String GetTeamAllProject(@RequestParam("team_id") int team_id,
+                                    Model model) {
+
+        List<Project> gproject = null;
+        gproject = projectService.findTeamAllProject(team_id);
+
+        Team team = teamService.findMyTeam((team_id));
+        model.addAttribute("team",team);
+
+        if(gproject == null){
+            System.out.println("None Project");
         }
         else{
-            model.addAttribute("team_id",team_id);
+            model.addAttribute("gprojects", gproject);
         }
 
-        return "projects";
+        return "gprojects";
     }
 
     //添加项目
@@ -71,16 +93,7 @@ public class ProjectController {
                                 @RequestParam("create_date") String create_date,
                                 @RequestParam("note") String note){
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        TimeZone gmtTime = TimeZone.getTimeZone("GMT");
-        format.setTimeZone(gmtTime);
-        try {
-            date = format.parse(create_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        //System.out.println(team_id+"\t"+team_name+"\t"+note+"\t"+date);
+        System.out.println(project_id+"\t"+project_name+"\t"+team_id+"\t"+create_date+"\t"+note);
         projectService.insertProject(project_id, project_name, team_id, date, note);
         return "redirect:/projectAdmin?project_id="+project_id;
     }
@@ -111,5 +124,16 @@ public class ProjectController {
                              @RequestParam("create_date") Date create_date){
         projectService.uploadFile(file_id, project_id, filename, create_date);
         return "redirect:/projectAdmin?project_id="+project_id;
+    }
+
+    //进入某项目管理界面
+    @GetMapping("/projectAdmin")
+    public String projectAdmin(@RequestParam("project_id") int project_id,
+                               @RequestParam("user_id") int user_id,
+                               Model model) {
+
+        model.addAttribute("project_id", project_id);
+
+        return "redirect:/projectAdmin?project_id="+project_id+"&user_id"+user_id;
     }
 }

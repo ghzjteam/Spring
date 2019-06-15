@@ -82,7 +82,8 @@
                 <ul class="list-unstyled">
                     <li><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面 </a></li>
                     <li><a th:href="@{'team?user_id='+${session.session_user_id}}"> <i class="icon-grid"></i>团队 </a></li>
-                    <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>项目 </a></li>
+                    <li><a th:href="@{'project?user_id='+${session.session_user_id}}"> <i class="fa fa-bar-chart"></i>项目
+                    </a></li>
                     <li class="active"><a href="forms.html"> <i class="icon-padnote"></i>会议 </a></li>
                 </ul>
             </nav>

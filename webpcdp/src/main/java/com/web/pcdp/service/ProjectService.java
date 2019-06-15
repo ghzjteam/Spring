@@ -13,10 +13,24 @@ public class ProjectService {
     @Autowired(required = true)
     private ProjectRepository projectRepository;
 
+    //根据项目id查询项目
+    public Project findProjectByProject_id(int project_id){
+        //System.out.println("Service 成功获取 meeting_id = "+meeting_id);
+        Project project = null;
+        project = projectRepository.findProjectByProject_id(project_id);
+        if (project == null || project.getProject_name().equals("")){
+            return null;
+        }
+        else{
+            return project;
+        }
+    }
+
     //根据用户ID查询用户所有项目信息
     public List<Project> findUserAllProject(int user_id) {
         List<Project> project = null;
         project = projectRepository.findUserAllProject(user_id);
+
         if (project==null){
             return null;
         }
@@ -25,10 +39,23 @@ public class ProjectService {
         }
     }
 
+    //查询用户的所有团队的id
+    public List<Integer> findUserTeam(int user_id){
+        List<Integer> team = null;
+        team = projectRepository.findUserTeam(user_id);
+        if (team==null){
+            return null;
+        }
+        else {
+            return team;
+        }
+    }
+
     //根据团队ID查询团队所有项目信息
     public List<Project> findTeamAllProject(int team_id) {
         List<Project> project = null;
         project = projectRepository.findTeamAllProject(team_id);
+
         if (project==null){
             return null;
         }

@@ -76,6 +76,7 @@ public class MeetingController {
         meetingService.updateMeeting(meeting_name,type,place,note,start_date,meeting_id);
         return "redirect:/GroupMeeting?user_id=1";//整合之后再设置用户id 此处修改
     }
+
     @GetMapping("/GroupMeeting")
     public String GMeeting(@RequestParam("user_id") int user_id,Model model){
         List<Meeting> meeting=null;
@@ -89,7 +90,6 @@ public class MeetingController {
         List<Team> team =null;
         team = teamService.findUserAllTeam(user_id);
         model.addAttribute("teams",team);
-
 
         if(meeting == null){
             System.out.println("meeting is null");
