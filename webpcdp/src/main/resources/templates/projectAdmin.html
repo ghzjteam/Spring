@@ -94,11 +94,12 @@
             <ul class="list-unstyled">
                 <li><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面 </a></li>
                 <li class="active">
-                <a
-                    th:href="@{'projectAdmin?project_id=1'+'&user_id='+${session.session_user_id}}">
+                    <a
+                            th:href="@{'projectAdmin?project_id='+${project_id}+'&user_id='+${session.session_user_id}}">
                 <i class="icon-grid"></i>信息管理</a></li>
 
-                <li><a th:href="@{'projectFile?project_id=1'+'&user_id='+${session.session_user_id}}">
+                <li> <a
+                        th:href="@{'projectFile?project_id='+${project_id}+'&user_id='+${session.session_user_id}}">
                     <i class="fa fa-bar-chart"></i>文件管理
                 </a></li>
             </ul>

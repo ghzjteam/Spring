@@ -26,6 +26,11 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
+    <!-- 引入ckeditor的js -->
+    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+    <!-- 引入ckfinder的js -->
+    <script type="text/javascript" src="ckfinder/ckfinder.js"></script>
+
 </head>
 <body>
 <div class="page">
@@ -96,10 +101,11 @@
                 <li><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面 </a></li>
                 <li>
                     <a
-                            th:href="@{'projectAdmin?project_id=1'+'&user_id='+${session.session_user_id}}">
+                            th:href="@{'projectAdmin?project_id='+${project_id}+'&user_id='+${session.session_user_id}}">
                         <i class="icon-grid"></i>信息管理</a></li>
 
-                <li class="active"><a th:href="@{'projectFile?project_id=1'+'&user_id='+${session.session_user_id}}">
+                <li class="active"> <a
+                        th:href="@{'projectFile?project_id='+${project_id}+'&user_id='+${session.session_user_id}}">
                     <i class="fa fa-bar-chart"></i>文件管理
                 </a></li>
             </ul>
@@ -124,6 +130,18 @@
             <div style="margin-top: 120px;margin-left: 100px">
                 <h1 style="font-size: 65px">欢迎进入项目文件管理界面！</h1>
             </div>
+
+
+            <form>
+                <textarea name="editor1" id="editor1" rows="10" cols="80">
+                    This is my textarea to be replaced with CKEditor.
+                </textarea>
+            </form>
+            <!-- 将id为editor1的textarea用ckeditor来操作 -->
+            <script type="text/javascript">
+                var editor = CKEDITOR.replace( 'editor1' );
+                CKFinder.setupCKEditor(editor, ckfinder/');
+            </script>
 
 
         </div>

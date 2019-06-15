@@ -1,0 +1,6 @@
+﻿/*
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+CKEDITOR.addTemplates('default',{imagesPath:CKEDITOR.getUrl(CKEDITOR.plugins.getPath('templates')+'templates/images/'),templates:[{title:'图像和标题',image:'template1.gif',description:'一个主图像的标题和文字包围图像。',html:'<h3><img style="margin-right: 10px" height="100" width="100" align="left"/>在这里键入标题</h3><p>在这里键入文本</p>'},{title:'模板',image:'template2.gif',description:'一个模板中定义了两个柱，每一个标题，和一些文字。',html:'<table cellspacing="0" cellpadding="0" style="width:100%" border="0"><tr><td style="width:50%"><h3>标题 1</h3></td><td></td><td style="width:50%"><h3>标题 2</h3></td></tr><tr><td>Text 1</td><td></td><td>文本 2</td></tr></table><p>更多文本在这里。</p>'},{title:'文本和表格',image:'template3.gif',description:'有一些文字和表格标题',html:'<div style="width: 80%"><h3>这里是标题</h3><table style="width:150px;float: right" cellspacing="0" cellpadding="0" border="1"><caption style="border:solid 1px black"><strong>表格标题</strong></caption></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></table><p>在这里键入文本</p></div>'}]});
