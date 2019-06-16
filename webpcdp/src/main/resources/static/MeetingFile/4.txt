@@ -1,0 +1,11 @@
+SQL> create user bs identified by bs default tablespace users;
+
+用户已创建。
+
+SQL> grant resource,connect,create view to bs;
+
+授权成功。
+
+SQL> connect bs/bs
+已连接。
+SQL> spool off
