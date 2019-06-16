@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 会议service类
+ **/
+
+
 @Service("meeting")
 public class MeetingService {
     @Autowired

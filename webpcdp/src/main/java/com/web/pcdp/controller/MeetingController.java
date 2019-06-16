@@ -21,6 +21,9 @@ import java.util.List;
 
 import static com.web.pcdp.constant.Preferences.MeetingFile_PATH;
 
+/**
+ * 会议controller类
+ **/
 @Controller
 public class MeetingController {
     @Autowired//授权
@@ -58,14 +61,14 @@ public class MeetingController {
 
     //删除会议 用的重定向 拼接地址
     @GetMapping("/DeleteMeeting")
-    public String DeleteMeeting(@RequestParam("user_id") int user_id,@RequestParam("meeting_id") int meeting_id){
+    public String deleteMeeting(@RequestParam("user_id") int user_id,@RequestParam("meeting_id") int meeting_id){
         meetingService.deleteMeeting(meeting_id);
         return "redirect:/GroupMeeting?user_id=" + user_id;
     }
 
 
     @PostMapping("/InsertMeeting")
-    public String InsertMeeting(@RequestParam("user_id") int user_id,
+    public String insertMeeting(@RequestParam("user_id") int user_id,
                                 @RequestParam("team_id") int team_id,
                                 @RequestParam("meeting_name") String meeting_name,
                                 @RequestParam("note") String note,
@@ -79,7 +82,7 @@ public class MeetingController {
     }
 
     @PostMapping("/UpdateMeeting")
-    public String UpdateMeeting(@RequestParam("user_id") int user_id,
+    public String updateMeeting(@RequestParam("user_id") int user_id,
                                 @RequestParam("meeting_name") String meeting_name,
                                 @RequestParam("type") String type,
                                 @RequestParam("place") String place,
@@ -91,7 +94,7 @@ public class MeetingController {
     }
 
     @GetMapping("/GroupMeeting")
-    public String GroupMeeting(@RequestParam("user_id") int user_id,Model model){
+    public String groupMeeting(@RequestParam("user_id") int user_id,Model model){
 
         List<User_team> user_teamList = null;
         user_teamList = userTeamService.findPosition(user_id);

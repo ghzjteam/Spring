@@ -10,6 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
+/**
+ * 会议JPA接口
+ **/
+
 @Repository
 public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
 

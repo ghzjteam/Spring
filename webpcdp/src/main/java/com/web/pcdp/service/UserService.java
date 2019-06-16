@@ -5,6 +5,10 @@ import com.web.pcdp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+/**
+ * 用户service类
+ **/
 @Service("user")
 public class UserService {
 
@@ -14,7 +18,7 @@ public class UserService {
     //根据user_id获取用户信息
     public User findUser(int user_id){
         User user = null;
-        user = userRepository.finduser(user_id);
+        user = userRepository.findUser(user_id);
         if (user==null){
             return null;
         }

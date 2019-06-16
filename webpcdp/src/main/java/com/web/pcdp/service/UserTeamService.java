@@ -19,9 +19,9 @@ public class UserTeamService {
     private UserTeamRepository userTeamRepository;
 
     //根据获取团队所有成员
-    public List<User_team> findmemberUser(int team_id){
+    public List<User_team> findMemberUser(int team_id){
         List<User_team> user_teams = null;
-        user_teams = userTeamRepository.findmemberUser(team_id);
+        user_teams = userTeamRepository.findMemberUser(team_id);
         if (user_teams==null){
             return null;
         }else {
@@ -42,13 +42,13 @@ public class UserTeamService {
     }
 
     //删除团队成员
-    public void deletemember(int user_id,int team_id){
-        userTeamRepository.deletemember(user_id,team_id);
+    public void deleteMember(int user_id,int team_id){
+        userTeamRepository.deleteMember(user_id,team_id);
     }
 
     //添加团队成员
-    public void Insertemember(int user_id,int team_id,int position){
-        userTeamRepository.Insertemember(user_id,team_id,position);
+    public void InserteMember(int user_id,int team_id,int position){
+        userTeamRepository.InserteMember(user_id,team_id,position);
     }
 
     public List<User_team> findPosition(int user_id){

@@ -1,0 +1,405 @@
+SQL> CREATE TABLESPACE BOOKTBS1 DATAFILE
+  2  'D:\app\jiang\oradata\jiangxinwei\TEST1_1.DBF' SIZE 10M;
+
+表空间已创建。
+
+SQL> CREATE TABLESPACE BOOKTBS2 DATAFILE
+  2  'D:\app\jiang\oradata\jiangxinwei\test1_2.DBF' size 10M
+  3  EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1M
+  4  SEGMENT SPACE MANAGEMENT MANUAL;
+
+表空间已创建。
+
+SQL> CREATE TEMPORARY TABLESPACE TEMPO2 TEMPFILE
+  2  'D:\app\jiang\oradata\jiangxinwei\TEST1_3.DBF' SIZE 10M
+  3  EXTENT MANAGEMENT LOCAL UNIFORM SIZE 5M;
+
+表空间已创建。
+
+SQL> CREATE TEMPORARY TABLESPACE TEMP01 TEMPFILE
+  2  'D:\app\jiang\oradata\jiangxinwei\TEST1_4.DBF' SIZE 10M
+  3  EXTENT MANAGEMENT LOCAL UNIFORM SIZE 5M
+  4  TABLESPACE GROUP TEMPGROUP;
+
+表空间已创建。
+
+SQL> CREATE UNDO TABLESPACE UNDO02 DATAFILE
+  2  'D:\app\jiang\oradata\jiangxinwei\TEST1_5.DBF' SIZE 20M
+  3  ALTER SYSTEM SET UNDO_TABLESPACE = UNDO02;
+ALTER SYSTEM SET UNDO_TABLESPACE = UNDO02
+*
+第 3 行出现错误: 
+ORA-02180: 无效的 CREATE TABLESPACE 选项 
+
+
+SQL> CREATE UNDO TABLESPACE UNDO02 DATAFILE
+  2  EXTENT MANAGEMENT LOCAL UNIFORM SIZE 5M
+  3  EXTENT MANAGEMENT LOCAL UNIFORM SIZE 5M
+  4  
+SQL> CREATE UNDO TABLESPACE UNDO02 DATAFILE
+  2  'D:\app\jiang\oradata\jiangxinwei\TEST1_5.DBF' SIZE 20M
+  3  ;
+
+表空间已创建。
+
+SQL> ALTER SYSTEM SET UNDO_TABLESPACE = UNDO02;
+
+系统已更改。
+
+SQL> ALTER TABLESPACE BOOKTES1 ADD DATAFILE
+  2  'D:\app\jiang\oradata\jiangxinwei\TEST1_6.DBF' SIZE 50M;
+ALTER TABLESPACE BOOKTES1 ADD DATAFILE
+*
+第 1 行出现错误: 
+ORA-00959: 表空间 'BOOKTES1' 不存在 
+
+
+SQL> ALTER TABLESPACE BOOKTBS1 ADD DATAFILE
+  2  'D:\app\jiang\oradata\jiangxinwei\TEST1_6.DBF' SIZE 50M;
+
+表空间已更改。
+
+SQL> ALTER DATABASE DATAFILE
+  2  'D:\app\jiang\oradata\jiangxinwei\TEST1_2.DBF'
+  3  AUTOEXTEND ON NEXT 5M MAXSIZE 100M;
+
+数据库已更改。
+
+SQL> CREATE TABLE test(ID NUMBER PRIMARY KEY,name CHAR(20)) TABLESPACE BOOKTBS1;
+
+表已创建。
+
+SQL> INSERT INTO test VALUES(1,'FIRST ROW');
+
+已创建 1 行。
+
+SQL> ALTER TABLESPACE BOOKTBS1 ONLINE;
+
+表空间已更改。
+
+SQL> SELECT * FROM test;
+
+        ID NAME                                                                 
+---------- ----------------------------------------                             
+         1 FIRST ROW                                                            
+
+SQL> ALTER TABLESPACE BOOKTBS1 OFFLINE;
+
+表空间已更改。
+
+SQL> SELECT * FROM test;
+SELECT * FROM test
+              *
+第 1 行出现错误: 
+ORA-00376: 此时无法读取文件 6
+ORA-01110: 数据文件 6: 'D:\APP\JIANG\ORADATA\JIANGXINWEI\TEST1_1.DBF' 
+
+
+SQL> ALTER TABLESPACE BOOKTBS1 ONLINE;
+
+表空间已更改。
+
+SQL> SELECT * FROM test;
+
+        ID NAME                                                                 
+---------- ----------------------------------------                             
+         1 FIRST ROW                                                            
+
+SQL> ALTER TABLESPACE BOOKTBS1 READ ONLY;
+
+表空间已更改。
+
+SQL> INSERT INTO test VALUES(2,'SECOND ROW');
+INSERT INTO test VALUES(2,'SECOND ROW')
+            *
+第 1 行出现错误: 
+ORA-00372: 此时无法修改文件 6
+ORA-01110: 数据文件 6: 'D:\APP\JIANG\ORADATA\JIANGXINWEI\TEST1_1.DBF' 
+
+
+SQL> ALTER TABLESPACE BOOKTBS1 READ WRITE;
+
+表空间已更改。
+
+SQL> INSERT INTO test VALUES(2,'SECOND ROW');
+
+已创建 1 行。
+
+SQL> SELECT * FROM test;
+
+        ID NAME                                                                 
+---------- ----------------------------------------                             
+         1 FIRST ROW                                                            
+         2 SECOND ROW                                                           
+
+SQL> ALTER DATABASE DEFAULT TABLESPACE BOOKTBS1;
+
+数据库已更改。
+
+SQL> ALTER DATABASE DEFAULT TEMPORARY TABLESPACE TEMPGROUP;
+
+数据库已更改。
+
+SQL> SHUTDOWN IMMEDIATE;
+ORA-01031: 权限不足
+SQL> Shutdown immediate;
+ORA-01031: 权限不足
+SQL> spool off;
+SQL> conn sys as sysdba;
+已连接。
+SQL> Shutdown immediate;
+数据库已经关闭。
+已经卸载数据库。
+ORACLE 例程已经关闭。
+SQL> Startup mount;
+ORACLE 例程已经启动。
+
+Total System Global Area 2137886720 bytes                                       
+Fixed Size                  2177456 bytes                                       
+Variable Size            1224738384 bytes                                       
+Database Buffers          905969664 bytes                                       
+Redo Buffers                5001216 bytes                                       
+数据库装载完毕。
+SQL> Startup mount;
+ORA-01081: 无法启动已在运行的 ORACLE - 请首先关闭它
+SQL> conn/as sysdba;
+ERROR:
+ORA-01031: insufficient privileges 
+
+
+警告: 您不再连接到 ORACLE。
+SQL> ARCHIVE LOG LIST;
+ORA-01012: not logged on
+SQL> ALTER DATABASE ARCHIVELOG;
+SP2-0640: 未连接
+SQL> Startup mount;
+ORA-01031: insufficient privileges
+SQL> Shutdown immediate;
+ORA-01012: not logged on
+SQL> conn sys as sysdba;
+ERROR:
+ORA-01031: insufficient privileges 
+
+
+SQL> conn sys as sysdba;
+ERROR:
+ORA-01031: insufficient privileges 
+
+
+SQL> Shutdown immediate;
+ORA-01012: not logged on
+SQL> Startup mount;
+ORA-01031: insufficient privileges
+SQL> conn sys as sysdba;
+已连接。
+SQL> alter database archivelog;
+
+数据库已更改。
+
+SQL> ARCHIVE LOG LIST;
+数据库日志模式            存档模式
+自动存档             启用
+存档终点            USE_DB_RECOVERY_FILE_DEST
+最早的联机日志序列     8
+下一个存档日志序列   10
+当前日志序列           10
+SQL> alter database open;
+
+数据库已更改。
+
+SQL> alter tablespace users begin backup;
+
+表空间已更改。
+
+SQL> HOST COPY E:\APP\Dray\oradata\huangchuanyi\BOOKTBS1_1.DBF E:\APP\Dray\oradata\bf\BOOKTBS1.DBF
+
+SQL> alter tablespace users end backup;
+
+表空间已更改。
+
+SQL> alter tablespace BOOKTBS1 begin backup;
+
+表空间已更改。
+
+SQL> alter tablespace BOOKTBS1 END backup;
+
+表空间已更改。
+
+SQL> alter tablespace BOOKTBS2 begin backup;
+
+表空间已更改。
+
+SQL> alter tablespace BOOKTBS2 END backup;
+
+表空间已更改。
+
+SQL> alter tablespace BOOKTBS2 begin backup;
+
+表空间已更改。
+
+SQL> alter tablespace BOOKTBS2 END backup;
+
+表空间已更改。
+
+SQL> alter tablespace BOOKTBS3 begin backup;
+alter tablespace BOOKTBS3 begin backup
+*
+第 1 行出现错误: 
+ORA-00959: 表空间 'BOOKTBS3' 不存在 
+
+
+SQL> SELECT tablespace_name,file_name FROM dba_data_files;
+
+TABLESPACE_NAME                                                                 
+------------------------------------------------------------                    
+FILE_NAME                                                                       
+--------------------------------------------------------------------------------
+USERS                                                                           
+D:\APP\JIANG\ORADATA\JIANGXINWEI\USERS01.DBF                                    
+                                                                                
+UNDOTBS1                                                                        
+D:\APP\JIANG\ORADATA\JIANGXINWEI\UNDOTBS01.DBF                                  
+                                                                                
+SYSAUX                                                                          
+D:\APP\JIANG\ORADATA\JIANGXINWEI\SYSAUX01.DBF                                   
+                                                                                
+
+TABLESPACE_NAME                                                                 
+------------------------------------------------------------                    
+FILE_NAME                                                                       
+--------------------------------------------------------------------------------
+SYSTEM                                                                          
+D:\APP\JIANG\ORADATA\JIANGXINWEI\SYSTEM01.DBF                                   
+                                                                                
+EXAMPLE                                                                         
+D:\APP\JIANG\ORADATA\JIANGXINWEI\EXAMPLE01.DBF                                  
+                                                                                
+BOOKTBS1                                                                        
+D:\APP\JIANG\ORADATA\JIANGXINWEI\TEST1_1.DBF                                    
+                                                                                
+
+TABLESPACE_NAME                                                                 
+------------------------------------------------------------                    
+FILE_NAME                                                                       
+--------------------------------------------------------------------------------
+BOOKTBS2                                                                        
+D:\APP\JIANG\ORADATA\JIANGXINWEI\TEST1_2.DBF                                    
+                                                                                
+UNDO02                                                                          
+D:\APP\JIANG\ORADATA\JIANGXINWEI\TEST1_5.DBF                                    
+                                                                                
+BOOKTBS1                                                                        
+D:\APP\JIANG\ORADATA\JIANGXINWEI\TEST1_6.DBF                                    
+                                                                                
+
+已选择9行。
+
+SQL> select tablespace_name,extent_management,allocation_type,contents from DBA_TABLESPACES;
+
+TABLESPACE_NAME                                                                 
+------------------------------------------------------------                    
+EXTENT_MANAGEMENT    ALLOCATION_TYPE    CONTENTS                                
+-------------------- ------------------ ------------------                      
+SYSTEM                                                                          
+LOCAL                SYSTEM             PERMANENT                               
+                                                                                
+SYSAUX                                                                          
+LOCAL                SYSTEM             PERMANENT                               
+                                                                                
+UNDOTBS1                                                                        
+LOCAL                SYSTEM             UNDO                                    
+                                                                                
+
+TABLESPACE_NAME                                                                 
+------------------------------------------------------------                    
+EXTENT_MANAGEMENT    ALLOCATION_TYPE    CONTENTS                                
+-------------------- ------------------ ------------------                      
+TEMP                                                                            
+LOCAL                UNIFORM            TEMPORARY                               
+                                                                                
+USERS                                                                           
+LOCAL                SYSTEM             PERMANENT                               
+                                                                                
+EXAMPLE                                                                         
+LOCAL                SYSTEM             PERMANENT                               
+                                                                                
+
+TABLESPACE_NAME                                                                 
+------------------------------------------------------------                    
+EXTENT_MANAGEMENT    ALLOCATION_TYPE    CONTENTS                                
+-------------------- ------------------ ------------------                      
+BOOKTBS1                                                                        
+LOCAL                SYSTEM             PERMANENT                               
+                                                                                
+BOOKTBS2                                                                        
+LOCAL                UNIFORM            PERMANENT                               
+                                                                                
+TEMPO2                                                                          
+LOCAL                UNIFORM            TEMPORARY                               
+                                                                                
+
+TABLESPACE_NAME                                                                 
+------------------------------------------------------------                    
+EXTENT_MANAGEMENT    ALLOCATION_TYPE    CONTENTS                                
+-------------------- ------------------ ------------------                      
+TEMP01                                                                          
+LOCAL                UNIFORM            TEMPORARY                               
+                                                                                
+UNDO02                                                                          
+LOCAL                SYSTEM             UNDO                                    
+                                                                                
+
+已选择11行。
+
+SQL> SELECT TABLESPACE_NAME,FILE_NAME FROM DBA_DATA_FILES;
+
+TABLESPACE_NAME                                                                 
+------------------------------------------------------------                    
+FILE_NAME                                                                       
+--------------------------------------------------------------------------------
+USERS                                                                           
+D:\APP\JIANG\ORADATA\JIANGXINWEI\USERS01.DBF                                    
+                                                                                
+UNDOTBS1                                                                        
+D:\APP\JIANG\ORADATA\JIANGXINWEI\UNDOTBS01.DBF                                  
+                                                                                
+SYSAUX                                                                          
+D:\APP\JIANG\ORADATA\JIANGXINWEI\SYSAUX01.DBF                                   
+                                                                                
+
+TABLESPACE_NAME                                                                 
+------------------------------------------------------------                    
+FILE_NAME                                                                       
+--------------------------------------------------------------------------------
+SYSTEM                                                                          
+D:\APP\JIANG\ORADATA\JIANGXINWEI\SYSTEM01.DBF                                   
+                                                                                
+EXAMPLE                                                                         
+D:\APP\JIANG\ORADATA\JIANGXINWEI\EXAMPLE01.DBF                                  
+                                                                                
+BOOKTBS1                                                                        
+D:\APP\JIANG\ORADATA\JIANGXINWEI\TEST1_1.DBF                                    
+                                                                                
+
+TABLESPACE_NAME                                                                 
+------------------------------------------------------------                    
+FILE_NAME                                                                       
+--------------------------------------------------------------------------------
+BOOKTBS2                                                                        
+D:\APP\JIANG\ORADATA\JIANGXINWEI\TEST1_2.DBF                                    
+                                                                                
+UNDO02                                                                          
+D:\APP\JIANG\ORADATA\JIANGXINWEI\TEST1_5.DBF                                    
+                                                                                
+BOOKTBS1                                                                        
+D:\APP\JIANG\ORADATA\JIANGXINWEI\TEST1_6.DBF                                    
+                                                                                
+
+已选择9行。
+
+SQL> DROP TABLESPACE BOOKTBS2 INCLUDING CONTENTS AND DATAFILES;
+
+表空间已删除。
+
+SQL> SPOOL OFF;
+SQL> spool off

@@ -6,6 +6,11 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+
+/**
+ * 团队用户联合表类
+ **/
+
 @Entity
 @Table(name = "User_team")
 @IdClass(Key.class)
