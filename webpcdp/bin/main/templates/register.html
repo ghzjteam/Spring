@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bootstrap Material Admin by Bootstrapious.com</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="css/fontastic.css">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/favicon.ico">
+     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="vendor/jquery-validation/localization/messages_zh.js"></script>
+    <!-- Main File-->
+    <script src="js/front.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#MaxID").click(function(){
+				$.ajax({
+					url:"getNextUserID"
+				}).then(function(data) {
+					$("#number").val(data);
+			    });
+			});
+		});
+		
+	</script>
+  </head>
+  <body>
+    <div class="page login-page">
+      <div class="container d-flex align-items-center">
+        <div class="form-holder has-shadow">
+          <div class="row">
+            <!-- Logo & Information Panel-->
+            <div class="col-lg-6">
+              <div class="info d-flex align-items-center">
+                <div class="content">
+                  <div class="logo">
+                    <h1>注册账户</h1>
+                  </div>
+                  <p>项目协作开发平台</p>
+                </div>
+              </div>
+            </div>
+            <!-- Form Panel    -->
+            <div class="col-lg-6 bg-white">
+              <div class="form d-flex align-items-center">
+                <div class="content">
+                  <form  class="form-validate" action="registerSubmit" method="Post">
+                   <div class="form-group">
+                      <input id="number" type="number" th:value="${id}" name="number" required data-msg="请输入正确的账号" class="input-material">
+                      
+                      <label id="MaxID" title="点击获取ID" for="number" class="label-material btn-link">账号 
+                      	<label for="number" class="label-material">（自动构建） </label>
+                      </label>
+                      
+                    </div>
+                    <div class="form-group">
+                      <input id="name" type="text" name="name" required class="input-material" minlength=1 >
+                      <label for="name" class="label-material">名称</label>
+                    </div>
+                    <div class="form-group">
+                      <input id="email" type="email" name="email" required data-msg="请输入有效的邮箱" class="input-material">
+                      <label for="email" class="label-material">邮箱</label>
+                    </div>
+                   
+                     <div class="form-group terms-conditions">
+                      <label for="register-gender" class="label-material">性别</label>
+                      <input id="genderM" name="gender" type="radio" required value="男" checked="ture"  class="checkbox-template offset-1">
+                      <label for="genderM">男</label>
+                      <input id="genderF" name="gender" type="radio" required value="女" class="checkbox-template offset-2">
+                      <label for="genderF">女</label>
+                    </div>
+                    <div class="form-group">
+                      <input id="phone" type="tel" name="phone" required data-msg="请输入有效的手机号" class="input-material">
+                      <label for="phone" class="label-material">手机</label>
+                    </div>
+                    
+                    
+                     <div class="form-group">
+                      <input id="password" type="password" name="password" required class="input-material" minlength=3>
+                      <label for="password" class="label-material">密码</label>
+                    </div>
+                     <div class="form-group">
+                      <input id="password2" type="password" name="password2" required data-msg="请确认密码" class="input-material" equalTo="#password">
+                      <label for="password2" class="label-material">确认密码</label>
+                    </div>
+                    <div class="form-group">
+                      <button id="regidter" type="submit" name="registerSubmit" class="btn btn-primary">注册</button>
+                    </div>
+                  </form><small>已经拥有账户? </small><a href="login" class="signup">去登录</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights text-center">
+        <p>
+          <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+        </p>
+      </div>
+    </div>
+    <!-- JavaScript files-->
+   
+  </body>
+</html>
