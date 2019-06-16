@@ -9,6 +9,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+* Title: UserRepository.java 
+
+* Description:   关于user的repository层。
+
+* @author Guo_Jinhang  
+
+* @date 2019年6月16日  
+
+* @version 1.0  
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
@@ -16,6 +27,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "SELECT * FROM user WHERE user_id = ?", nativeQuery = true)
     User finduser(@Param("user_id") int id);
     
+    //查询数据库中最大的ID值
     @Query(value = "SELECT MAX(user_id) FROM user", nativeQuery = true)
     int findMaxUserID();
     

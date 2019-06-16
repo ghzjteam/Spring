@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>注册新账号</title>
+<title>个人信息</title>
 <meta name="description" content="">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,9 +15,6 @@
 	href="vendor/font-awesome/css/font-awesome.min.css">
 <!-- Fontastic Custom icon font-->
 <link rel="stylesheet" href="css/fontastic.css">
-<!-- Google fonts - Poppins -->
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
 <!-- theme stylesheet-->
 <link rel="stylesheet" href="css/style.default.css"
 	id="theme-stylesheet">
@@ -58,7 +55,7 @@
 								<form class="form-validate" action="settingsSubmit"
 									method="Post">
 									<div class="form-group">
-										<input id="number" type="number"
+										<input id="number" type="number" name="number"
 											th:value="${curruser.getUserId()}" readonly="readonly"
 											class="input-material"> <label
 											  class="label-material">账号</label>
@@ -105,7 +102,7 @@
 											class="btn btn-primary">修改</button>
 									</div>
 								</form>
-								<a href="/index" class="">返回</a>
+								<a href="/index" class="">返回主页</a>
 								<button data-toggle="modal" data-target="#myModal" class="signup offset-1 btn btn-link">修改密码</button>
 							</div>
 						</div>

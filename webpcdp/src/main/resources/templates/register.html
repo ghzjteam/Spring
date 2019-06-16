@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bootstrap Material Admin by Bootstrapious.com</title>
+    <title>注册</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
     <!-- Fontastic Custom icon font-->
     <link rel="stylesheet" href="css/fontastic.css">
-    <!-- Google fonts - Poppins -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
@@ -70,7 +68,8 @@
                       <label id="MaxID" title="点击获取ID" for="number" class="label-material btn-link">账号 
                       	<label for="number" class="label-material">（自动构建） </label>
                       </label>
-                      
+                       <span th:if="${success}!=null and ${success}==false"
+							class="text-danger">账号已存在</span>
                     </div>
                     <div class="form-group">
                       <input id="name" type="text" name="name" required class="input-material" minlength=1 >

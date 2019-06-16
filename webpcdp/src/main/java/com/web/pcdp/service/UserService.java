@@ -5,6 +5,17 @@ import com.web.pcdp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+* Title: UserService.java 
+
+* Description:   UserService
+
+* @author Guo_Jinhang  
+
+* @date 2019年6月16日  
+
+* @version 1.0  
+ */
 @Service("user")
 public class UserService {
 

@@ -16,7 +16,17 @@ import com.web.pcdp.constant.Preferences;
 import com.web.pcdp.domain.User;
 import com.web.pcdp.service.UserService;
 
+/**
+* Title: UserController.java 
 
+* Description:   UserController
+
+* @author Guo_Jinhang  
+
+* @date 2019年6月16日  
+
+* @version 1.0  
+ */
 @Controller
 public class UserController {
 
@@ -26,12 +36,14 @@ public class UserController {
 
     //login界面跳转
     @GetMapping("/login")
-    public String login() {
-        return "login";
+    public String login(HttpServletRequest request) {
+    	request.getSession().removeAttribute("session_user_id");
+    	request.getSession().removeAttribute("login_user");
+    	return "login";
     }
     @GetMapping("/")
-    public String home(){  
-        return "index";
+    public String home(HttpServletRequest request){  
+    	return login(request);
     }
     @GetMapping("/index")
     public String index(Model model,HttpServletRequest request){
@@ -65,7 +77,7 @@ public class UserController {
     //登陆
     @PostMapping("/Login")
     public String loginSubmit(String id, String password, Model model, HttpServletRequest request) {
-        //System.out.println(id +"=" +password);
+        System.out.println("ID：" +id +"	PSW：" +password);
         String message = "";
         int idnum = -1;
        
@@ -77,6 +89,7 @@ public class UserController {
             if(oUser != null) {
                 if(password.equals(oUser.getPassword())) {
                     user = oUser;
+                    System.out.println("登录成功");
                     success = true;
                 }
                 else {
@@ -112,7 +125,7 @@ public class UserController {
     public String registerSubmit(String number,String name,String password,String email,String phone,String gender,Model model) {
         String message = "";
         User user = new User();
-        boolean flag = false;
+        boolean success = false;
         try {
             int idnum = Integer.parseInt(number);
             user.setUserName(name);
@@ -127,9 +140,9 @@ public class UserController {
             System.out.println(user.toString());
             User oUser = userService.findUser(idnum);
             if(oUser == null) {
-                //userService.insertUser(user);
+                userService.insertUser(user);
             	System.out.println("注册");
-                flag = true;
+            	success = true;
             }
             else {
                 message = "账号已存在";
@@ -139,12 +152,13 @@ public class UserController {
             e.printStackTrace();
         }
         System.out.println(message);
-        if(flag) {
+        if(success) {
             model.addAttribute("id", number);
             return "login";
         }
         else {
             model.addAttribute("number", number);
+            model.addAttribute("success", success);
             return "register";
         }
     }
