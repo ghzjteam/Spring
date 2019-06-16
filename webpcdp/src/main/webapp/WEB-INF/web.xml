@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>com.robbie.SpringBootTraditionalApplication</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.boot.legacy.context.web.SpringBootContextLoaderListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>appServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextAttribute</param-name>
+            <param-value>org.springframework.web.context.WebApplicationContext.ROOT</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>appServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ConnectorServlet</servlet-name>
+        <servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
+        <init-param>
+            <description>
+                Path to configuration file can be relative path inside application,
+                absolute path on local file system or UNC path.
+            </description>
+            <param-name>XMLConfig</param-name>
+            <param-value>/webapp/ckfinder.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConnectorServlet</servlet-name>
+        <url-pattern><!--此路径找到项目下ckfinder文件夹即可-->
+            /ckfinder/core/connector/java/connector.java
+        </url-pattern>
+    </servlet-mapping>
+</web-app>

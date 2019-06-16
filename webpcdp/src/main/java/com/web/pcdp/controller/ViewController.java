@@ -14,11 +14,6 @@ public class ViewController {
         return "projects";
     }
 
-    @RequestMapping("/group")
-    public String group(){
-        return "groups";
-    }
-
     @RequestMapping("/meeting")
     public String meeting(){
         return "meetings";
