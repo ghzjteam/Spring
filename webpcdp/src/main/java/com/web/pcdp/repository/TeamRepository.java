@@ -47,4 +47,7 @@ public interface TeamRepository extends JpaRepository<Team, Integer> {
                            @Param("note") String note,
                            @Param("teeam_id") int team_id);
 
+    //获取team_id最大值
+    @Query(value = "select max(team_id) from team ", nativeQuery = true)
+    int selectmaxteam_id();
 }

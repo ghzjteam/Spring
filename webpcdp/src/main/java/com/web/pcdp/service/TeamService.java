@@ -55,5 +55,11 @@ public class TeamService {
         teamRepository.updateteam(team_name,note,team_id);
     }
 
+    //获取最大team_id
+    public int maxteam_id(){
+        int maxteam_id = teamRepository.selectmaxteam_id();
+
+        return maxteam_id;
+    }
 
 }

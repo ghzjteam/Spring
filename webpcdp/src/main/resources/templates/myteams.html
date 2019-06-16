@@ -113,7 +113,7 @@
                             <form action="InsertTeam" method="post">
                                 <div class="form-group">
                                     <label for="team_id" class="control-label">团队编号:</label>
-                                    <input type="text" class="form-control" id="team_id" name="team_id">
+                                    <input type="text" class="form-control" id="team_id" name="team_id" readonly="readonly" th:value="${newteam_id}">
                                 </div>
                                 <div class="form-group">
                                     <label for="team_name" class="control-label">团队昵称:</label>
@@ -155,7 +155,7 @@
                                             <table class="table" id="table">
                                                 <thead>
                                                 <tr >
-                                                    <th>团队编号</th>
+                                                    <th>序列号</th>
                                                     <th>团队昵称</th>
                                                     <th>创建时间</th>
                                                     <th>操作</th>
@@ -165,7 +165,8 @@
 
 
                                                 <tr th:each="team : ${teams}">
-                                                    <td class="id" id="id" th:text="${team.team_id}" scope="row"></td>
+                                                    <td class="id" id="id" style="display: none" th:text="${team.team_id}" scope="row"></td>
+                                                    <td th:text="${teamStat.index+1}"></td>
                                                     <td th:text="${team.team_name}"></td>
                                                     <td th:text="${team.create_date}"></td>
                                                     <td><button onclick="clicke(this)">进入</button>

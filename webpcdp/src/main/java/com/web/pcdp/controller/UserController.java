@@ -111,7 +111,7 @@ public class UserController {
             user.setRegDate(Preferences.getDateTime());
             user.setPhoto(Preferences.DEFAULT_PHOTO);
 
-            //System.out.println(user.toString());
+            System.out.println(user.toString());
             User oUser = userService.findUser(idnum);
             if(oUser == null) {
                 userService.insertUser(user);
