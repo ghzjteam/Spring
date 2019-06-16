@@ -18,16 +18,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    //加的依赖配置
-    implementation 'org.springframework.boot:spring-boot-starter-tomcat'
-    implementation 'org.springframework.boot:spring-boot-legacy:1.1.0.RELEASE'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
-    //CkFinder依赖配置
-    implementation 'com.ckfinder:CKFinder:2.6.2.1'
-    implementation 'net.coobird:thumbnailator:0.4.8'
-    implementation 'commons-fileupload:commons-fileupload:1.2.2'
-    implementation 'commons-io:commons:io:2.0.1'
+    implementation 'com.github.bluejoe2008:elfinder-servlet-2:1.1'
 
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'

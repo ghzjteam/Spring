@@ -137,22 +137,14 @@
             </script>
 
 
-            <p style="padding-left: 30px; padding-right: 30px;">
-                <script type="text/javascript">
+            <script type="text/javascript" charset="utf-8">
+                $(document).ready(function() {
+                    $('#elfinder').elfinder({
+                        url : 'elfinder-servlet/connector',
+                    });
+                });
+            </script>
 
-                    // You can use the "CKFinder" class to render CKFinder in a page:
-                    var finder = new CKFinder();
-                    // The path for the installation of CKFinder (default = "/ckfinder/").
-                    finder.basePath = '/ckfinder/ckfinder.html';
-                    // The default height is 400.
-                    finder.height = 600;
-                    // Change the skin to bootstrap.
-                    finder.skin = 'bootstrap';
-                    // Create CKFinder instance.
-                    finder.create();
-
-                </script>
-            </p>
 
 
 
