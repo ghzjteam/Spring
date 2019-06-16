@@ -3,6 +3,8 @@ Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 CKEDITOR.editorConfig = function( config ) {
+    config.language = 'zh-cn';
+    config.uiColor = '#AADC6E';
     config.height = 300;
     config.enterMode = CKEDITOR.ENTER_BR;// 去掉<p>
     config.shiftEnterMode = CKEDITOR.ENTER_BR;// 去掉<p>
@@ -25,11 +27,10 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'tools', groups: [ 'tools' ] }
     ];
     config.removeButtons = 'About,Flash,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,NewPage,Templates,Scayt,Language,Smiley,Iframe,Save,SelectAll,CreateDiv,BidiRtl,BidiLtr,ShowBlocks';
-    var p='/Ckeditor/assets/';
-    config.filebrowserBrowseUrl =p+'ckfinder/ckfinder.html';
-    config.filebrowserImageBrowseUrl = p+'ckfinder/ckfinder.html?type=Images';
-    config.filebrowserFlashBrowseUrl = p+'ckfinder/ckfinder.html?type=Flash';
-    config.filebrowserUploadUrl =p+'ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files';
-    config.filebrowserImageUploadUrl =p+'ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images';
-    config.filebrowserFlashUploadUrl = p+'ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash';
+    config.filebrowserBrowseUrl = 'ckfinder/ckfinder.html';
+    config.filebrowserImageBrowseUrl = 'ckfinder/ckfinder.html?type=Images';
+    config.filebrowserFlashBrowseUrl = 'ckfinder/ckfinder.html?type=Flash';
+    config.filebrowserUploadUrl = 'ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files';
+    config.filebrowserImageUploadUrl = 'ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images';
+    config.filebrowserFlashUploadUrl = 'ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash';
 };

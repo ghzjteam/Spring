@@ -127,21 +127,34 @@
             </div>
 
 
-            <div style="margin-top: 120px;margin-left: 100px">
-                <h1 style="font-size: 65px">欢迎进入项目文件管理界面！</h1>
-            </div>
-
-
-            <form>
-                <textarea name="editor1" id="editor1" rows="10" cols="80">
-                    This is my textarea to be replaced with CKEditor.
-                </textarea>
-            </form>
-            <!-- 将id为editor1的textarea用ckeditor来操作 -->
+            <textarea id="content" name="content" rows="120" cols="90">请编辑...</textarea>
             <script type="text/javascript">
-                var editor = CKEDITOR.replace( 'editor1' );
-                CKFinder.setupCKEditor(editor, ckfinder/');
+                var editor = CKEDITOR.replace( 'content',
+                    {
+                        language : 'zh-cn',filebrowserBrowseUrl : '/browser/browse.php',filebrowserUploadUrl : 'uploadImage.do?type=${typeName}&id=${news.id}&original=true'
+                    } );
+                CKFinder.SetupCKEditor(editor, 'ckfinder/');
             </script>
+
+
+            <p style="padding-left: 30px; padding-right: 30px;">
+                <script type="text/javascript">
+
+                    // You can use the "CKFinder" class to render CKFinder in a page:
+                    var finder = new CKFinder();
+                    // The path for the installation of CKFinder (default = "/ckfinder/").
+                    finder.basePath = '/ckfinder/ckfinder.html';
+                    // The default height is 400.
+                    finder.height = 600;
+                    // Change the skin to bootstrap.
+                    finder.skin = 'bootstrap';
+                    // Create CKFinder instance.
+                    finder.create();
+
+                </script>
+            </p>
+
+
 
 
         </div>

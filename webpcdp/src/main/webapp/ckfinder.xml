@@ -17,8 +17,8 @@
 	Configure the location of uploaded files. See the following article for more details:
 	http://docs.cksource.com/CKFinder_2.x/Developers_Guide/Java/Configuration/baseURL_and_baseDir
 	-->
-	<baseDir>D:\课程学习\大三下学期\Web高级编程\大作业\GitHub\webpcdp\src\main\resources\static\img</baseDir>
-	<baseURL>http://localhost:8080/Ckeditor/image</baseURL>
+	<baseDir>E:\\picture</baseDir>
+	<baseURL>/CKFinderJava/userfiles/</baseURL>
 	<licenseKey></licenseKey>
 	<licenseName></licenseName>
 	<!--
@@ -89,17 +89,17 @@
 	<userRoleSessionVar>CKFinder_UserRole</userRoleSessionVar>
 	<accessControls>
 		<accessControl>
-			<role>*</role>
+			<role>admin</role>
 			<resourceType>*</resourceType>
 			<folder>/</folder>
 			<folderView>true</folderView>
 			<folderCreate>true</folderCreate>
 			<folderRename>true</folderRename>
-			<folderDelete>true</folderDelete>
+			<folderDelete>false</folderDelete>
 			<fileView>true</fileView>
 			<fileUpload>true</fileUpload>
 			<fileRename>true</fileRename>
-			<fileDelete>true</fileDelete>
+			<fileDelete>false</fileDelete>
 		</accessControl>
 	</accessControls>
 	<thumbs>

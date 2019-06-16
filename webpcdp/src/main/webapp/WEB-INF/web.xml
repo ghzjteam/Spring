@@ -34,7 +34,7 @@
                 absolute path on local file system or UNC path.
             </description>
             <param-name>XMLConfig</param-name>
-            <param-value>/WEB-INF/ckfinder.xml</param-value>
+            <param-value>/webapp/ckfinder.xml</param-value>
         </init-param>
         <init-param>
             <param-name>debug</param-name>
@@ -45,7 +45,7 @@
     <servlet-mapping>
         <servlet-name>ConnectorServlet</servlet-name>
         <url-pattern><!--此路径找到项目下ckfinder文件夹即可-->
-            /assets/ckfinder/core/connector/java/connector.java
+            /ckfinder/core/connector/java/connector.java
         </url-pattern>
     </servlet-mapping>
 </web-app>
