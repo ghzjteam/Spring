@@ -114,11 +114,11 @@
                                             <h3 class="h4">成员管理</h3>
                                         </div>
                                         <div style="width: 10%">
-                                            <button th:if="${myposition != 2}" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">团队设置</button>
+                                            <button th:if="${myposition != 2}" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal2">团队设置</button>
                                         </div>
                                         <div style="width: 10%">
                                             <!-- Button trigger modal   data-target="@{'#myModal'+${team.team_id}}" -->
-                                            <button th:if="${myposition != 2}" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">添加成员</button>
+                                            <button th:if="${myposition != 2}" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal1">添加成员</button>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -143,8 +143,10 @@
 
                                                         <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"></button>
                                                         <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow">
-                                                            <a class="dropdown-item">查看</a>
-                                                            <a class="dropdown-item" th:if="${myposition} != 2" th:href="@{'/deletemember?user_id='+${teamposition.getUser_id()} +'&team_id='+${team_id}}">删除</a>
+                                                            <a class="dropdown-item" th:href="@{'/groupmemberinf?user_id='+${teamposition.getUser_id()}}">查看</a>
+                                                            <a data-toggle="modal" th:if="${myposition} != 2" th:attr="data-target=@{'#Modal'+${teamposition.user_id}+'and'+${team_id}}" class="dropdown-item edit">修改</a>
+                                                            <a class="dropdown-item" th:if="${myposition} != 2" th:href="@{'/deletemember?user_id='+${teamposition.getUser_id()} +'&team_id='+${team_id}+'&user_id1='+${user_id}}">删除</a>
+
 
                                                         </div>
                                                     </td>
@@ -171,7 +173,7 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -213,8 +215,114 @@
         </div>
     </div>
 </div>
-<!-- JavaScript files-->
 
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 style="float: left">修改团队信息</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form action="/updateteam" method="post">
+                    <div class="form-group">
+                        <label for="team_id1" class="control-label">团队ID:</label>
+                        <input type="text"  id="team_id1" class="team_id1" th:value="${team_id}" readonly="readonly" name="team_id1">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="team_name" class="control-label">团队昵称:</label>
+                        <input type="text"  id="team_name" class="team_name" name="team_name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="note" class="control-label">团队备注:</label>
+                        <input type="text"  id="note" class="note" name="note">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_id2" class="control-label">修改人:</label>
+                        <input type="text"  id="user_id2" class="user_id2" name="user_id2" th:value="${user_id}" readonly="readonly">
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-primary">确认修改</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal  update-->
+
+<div th:each="teamposition : ${teampositions}">
+        <div class="modal fade" th:id="'Modal'+${teamposition.user_id}+'and'+${teamposition.team_id}" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">修改</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center">
+                                    <h3 class="h4">成员信息</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form action="/updateMember" method="post">
+                                        <div class="form-group">
+                                            <label for="user_idalter" class="control-label">成员ID:</label>
+                                            <input type="text" class="form-control" id="user_idalter" name="user_idalter" readonly="readonly" th:value="${teamposition.user_id}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="team_idalter" class="control-label">团队ID:</label>
+                                            <input type="text"  id="team_idalter" class="team_idalter" th:value="${teamposition.team_id}" readonly="readonly" name="team_idalter">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="team_positionalter1" class="control-label">成员职位:</label>
+                                            <input id="team_positionalter1" name="team_positionalter"  type="radio" value="1" />副队长
+                                            <label for="team_positionalter2" class="control-label"></label>
+                                            <input id="team_positionalter2" name="team_positionalter"  type="radio" value="2" checked/>队员
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="user_idalter1" class="control-label">操作者ID:</label>
+                                            <input type="text"  id="user_idalter1" class="user_id" th:value="${user_id}" readonly="readonly" name="user_idalter1">
+
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                            <button type="submit" class="btn btn-primary">确认修改</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript files-->
 
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/popper.js/umd/popper.min.js"> </script>

@@ -50,5 +50,17 @@ public class TeamService {
         //System.out.println("成功添加" + user_id + "||" + team_id);
     }
 
+    //修改团队信息
+    public void updateteam(String team_name,String note,int team_id){
+        teamRepository.updateteam(team_name,note,team_id);
+    }
+
+    //获取最大team_id
+    public int maxteam_id(){
+        int maxteam_id = teamRepository.selectmaxteam_id();
+
+        return maxteam_id;
+    }
+
 
 }
