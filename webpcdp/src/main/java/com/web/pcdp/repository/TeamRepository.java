@@ -11,6 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+
+/**
+ * 团队JPA接口
+ **/
+
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Integer> {
 
@@ -43,11 +48,18 @@ public interface TeamRepository extends JpaRepository<Team, Integer> {
     @Modifying
     @Transactional
     @Query(value = "update team set team_name = ? ,note = ? where team_id = ?", nativeQuery = true)
-    public void updateteam(@Param("team_name") String team_name,
+    public void updateTeam(@Param("team_name") String team_name,
                            @Param("note") String note,
                            @Param("teeam_id") int team_id);
 
     //获取team_id最大值
     @Query(value = "select max(team_id) from team ", nativeQuery = true)
-    int selectmaxteam_id();
+    int selectMaxTeam_id();
+
+    //删除团队
+    @Modifying
+    @Transactional
+    @Query(value = "delete from team where team_id = ?",nativeQuery = true)
+    void deleteTeam(@Param("team_id") int team_id);
+
 }

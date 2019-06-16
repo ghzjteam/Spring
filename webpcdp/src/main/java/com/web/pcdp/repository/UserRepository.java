@@ -1,6 +1,11 @@
 package com.web.pcdp.repository;
 
 
+
+/**
+ * 用户JPA接口
+ **/
+
 import com.web.pcdp.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -14,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     //根据用户ID查询用户信息
     @Query(value = "SELECT * FROM user WHERE user_id = ?", nativeQuery = true)
-    User finduser(@Param("user_id") int id);
+    User findUser(@Param("user_id") int id);
 
     //用户注册
     @Modifying

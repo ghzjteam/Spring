@@ -2,6 +2,9 @@ package com.web.pcdp.domain;
 
 import javax.persistence.*;
 
+/**
+ * 会议实体类
+ **/
 @Entity
 public class Meeting {
 

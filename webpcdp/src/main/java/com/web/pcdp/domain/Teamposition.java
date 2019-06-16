@@ -3,8 +3,7 @@ package com.web.pcdp.domain;
 import javax.persistence.Id;
 
 /**
- * @program: pcdp
- * @description: 成员职位实体类
+ * 成员职位实体类
  **/
 public class Teamposition {
 

@@ -120,6 +120,10 @@
                                             <!-- Button trigger modal   data-target="@{'#myModal'+${team.team_id}}" -->
                                             <button th:if="${myposition != 2}" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal1">添加成员</button>
                                         </div>
+                                        <div style="width: 10%">
+                                            <!-- Button trigger modal   data-target="@{'#myModal'+${team.team_id}}" -->
+                                            <a type="button" th:if="${myposition == 0}"  class="btn btn-primary" th:href="@{'/deleteTeam?team_id='+${team_id}+'&user_id='+${user_id}}" >删除团队</a>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">

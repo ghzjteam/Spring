@@ -2,15 +2,25 @@ package com.web.pcdp.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 
+/**
+ * 团队用户联合表类
+ **/
 
 @Entity
-public class User_team {
+@Table(name = "User_team")
+@IdClass(Key.class)
+public class User_team implements Serializable {
 
     @Id
     private int user_id;
+    @Id
     private int team_id;
+
     private int position;
 
     public int getUser_id() {

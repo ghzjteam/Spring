@@ -211,11 +211,11 @@
 </script>
 
 
-<script type="text/javascript">
+<script th:inline="javascript">
     function clicke(x){
         var index = x.parentNode.parentNode.rowIndex;
         var team = $("table tr:eq("+index+") td:eq(0)").text();
-        var userid = document.getElementById("userid").innerHTML
+        var userid = [[${session.session_user_id}]];
         alert("要进入的团队编号为："+team);
         parent.location.href = "http://localhost:8080/groupInformation?team_id=" + Number(team) +"&user_id="+userid;
 

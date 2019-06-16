@@ -111,10 +111,16 @@
 
                                         <div style="width: 90% ">
                                             <h3 th:text="${team.team_name}" class="h4"></h3>
+                                            <!--
+                                                <input type="file" id="myfile" onclick="readAsText()">
+                                                <div id="myresult">1</div>
+                                            -->
                                         </div>
                                         <div style="width: 10%">
                                             <!-- Button trigger modal   data-target="@{'#myModal'+${team.team_id}}" -->
-                                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" th:attr="data-target=@{'#myModal'+${team.team_id}}"  style="font-size: small">添加会议</button>
+                                            <div th:each="list : ${user_teamLists}">
+                                            <button th:if="${team.team_id==list.team_id&&list.position<2}" type="button" class="btn btn-primary btn-lg" data-toggle="modal" th:attr="data-target=@{'#myModal'+${team.team_id}}"  style="font-size: small">添加会议</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -145,10 +151,14 @@
 
                                                                 <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"></button>
                                                                 <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow">
-                                                                    <a data-toggle="modal" th:attr="data-target=@{'#MyModal'+${team.team_id}+'and'+${meeting.meeting_id}}" class="dropdown-item edit">修改会议信息</a>
-                                                                    <a href="#" class="dropdown-item edit">上传会议文件</a>
-                                                                    <a href="#" class="dropdown-item edit">查看会议文件</a>
-                                                                    <a th:href="@{'DeleteMeeting?user_id=1&meeting_id='+${meeting.meeting_id}}" class="dropdown-item edit">删除会议</a>
+                                                                    <a th:href="@{'http://localhost:8080/MeetingFile/'+${meeting.file}}" class="dropdown-item edit">下载会议文件</a>
+                                                                    <div th:each="list : ${user_teamLists}">
+                                                                        <div th:if="${team.team_id==list.team_id&&list.position<2}">
+                                                                        <a data-toggle="modal" th:attr="data-target=@{'#MyModal'+${team.team_id}+'and'+${meeting.meeting_id}}" class="dropdown-item edit">修改会议信息</a>
+                                                                        <a data-toggle="modal" th:attr="data-target=@{'#UploadModal'+${team.team_id}+'and'+${meeting.meeting_id}}"  class="dropdown-item edit" >上传会议文件</a>
+                                                                        <a th:href="@{'DeleteMeeting?user_id=1&meeting_id='+${meeting.meeting_id}}" class="dropdown-item edit">删除会议</a>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                     </td>
                                                 </tr>
@@ -184,7 +194,7 @@
                         </div>
                         <div class="card-body">
                             <form class="form-horizontal" action="InsertMeeting" method="post">
-
+                                <input type="text" name="user_id" style="display: none" th:value="${session.session_user_id}"></input>
                                 <div class="line"></div>
                                 <div class="form-group row">
                                     <label class="col-sm-3 form-control-label">团队编号</label>
@@ -237,6 +247,7 @@
                                         <input type="text" class="form-control" name="note">
                                     </div>
                                 </div>
+                                <!--
 
                                 <div class="line"></div>
                                 <div class="form-group row">
@@ -254,6 +265,7 @@
                                     </div>
                                 </div>
 
+                                -->
                                 <div class="line"></div>
                                 <div class="form-group row">
                                     <div class="col-sm-4 offset-sm-3">
@@ -293,6 +305,8 @@
                             </div>
                             <div class="card-body">
                                 <form class="form-horizontal" action="UpdateMeeting" method="post">
+
+                                    <input type="text" name="user_id" style="display: none" th:value="${session.session_user_id}"></input>
                                     <div style="display:none">
                                         <input type="text" name="meeting_id" th:value="${meeting.meeting_id}">
                                     </div>
@@ -357,6 +371,52 @@
         </div>
     </div>
     </div>
+</div>
+<!-- UPLOAD -->
+<div th:each="team : ${teams}">
+<div th:each="meeting : ${meetings}">
+<div class="modal fade" th:id="'UploadModal'+${team.team_id}+'and'+${meeting.meeting_id}" tabindex="-1" role="dialog"  aria-labelledby="ModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" >上传会议文件</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <h3 class="h4">会议文件</h3>
+                        </div>
+                        <div class="card-body">
+                            <form class="form-horizontal" action="upload" method="post" enctype="multipart/form-data">
+
+                                <input type="text" name="user_id" style="display: none" th:value="${session.session_user_id}"></input>
+                                <input type="text" name="meeting_id" style="display:none" th:value="${meeting.meeting_id}">
+
+                                <div class="line"></div>
+
+                                <div class="form-group row">
+                                        <input type="file" name="file">
+                                </div>
+
+
+                                <div class="line"></div>
+                                <div class="form-group row">
+                                    <div style="width: 80%"></div>
+                                    <div style="width: 20%">
+                                        <button type="submit" class="btn btn-primary">提交</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </div>
     <!-- JavaScript files-->
     <script src="vendor/jquery/jquery.min.js"></script>

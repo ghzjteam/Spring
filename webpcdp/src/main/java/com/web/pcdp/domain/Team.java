@@ -3,6 +3,10 @@ package com.web.pcdp.domain;
 import javax.persistence.*;
 import java.sql.Date;
 
+
+/**
+ * 团队实体类
+ **/
 @Entity
 public class Team {
     @Id
