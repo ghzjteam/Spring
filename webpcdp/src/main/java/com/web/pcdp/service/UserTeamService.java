@@ -1,6 +1,6 @@
 package com.web.pcdp.service;
 
-import com.web.pcdp.domain.user_team;
+import com.web.pcdp.domain.User_team;
 import com.web.pcdp.repository.UserTeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,9 @@ public class UserTeamService {
     private UserTeamRepository userTeamRepository;
 
     //根据获取团队所有成员
-    public List<user_team> findmemberUser(int team_id){
-        List<user_team> user_teams = null;
-        user_teams = userTeamRepository.findmemberUser(team_id);
+    public List<User_team> findMemberUser(int team_id){
+        List<User_team> user_teams = null;
+        user_teams = userTeamRepository.findMemberUser(team_id);
         if (user_teams==null){
             return null;
         }else {
@@ -29,13 +29,48 @@ public class UserTeamService {
         }
     }
 
+    //查询用户的所有团队的id
+    public List<Integer> findUserTeam(int user_id){
+        List<Integer> team = null;
+        team = userTeamRepository.findUserTeam(user_id);
+        if (team==null){
+            return null;
+        }
+        else {
+            return team;
+        }
+    }
+
     //删除团队成员
-    public void deletemember(int user_id,int team_id){
-        userTeamRepository.deletemember(user_id,team_id);
+    public void deleteMember(int user_id,int team_id){
+        userTeamRepository.deleteMember(user_id,team_id);
     }
 
     //添加团队成员
-    public void Insertemember(int user_id,int team_id,int position){
-        userTeamRepository.Insertemember(user_id,team_id,position);
+    public void InserteMember(int user_id,int team_id,int position){
+        userTeamRepository.InserteMember(user_id,team_id,position);
     }
+
+    public List<User_team> findPosition(int user_id){
+        List<User_team> userTeam = null;
+        userTeam = userTeamRepository.findPosition(user_id);
+        System.out.println("AAA"+userTeam.get(0).getTeam_id());
+        System.out.println("AAA"+userTeam.get(1).getTeam_id());
+        if(userTeam == null)
+            return null;
+        else
+            return userTeam;
+    }
+
+    //修改成员职位
+    public void updateMember(int position,int user_id,int team_id){
+        //System.out.println("xxx"+user_id+"\t"+team_id+"\t"+position);
+        userTeamRepository.updateMember(position,user_id,team_id);
+    }
+
+    //删除团队所有成员
+    public void deleteAllUser_team(int team_id){
+        userTeamRepository.deleteAllUser_team(team_id);
+    }
+
 }

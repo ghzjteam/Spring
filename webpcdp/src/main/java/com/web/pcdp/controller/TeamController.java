@@ -2,8 +2,8 @@ package com.web.pcdp.controller;
 
 import com.web.pcdp.domain.Team;
 import com.web.pcdp.domain.User;
-import com.web.pcdp.domain.teamposition;
-import com.web.pcdp.domain.user_team;
+import com.web.pcdp.domain.Teamposition;
+import com.web.pcdp.domain.User_team;
 import com.web.pcdp.service.TeamService;
 import com.web.pcdp.service.UserService;
 import com.web.pcdp.service.UserTeamService;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
@@ -42,18 +43,21 @@ public class TeamController {
 
 
     @GetMapping("/team")
-    public String GetAllTeam(@RequestParam("user_id") int user_id,Model model){
+    public String getAllTeam(@RequestParam("user_id") int user_id,Model model){
         List<Team> teams = null;
         teams = teamService.findUserAllTeam(user_id);
-        for (int i=0;i<teams.size();i++){
-            //System.out.println(teams.get(i).getTeam_name());
-        }
+       /* for (int i=0;i<teams.size();i++){
+            System.out.println(teams.get(i).getTeam_name());
+        }*/
+
+        int maxteam_id = teamService.MaxTeam_id();
         if(teams == null){
-           // System.out.println("Team is null");
+            System.out.println("Team is null");
         }
         else{
             model.addAttribute("user_id",user_id);
             model.addAttribute("teams",teams);
+            model.addAttribute("newteam_id",maxteam_id+1);
             //System.out.println("name"+teams.get(0).getTeam_name());
             //System.out.println("name"+meeting.get(1).getMeeting_name());
         }
@@ -61,7 +65,8 @@ public class TeamController {
     }
 
 
-    /*
+
+   /* //
     @GetMapping("/group")
     public String GetMyTeam(@RequestParam("team_id") int team_id,
                             @RequestParam("user_id") int user_id,
@@ -80,11 +85,10 @@ public class TeamController {
 
         }
         return "groups";
-    }
-    */
+    }*/
 
     @PostMapping("/InsertTeam")
-    public String InsertMeeting(@RequestParam("team_id") int team_id,
+    public String insertMeeting(@RequestParam("team_id") int team_id,
                                 @RequestParam("team_name") String team_name,
                                 @RequestParam("note") String note,
                                 @RequestParam("create_date") String create_date,
@@ -100,21 +104,27 @@ public class TeamController {
         }
 
 
-        //System.out.println(team_id+"\t"+team_name+"\t"+note+"\t"+date);
-        teamService.insertTeam(team_id,team_name,note,date);
-        teamService.insertUser_Team(create_user_id,team_id,2);
-        return "redirect:/team?user_id=1";
+        if(teamService.findMyTeam(team_id) != null){
+            return "redirect:/ERROR3";
+        }else {
+            //System.out.println(team_id+"\t"+team_name+"\t"+note+"\t"+date);
+            teamService.insertTeam(team_id,team_name,note,date);
+            teamService.insertUser_Team(create_user_id,team_id,0);
+            return "redirect:/team?user_id="+create_user_id;
+        }
+
+
     }
 
 
 
     @GetMapping("/groupInformation")
-    public String GetGroupInformation(@RequestParam("user_id") int user_id,
+    public String getGroupInformation(@RequestParam("user_id") int user_id,
                                       @RequestParam("team_id") int team_id,
                                       Model model){
 
-        List<user_team> user_teams = null;
-        List<teamposition> teampositions = new ArrayList<>();
+        List<User_team> user_teams = null;
+        List<Teamposition> teampositions = new ArrayList<>();
 
         model.addAttribute("team_id",team_id);
         model.addAttribute("user_id",user_id);
@@ -122,7 +132,7 @@ public class TeamController {
 
         int myposition;
 
-        user_teams = userTeamService.findmemberUser(team_id);
+        user_teams = userTeamService.findMemberUser(team_id);
 
         for (int i = 0;i<user_teams.size();i++){
 
@@ -137,7 +147,7 @@ public class TeamController {
                 myposition = position;
                 model.addAttribute("myposition",myposition);
             }
-            teamposition teamposition = new teamposition();
+            Teamposition teamposition = new Teamposition();
             teamposition.setUser_id(user_id1);
             teamposition.setTeam_id(team_id1);
             teamposition.setUser_name(name);
@@ -149,7 +159,7 @@ public class TeamController {
                 teamposition.setUser_position("队员");
             }
 
-            //System.out.println(teamposition.getTeam_id()+"\t"+teamposition.getUser_name()+"\t"+teamposition.getUser_position()+"\n");
+            //System.out.println(Teamposition.getTeam_id()+"\t"+Teamposition.getUser_name()+"\t"+Teamposition.getUser_position()+"\n");
             teampositions.add(teamposition);
 
 //            users.add(user);
@@ -161,33 +171,48 @@ public class TeamController {
         String flag = "队长";
         model.addAttribute("flag",flag);
 
+
+
         return "groupInformation";
 
 
     }
 
     @GetMapping("/deletemember")
-    public String deletemember(@Param("user_id") int user_id,
+    public String deleteMember(@Param("user_id") int user_id,
                                @Param("team_id") int team_id,
+                               @Param("user_id1") int user_id1,
                                Model model){
 
-        userTeamService.deletemember(user_id,team_id);
+        userTeamService.deleteMember(user_id,team_id);
 
-        return "redirect:/groupInformation?user_id="+user_id+"&team_id=" +team_id;
+        return "redirect:/groupInformation?user_id="+user_id1+"&team_id=" +team_id;
 
     }
 
+    @RequestMapping("/updateMember")
+    public String updateMember(@RequestParam("user_idalter") int user_id,
+                               @RequestParam("team_idalter") int team_id,
+                               @RequestParam("team_positionalter") int position,
+                               @RequestParam("user_idalter1") int user_id1){
+
+        //System.out.println(position+"\t"+user_id+"\t"+team_id+"\t");
+        userTeamService.updateMember(position,user_id,team_id);
+
+        return "redirect:/groupInformation?user_id="+user_id1+"&team_id=" +team_id;
+    }
     @GetMapping("/ERROR1")
-    public String ERROR1(){
+    public String error1(){
 
         return "ERROR1";
     }
 
     @GetMapping("/ERROR2")
-    public String ERROR2(){
+    public String error2(){
 
         return "ERROR2";
     }
+
 
     @PostMapping("/Insertemember")
     public String Insertemember(@RequestParam("user_id1") int user_id1,
@@ -196,8 +221,8 @@ public class TeamController {
                                 @RequestParam("user_id") int user_id){
 
         User user = userService.findUser(user_id1);
-        List<user_team> users = new ArrayList<>();
-        users = userTeamService.findmemberUser(team_id);
+        List<User_team> users = new ArrayList<>();
+        users = userTeamService.findMemberUser(team_id);
         if (user == null){
             return "redirect:/ERROR1";
         }
@@ -207,10 +232,44 @@ public class TeamController {
                 return "redirect:/ERROR2";
             }
         }
-
-
-        System.out.println(user_id1+"\t"+team_id+"\t"+position);
-        userTeamService.Insertemember(user_id1,team_id,position);
+        System.out.println(user_id+"\t"+user_id1+"\t"+team_id+"\t"+position);
+        userTeamService.InserteMember(user_id1,team_id,position);
         return "redirect:/groupInformation?user_id="+user_id+"&team_id=" +team_id;
     }
+
+    @PostMapping("/updateteam")
+    public String updateTeam(@RequestParam("user_id2") int user_id,
+                             @RequestParam("team_id1") int team_id,
+                             @RequestParam("team_name") String team_name,
+                             @RequestParam("note") String note){
+
+
+        teamService.updateTeam(team_name,note,team_id);
+
+        return "redirect:/team?user_id="+user_id;
+    }
+
+
+    //查看个人信息
+    @GetMapping("/groupmemberinf")
+    public String settings(@Param("user_id") int user_id,Model model) {
+        User oUser = userService.findUser(user_id);
+        if(oUser!=null) {
+            model.addAttribute("curruser", oUser);
+        }
+        return "groupmemberinf";
+    }
+
+    //删除团队
+    @GetMapping("/deleteTeam")
+    public String deleteTeam(@RequestParam("team_id") int team_id,
+                             @RequestParam("user_id") int user_id,
+                             Model model){
+        userTeamService.deleteAllUser_team(team_id);
+        teamService.deleteTeam(team_id);
+
+        return "redirect:/team?user_id="+user_id;
+    }
+
+
 }

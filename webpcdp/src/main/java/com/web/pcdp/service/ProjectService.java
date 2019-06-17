@@ -51,6 +51,18 @@ public class ProjectService {
         }
     }
 
+    //查询某个用户在项目的职位
+    public int findUserPosition(int user_id, int team_id) {
+        int position = 3;
+        position = projectRepository.findUserPosition(user_id, team_id);
+        if (position == 3) {
+            return 3;
+        }
+        else {
+            return position;
+        }
+    }
+
     //根据团队ID查询团队所有项目信息
     public List<Project> findTeamAllProject(int team_id) {
         List<Project> project = null;

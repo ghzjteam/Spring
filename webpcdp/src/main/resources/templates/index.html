@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>项目协作开发平台</title>
+    <title>主页</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
@@ -78,9 +78,8 @@
                 <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle" />
               </div>
               <div class="title">
-                <h1 class="h4" th:text="${curruser.getUserName()}">VVong
-                  Tory</h1>
-                <p th:text="${curruser.getEmail()}">Email</p>
+                <h1 class="h4" th:text="${session.login_user.getUserName()}"></h1>
+                <p th:text="${session.login_user.getEmail()}">Email</p>
               </div>
 
             </div>

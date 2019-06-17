@@ -1,197 +1,179 @@
 ﻿<!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>项目协作开发平台</title>
-
-<!-- Bootstrap -->
-<link href="css/vendors/bootstrap.min.css" rel="stylesheet">
-<!-- Font Awesome -->
-<link href="css/vendors/font-awesome.min.css" rel="stylesheet">
-<!-- NProgress -->
-<link href="css/vendors/nprogress.css" rel="stylesheet">
-<!-- Animate.css -->
-<link href="css/vendors/animate.min.css" rel="stylesheet">
-
-<!-- Custom Theme Style -->
-<link href="css/vendors/custom.min.css" rel="stylesheet">
-
-<link rel="shortcut icon" href="img/favicon.ico">
-
-<link rel="stylesheet" th:href="@{/css/login_css.css}" />
-
-<script type="text/javascript"
-	th:src="@{webjars/jquery/3.0.0/jquery.min.js}"></script>
-<script type="text/javascript"
-	th:src="@{webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
-
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>修改个人信息</title>
+	<meta name="description" content="">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="robots" content="all,follow">
+	<!-- Bootstrap CSS-->
+	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+	<!-- Font Awesome CSS-->
+	<link rel="stylesheet"
+		  href="vendor/font-awesome/css/font-awesome.min.css">
+	<!-- Fontastic Custom icon font-->
+	<link rel="stylesheet" href="css/fontastic.css">
+	<!-- Google fonts - Poppins -->
+	<link rel="stylesheet"
+		  href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+	<!-- theme stylesheet-->
+	<link rel="stylesheet" href="css/style.default.css"
+		  id="theme-stylesheet">
+	<!-- Custom stylesheet - for your changes-->
+	<link rel="stylesheet" href="css/custom.css">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/popper.js/umd/popper.min.js"> </script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+	<script src="vendor/chart.js/Chart.min.js"></script>
+	<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+	<script src="vendor/jquery-validation/localization/messages_zh.js"></script>
+	<!-- Main File-->
+	<script src="js/front.js"></script>
 </head>
-
-<body class="login">
-	<div>
-		<a class="hiddenanchor" id="signup"></a> <a class="hiddenanchor"
-			id="signin"></a>
-
-		<div class="login_wrapper">
-			<div class="animate form login_form">
-				<section class="login_content">
-					<form action="settingsSubmit" method="Post"
-						class="form-horizontal form-label-left" novalidate>
-						<h1>个人信息</h1>
-
-						<div class="item form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12"
-								readonly="readonly">账号 </label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input type="number" id="number" name="number"
-									required="required" data-validate-minmax="1,10"
-									th:value="${curruser.getUserId()}"
-									readonly="readonly"
-									class="form-control col-md-7 col-xs-12">
+<body>
+<div class="page login-page">
+	<div class="container d-flex align-items-center">
+		<div class="form-holder has-shadow">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="info d-flex align-items-center">
+						<div class="content">
+							<div class="logo">
+								<h1>修改个人信息</h1>
 							</div>
+							<p>项目协作开发平台</p>
 						</div>
+					</div>
+				</div>
 
-						<div class="item form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12"
-								for="name">姓名 <span class="required">*</span>
-							</label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input id="name" class="form-control col-md-7 col-xs-12"
-									data-validate-length-range="4" data-validate-words="2"
-									th:value="${curruser.getUserName()}" name="name"
-									required="required" type="text">
-							</div>
-						</div>
-						<div class="item form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12"
-								for="email">Email <span class="required">*</span>
-							</label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input type="email" id="email" name="email" required="required"
-									th:value="${curruser.getEmail()}"
-									class="form-control col-md-7 col-xs-12">
-							</div>
-						</div>
+				<!-- ---------------------- -->
+				<div class="col-lg-6 bg-white">
+					<div class="form d-flex align-items-center">
+						<div class="content">
+							<form class="form-validate" action="settingsSubmit"
+								  method="Post">
+								<div class="form-group">
+									<input id="number" type="number" name="number"
+										   th:value="${curruser.getUserId()}" readonly="readonly"
+										   class="input-material"> <label
+										class="label-material">账号</label>
+								</div>
+								<div class="form-group">
+									<input id="name" type="text" name="name"
+										   th:value="${curruser.getUserName()}" required
+										   class="input-material" minlength=1> <label for="name"
+																					  class="label-material">名称</label>
+								</div>
+								<div class="form-group">
+									<input id="email" type="email" name="email"
+										   th:value="${curruser.getEmail()}" required
+										   data-msg="请输入有效的邮箱" class="input-material"> <label
+										for="email" class="label-material">邮箱</label>
+								</div>
 
-						<div class="item form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12">性别
-								<span class="required">*</span>
-							</label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<label class="control-label col-md-5 col-sm-3 col-xs-12">男:
-									<input type="radio" class="flat" name="gender" id="genderM"
-									value="男" checked="" required 
-									th:attr ="checked=${curruser.getGender()=='男'?true:false}"/>
-								</label> <label class="control-label col-md-5 col-sm-3 col-xs-12">女:
-									<input type="radio" class="flat" name="gender" id="genderF"
-									th:attr ="checked=${curruser.getGender()=='女'?true:false}"
-									value="女" />
-								</label>
+								<div class="form-group terms-conditions">
+									<label for="register-gender" class="label-material">性别</label>
+									<input id="genderM" name="gender" type="radio" required
+										   value="男" checked="ture" class="checkbox-template offset-1"
+										   th:attr="checked=${curruser.getGender()=='男'?true:false}">
+									<label for="genderM">男</label> <input id="genderF"
+																		  name="gender" type="radio" required value="女"
+																		  class="checkbox-template offset-2"
+																		  th:attr="checked=${curruser.getGender()=='女'?true:false}">
+									<label for="genderF">女</label>
+								</div>
+								<div class="form-group">
+									<input id="phone" type="tel" name="phone" required
+										   data-msg="请输入有效的手机号" class="input-material"
+										   th:value="${curruser.getPhone()}"> <label for="phone"
+																					 class="label-material">手机</label>
+								</div>
 
-							</div>
+								<div class="form-group">
+									<input id="regDate" type="datetime" name=""
+										   class="input-material" readonly="readonly"
+										   th:value="${curruser.getRegDate()}"> <label
+										for="regDate" class="label-material">注册日期</label>
+								</div>
+								<div class="form-group">
+									<button id="regidter" type="submit" name="submit"
+											class="btn btn-primary">修改</button>
+								</div>
+							</form>
+							<a href="/index" class="">返回</a>
+							<button data-toggle="modal" data-target="#myModal" class="signup offset-1 btn btn-link">修改密码</button>
 						</div>
+					</div>
+				</div>
 
-						<div class="item form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12"
-								for="telephone">电话 <span class="required">*</span>
-							</label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input type="tel" name="phone"
-									required="required" data-validate-length-range="8,20"
-									th:value="${curruser.getPhone()}"
-									class="form-control col-md-7 col-xs-12">
-							</div>
-						</div>
-						
-						<div class="item form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12"
-								for="telephone">注册日期 <span class="required">*</span>
-							</label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input type="text" id="telephone" name=""
-									required="required" data-validate-length-range="8,20"
-									readonly="readonly"
-									th:value="${curruser.getRegDate()}"
-									class="form-control col-md-7 col-xs-12">
-							</div>
-						</div>
-						<div>
-							<input type="submit" class="btn btn-default submit" value="确认">
-							<a class="reset_pass" href="#signup">修改密码</a>
-						</div>
-
-						<div class="clearfix"></div>
-
-						<div class="separator">
-							<br />
-						</div>
-					</form>
-				</section>
-			</div>
-
-			<div id="register" class="x_content animate form registration_form">
-				<section class="login_content">
-					<form action="changePasswordSubmit" method="Post"
-						class="form-horizontal form-label-left" novalidate>
-						<h1>修改 密码</h1>
-
-						<div>
-							<input type="text" class="form-control" placeholder="Username"
-							readonly="readonly"
-								th:value="${curruser.getUserId()}" name="number" required="" />
-						</div>
-
-						<div class="item form-group">
-							<label for="password" class="control-label col-md-3">旧密码</label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input id="oldpassword" type="password" name="oldpassword"
-									data-validate-length="6,8"
-									class="form-control col-md-7 col-xs-12" required="required">
-							</div>
-						</div>
-
-						<div class="item form-group">
-							<label for="password" class="control-label col-md-3">新密码</label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input id="password" type="password" name="password"
-									data-validate-length="6,8"
-									class="form-control col-md-7 col-xs-12" required="required">
-							</div>
-						</div>
-						<div class="item form-group">
-							<label for="password2"
-								class="control-label col-md-3 col-sm-3 col-xs-12">确认密码</label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input id="password2" type="password" name="password2"
-									data-validate-linked="password"
-									class="form-control col-md-7 col-xs-12" required="required">
-							</div>
-						</div>
-
-						<div class="col-md-10 ">
-							<input type="submit" class="btn btn-default submit" value="确定">
-							<button type="button" class="btn btn-default submit">返回</button>
-						</div>
-
-						<div class="clearfix"></div>
-
-						<div class="separator">
-							<div class="clearfix"></div>
-							<br />
-						</div>
-					</form>
-				</section>
 			</div>
 		</div>
 	</div>
+	<div class="copyrights text-center">
+		<p>
+			<!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+		</p>
+	</div>
+</div>
+<!-- JavaScript files-->
+<!-- ---------------------- -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	 aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">修改密码</h4>
+				<h5 class="modal-title text-success offset-2"  th:text="'ID：'+${curruser.getUserId()}">账号</h5>
+				<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
 
+			</div>
+			<!--  -->
 
-	<script src="vendor/jquery-validation/jquery.validate.js"></script>
-	<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+			<div class="bg-white ">
+				<form class="form-validate" action="changePasswordSubmit" method="Post">
+					<input readonly="readonly" hidden="hidden" th:value="${curruser.getUserId()}" name="number">
+					<input readonly="readonly" hidden="hidden" th:value="${curruser.getPassword()}" id="passwordold">
+
+					<div class="container col-7">
+						<div class="form-group">
+							<label for="password0" class="text-info">旧密码</label>
+							<input id="password0" type="text" name="password0" required equalTo="#passwordold"
+								   data-msg="密码不正确" class="input-material" minlength=3>
+						</div>
+
+						<div class="form-group">
+							<label for="password" class="text-warning">新密码</label>
+							<input id="password" type="password" name="password" required
+								   class="input-material" minlength=3>
+						</div>
+						<div class="form-group">
+							<label for="password2" class="text-warning">确认密码</label>
+							<input id="password2" type="password" name="password2" required
+								   data-msg="请确认密码" class="input-material" equalTo="#password">
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="submit" class="btn btn-primary">确认</button>
+					</div>
+				</form>
+			</div>
+
+			<!-- ---------------------- -->
+
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal -->
+</div>
+<!-- /.modal 结束 -->
+
 </body>
 </html>

@@ -5,10 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ViewController {
+
     @RequestMapping("/")
     public String index(){
         return "index";
     }
+
     @RequestMapping("/project")
     public String project(){
         return "projects";

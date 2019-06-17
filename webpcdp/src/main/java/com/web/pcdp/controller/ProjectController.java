@@ -67,7 +67,11 @@ public class ProjectController {
     //查询团队所有项目
     @GetMapping("/gproject")
     public String GetTeamAllProject(@RequestParam("team_id") int team_id,
+                                    @RequestParam("user_id") int user_id,
                                     Model model) {
+
+        model.addAttribute("user_id", user_id);
+        model.addAttribute("team_id", team_id);
 
         List<Project> gproject = null;
         gproject = projectService.findTeamAllProject(team_id);
@@ -81,6 +85,9 @@ public class ProjectController {
         else{
             model.addAttribute("gprojects", gproject);
         }
+
+        int position = projectService.findUserPosition(user_id, team_id);
+        model.addAttribute("userposition", position);
 
         return "gprojects";
     }
@@ -142,6 +149,9 @@ public class ProjectController {
         model.addAttribute("create_date", project.getCreate_date());
         model.addAttribute("note", project.getNote());
         model.addAttribute("user_id", user_id);
+
+        int position = projectService.findUserPosition(user_id, project.getTeam_id());
+        model.addAttribute("userposition", position);
 
         return "projectAdmin";
     }
