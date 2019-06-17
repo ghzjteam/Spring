@@ -50,7 +50,7 @@
 							<div class="col-md-8 col-sm-6 col-xs-12">
 								<input type="number" id="number" name="number"
 									required="required" data-validate-minmax="1,10"
-									th:value="${curruser.getUserId()}"
+									th:value="${session.login_user.getUserId()}"
 									readonly="readonly"
 									class="form-control col-md-7 col-xs-12">
 							</div>
@@ -63,7 +63,7 @@
 							<div class="col-md-8 col-sm-6 col-xs-12">
 								<input id="name" class="form-control col-md-7 col-xs-12"
 									data-validate-length-range="4" data-validate-words="2"
-									th:value="${curruser.getUserName()}" name="name"
+									th:value="${session.login_user.getUserName()}" name="name"
 									required="required" type="text"  readonly="readonly" >
 							</div>
 						</div>
@@ -73,7 +73,7 @@
 							</label>
 							<div class="col-md-8 col-sm-6 col-xs-12">
 								<input type="email" id="email" name="email" required="required"
-									th:value="${curruser.getEmail()}"
+									th:value="${session.login_user.getEmail()}"
 									class="form-control col-md-7 col-xs-12">
 							</div>
 						</div>
