@@ -5,6 +5,17 @@ import com.web.pcdp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Title: UserService.java
+
+ * Description:   UserService
+
+ * @author Guo_Jinhang
+
+ * @date 2019年6月16日
+
+ * @version 1.0
+ */
 @Service("user")
 public class UserService {
 
@@ -41,14 +52,24 @@ public class UserService {
     public void alterUser(User user){
         User newuser = user;
         userRepository.alterUser(
-                newuser.getUserId(),
                 newuser.getUserName(),
                 newuser.getPassword(),
                 newuser.getEmail(),
                 newuser.getPhoto(),
                 newuser.getPhone(),
                 newuser.getGender(),
-                newuser.getRegDate());
-    }
+                newuser.getUserId());
 
+    }
+    //修改密码
+    public void updataPassword(User user){
+        User newuser = user;
+        userRepository.updataPassword(
+                newuser.getPassword(),
+                newuser.getUserId());
+    }
+    //获得最大的ID
+    public int getNextUserID(){
+        return userRepository.findMaxUserID();
+    }
 }

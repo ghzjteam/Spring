@@ -1,124 +1,124 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>项目协作开发平台</title>
+    <title>项目协作开发平台</title>
 
-<!-- Bootstrap -->
-<link href="css/vendors/bootstrap.min.css" rel="stylesheet">
-<!-- Font Awesome -->
-<link href="css/vendors/font-awesome.min.css" rel="stylesheet">
-<!-- NProgress -->
-<link href="css/vendors/nprogress.css" rel="stylesheet">
-<!-- Animate.css -->
-<link href="css/vendors/animate.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="css/vendors/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="css/vendors/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="css/vendors/nprogress.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="css/vendors/animate.min.css" rel="stylesheet">
 
-<!-- Custom Theme Style -->
-<link href="css/vendors/custom.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="css/vendors/custom.min.css" rel="stylesheet">
 
-<link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="img/favicon.ico">
 
-<link rel="stylesheet" th:href="@{/css/login_css.css}" />
+    <link rel="stylesheet" th:href="@{/css/login_css.css}" />
 
-<script type="text/javascript"
-	th:src="@{webjars/jquery/3.0.0/jquery.min.js}"></script>
-<script type="text/javascript"
-	th:src="@{webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 
 </head>
 
 <body class="login">
-	<div>
-		<a class="hiddenanchor" id="signup"></a> <a class="hiddenanchor"
-			id="signin"></a>
+<div>
+    <a class="hiddenanchor" id="signup"></a> <a class="hiddenanchor"
+                                                id="signin"></a>
 
-		<div class="login_wrapper">
-			<div class="animate form login_form">
-				<section class="login_content">
-					<form
-						class="form-horizontal form-label-left" novalidate>
-						<h1>个人信息</h1>
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <form
+                        class="form-horizontal form-label-left" novalidate>
+                    <h1>个人信息</h1>
 
-						<div class="item form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12"
-								readonly="readonly">账号 </label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input type="number" id="number" name="number"
-									required="required" data-validate-minmax="1,10"
-									th:value="${session.login_user.getUserId()}"
-									readonly="readonly"
-									class="form-control col-md-7 col-xs-12">
-							</div>
-						</div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                               readonly="readonly">账号 </label>
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                            <input type="number" id="number" name="number"
+                                   required="required" data-validate-minmax="1,10"
+                                   th:value="${curruser.getUserId()}"
+                                   readonly="readonly"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
 
-						<div class="item form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12"
-								for="name">姓名 <span class="required">*</span>
-							</label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input id="name" class="form-control col-md-7 col-xs-12"
-									data-validate-length-range="4" data-validate-words="2"
-									th:value="${session.login_user.getUserName()}" name="name"
-									required="required" type="text"  readonly="readonly" >
-							</div>
-						</div>
-						<div class="item form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12"
-								for="email">Email <span class="required">*</span>
-							</label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input type="email" id="email" name="email" required="required"
-									th:value="${session.login_user.getEmail()}"
-									class="form-control col-md-7 col-xs-12">
-							</div>
-						</div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                               for="name">姓名 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                            <input id="name" class="form-control col-md-7 col-xs-12"
+                                   data-validate-length-range="4" data-validate-words="2"
+                                   th:value="${curruser.getUserName()}" name="name"
+                                   required="required" type="text"  readonly="readonly" >
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                               for="email">Email <span class="required">*</span>
+                        </label>
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                            <input type="email" id="email" name="email" required="required"
+                                   th:value="${curruser.getEmail()}"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
 
 
-						<div class="item form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12">性别 <span class="required">*</span>
-							</label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input type="text" name="gender"
-									   required="required" data-validate-length-range="8,20"
-									   th:value="${curruser.getGender()}"
-									   class="form-control col-md-7 col-xs-12"  readonly="readonly" >
-							</div>
-						</div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">性别 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                            <input type="text" name="gender"
+                                   required="required" data-validate-length-range="8,20"
+                                   th:value="${curruser.getGender()}"
+                                   class="form-control col-md-7 col-xs-12"  readonly="readonly" >
+                        </div>
+                    </div>
 
-						<div class="item form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12">电话 <span class="required">*</span>
-							</label>
-							<div class="col-md-8 col-sm-6 col-xs-12">
-								<input type="tel" name="phone"
-									required="required" data-validate-length-range="8,20"
-									th:value="${curruser.getPhone()}"
-									class="form-control col-md-7 col-xs-12"  readonly="readonly" >
-							</div>
-						</div>
-						
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">电话 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                            <input type="tel" name="phone"
+                                   required="required" data-validate-length-range="8,20"
+                                   th:value="${curruser.getPhone()}"
+                                   class="form-control col-md-7 col-xs-12"  readonly="readonly" >
+                        </div>
+                    </div>
 
-						<div>
-							<input type="button" onclick= "javascript:history.back(-1);" class="btn btn-default submit" value="确认返回">
-						</div>
 
-						<div class="clearfix"></div>
+                    <div>
+                        <input type="button" onclick= "javascript:history.back(-1);" class="btn btn-default submit" value="确认返回">
+                    </div>
 
-						<div class="separator">
-							<br />
-						</div>
-					</form>
-				</section>
-			</div>
+                    <div class="clearfix"></div>
 
-		</div>
-	</div>
+                    <div class="separator">
+                        <br />
+                    </div>
+                </form>
+            </section>
+        </div>
 
-	<script src="vendor/jquery-validation/jquery.validate.js"></script>
-	<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+    </div>
+</div>
+
+<script src="vendor/jquery-validation/jquery.validate.js"></script>
+<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
 </body>
 </html>

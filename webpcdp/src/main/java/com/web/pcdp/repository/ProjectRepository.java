@@ -23,6 +23,10 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     @Query(value = "select team_id from user_team where user_id =?",nativeQuery = true)
     List<Integer> findUserTeam(@Param("user_id") int id);
 
+    //查询某个用户在项目的职位
+    @Query(value = "select position from user_team where user_id = ? and team_id = ?" ,nativeQuery = true)
+    int findUserPosition(@Param("user_id") int uid, @Param("team_id") int pid);
+
     //查询团队所有项目
     @Query(value = "select * from project where team_id = ?",
             nativeQuery = true)

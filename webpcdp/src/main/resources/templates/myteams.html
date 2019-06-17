@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>项目协作开发平台</title>
+    <title>我的团队</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
@@ -59,7 +59,9 @@
                         </li>
 
                         <!-- Logout    -->
-                        <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
+                        <li class="nav-item"><a href="/login"
+                                                class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i
+                                class="fa fa-sign-out"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -72,8 +74,8 @@
             <div class="sidebar-header d-flex align-items-center">
                 <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
                 <div class="title">
-                    <h1 class="h4" id="userid" name="userid" th:text="${user_id}"></h1>
-                    <p>个人签名</p>
+                    <h1 class="h4" th:text="${session.login_user.getUserName()}"></h1>
+                    <p th:text="${session.login_user.getEmail()}">Email</p>
                 </div>
             </div>
             <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
@@ -171,7 +173,9 @@
                                                     <td th:text="${team.team_name}"></td>
                                                     <td th:text="${team.create_date}"></td>
                                                     <td>
-                                                        <a href="/groupInformation?user_id=1&team_id=1"><button>进入</button></a>
+                                                        <a
+                                                                th:href="@{'groupInformation?user_id='+${session.session_user_id}+'&team_id='+${team.team_id}}"><button>进入团队
+                                                        </button></a>
 
                                                     </td>
 
