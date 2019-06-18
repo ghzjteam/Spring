@@ -25,12 +25,6 @@
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-
-    <!-- 引入ckeditor的js -->
-    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-    <!-- 引入ckfinder的js -->
-    <script type="text/javascript" src="ckfinder/ckfinder.js"></script>
-
 </head>
 <body>
 <div class="page">
@@ -65,9 +59,7 @@
                         </li>
 
                         <!-- Logout    -->
-                        <li class="nav-item"><a href="/login"
-                                                class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i
-                                class="fa fa-sign-out"></i></a></li>
+                        <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -77,33 +69,22 @@
         <!-- Side Navbar -->
         <nav class="side-navbar">
             <!-- Sidebar Header-->
-            <a href="/settings">
-                <div class="nav-link sidebar-header d-flex align-items-center ">
-                    <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                    <div class="title">
-                        <h1 class="h4" th:text="${session.login_user.getUserName()}"></h1>
-                        <p th:text="${session.login_user.getEmail()}">Email</p>
-                    </div>
-
+            <div class="sidebar-header d-flex align-items-center">
+                <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                <div class="title">
+                    <h1 class="h4" id="userid" name="userid" th:text="${user_id}"></h1>
+                    <p>个人签名</p>
                 </div>
-            </a>
-            <!-- <div class="sidebar-header d-flex align-items-center">
-               <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-               <div class="title">
-                 <h1 class="h4">VVong Tory</h1>
-                 <p>个人签名</p>
-               </div>
-             </div>-->
-            <!-- Sidebar Navidation Menus-->
-            <span class="heading">Main</span>
+            </div>
+            <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
             <ul class="list-unstyled">
                 <li><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面 </a></li>
-                <li>
+                <li class="active">
                     <a
                             th:href="@{'projectAdmin?project_id='+${project_id}+'&user_id='+${session.session_user_id}}">
                         <i class="icon-grid"></i>信息管理</a></li>
 
-                <li class="active"> <a
+                <li> <a
                         th:href="@{'projectFile?project_id='+${project_id}+'&user_id='+${session.session_user_id}}">
                     <i class="fa fa-bar-chart"></i>文件管理
                 </a></li>
@@ -113,22 +94,113 @@
             <!-- Page Header-->
             <header class="page-header">
                 <div class="container-fluid">
-                    <h2 class="no-margin-bottom">主界面</h2>
+                    <div style="display: inline-flex">
+                        <h2 class="no-margin-bottom" style="float: left;font-size: 20px">主界面</h2>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" style="float: right;margin-left: 800px;font-size: 16px" data-toggle="modal" data-target="#myModal">
+                            新建文件夹
+                        </button>
+                    </div>
+
                 </div>
             </header>
 
-            <!-- Breadcrumb-->
-            <div class="breadcrumb-holder container-fluid">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a th:href="@{'index?user_id='+${session.session_user_id}}">主界面</a></li>
-                    <li class="breadcrumb-item active">项目文件</li>
-                </ul>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 style="float: left">新建文件夹</h1>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row text-info offset-1">
+                                <div th:each="pl: ${pathList}"><a th:text="${pl.name}">当前路径</a> <span> > </span></div>
+                                <a th:text="${currfile.name}"></a>
+                            </div>
+                            <form action="createFolder" method="post">
+                                <div class="form-group">
+                                    <label for="team_id" class="control-label">名称:</label>
+                                    <input type="text" class="form-control" id="team_id" name="team_id">
+                                </div>
+                                <div class="form-group">
+                                    <label for="note" class="control-label">备注信息:</label>
+                                    <input type="text" class="form-control" id="note" name="note">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" class="btn btn-primary">确认</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div>
+                <section class="tables">
+                    <div class="container-fluid">
+
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <div class="row col-lg-12">
+                                    <div class="col-lg-1" th:unless="${currfile.parentID}==null" ><a th:href="@{/filesystem(file_id=${currfile.parentID})}"><i>向上</i><i class="fa fa-arrow-up" ></i></a></div>
+                                    <div th:each="pl: ${pathList}"><a th:text="${pl.name}" th:href="@{/filesystem(file_id=${pl.fileID})}">当前路径</a> <span>></span></div>
+                                    <a th:text="${currfile.name}"></a>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table" id="table">
+                                                <thead>
+                                                <tr >
+                                                    <th>名称</th>
+                                                    <th>备注</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:if="${filelist.size()==0}">
+                                                    <td ><i class="fa fa-folder-o fa-lg" ></i></td>
+                                                    <td ><a th:unless="${currfile.parentID}==null" th:href="@{/filesystem(file_id=${currfile.parentID})}">上一级</a></td>
+                                                    <td ><i>这里是空的</i></td>
+                                                </tr>
+                                                <tr th:each="fs: ${filelist}">
+                                                    <td scope="row" >
+                                                        <i th:class="${fs.type=='folder'}? 'fa fa-folder fa-lg' : 'fa fa-file-o fa-1x'" class="fa fa-folder"></i>
+                                                        <a th:text="${fs.name}" th:href="@{/filesystem(file_id=${fs.fileID})}" href="/filesystem?file_id=1"></a>
+                                                    </td>
+                                                    <td th:text="${fs.type}"></td>
+                                                    <td>
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                            <i class="fa fa-cog fa-2x"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="#">复制</a></li>
+                                                            <li><a href="#">重命名</a></li>
+                                                            <li><a href="#">删除</a></li>
+                                                        </ul>
+                                                    </td>
+
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
 </div>
-
 <!-- JavaScript files-->
+
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/popper.js/umd/popper.min.js"> </script>
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -136,8 +208,6 @@
 <script src="vendor/chart.js/Chart.min.js"></script>
 <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
 <script src="js/charts-home.js"></script>
-
-
 <!-- Main File-->
 <script src="js/front.js"></script>
 </body>
