@@ -87,6 +87,7 @@
                     <li><a th:href="@{'project?user_id='+${session.session_user_id}}"> <i class="fa fa-bar-chart"></i>项目
                     </a></li>
                     <li class="active"><a href="forms.html"> <i class="icon-padnote"></i>会议 </a></li>
+                    <li><a href="code"><i class="icon-screen"></i>代码</a></li>
                 </ul>
             </nav>
             <div class="content-inner">
@@ -148,9 +149,9 @@
 
                                                                 <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"></button>
                                                                 <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow">
+                                                                    <a th:href="@{'http://localhost:8080/MeetingFile/'+${meeting.file}}" class="dropdown-item edit">下载会议文件</a>
                                                                     <a data-toggle="modal" th:attr="data-target=@{'#MyModal'+${team.team_id}+'and'+${meeting.meeting_id}}" class="dropdown-item edit">修改会议信息</a>
-                                                                    <a href="#" class="dropdown-item edit">上传会议文件</a>
-                                                                    <a href="#" class="dropdown-item edit">查看会议文件</a>
+                                                                    <a data-toggle="modal" th:attr="data-target=@{'#UploadModal'+${team.team_id}+'and'+${meeting.meeting_id}}"  class="dropdown-item edit" >上传会议文件</a>
                                                                     <a th:href="@{'DeleteMeeting?user_id=1&meeting_id='+${meeting.meeting_id}}" class="dropdown-item edit">删除会议</a>
                                                                 </div>
                                                     </td>
@@ -358,6 +359,52 @@
             </div>
         </div>
     </div>
+    </div>
+</div>
+<!-- UPLOAD -->
+<div th:each="team : ${teams}">
+    <div th:each="meeting : ${meetings}">
+        <div class="modal fade" th:id="'UploadModal'+${team.team_id}+'and'+${meeting.meeting_id}" tabindex="-1" role="dialog"  aria-labelledby="ModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" >上传会议文件</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center">
+                                    <h3 class="h4">会议文件</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form class="form-horizontal" action="upload" method="post" enctype="multipart/form-data">
+
+                                        <input type="text" name="user_id" style="display: none" th:value="${session.session_user_id}"></input>
+                                        <input type="text" name="meeting_id" style="display:none" th:value="${meeting.meeting_id}">
+
+                                        <div class="line"></div>
+
+                                        <div class="form-group row">
+                                            <input type="file" name="file">
+                                        </div>
+
+
+                                        <div class="line"></div>
+                                        <div class="form-group row">
+                                            <div style="width: 80%"></div>
+                                            <div style="width: 20%">
+                                                <button type="submit" class="btn btn-primary">提交</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
     <!-- JavaScript files-->

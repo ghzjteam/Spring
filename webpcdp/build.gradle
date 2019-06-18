@@ -3,7 +3,6 @@ plugins {
     id 'java'
 }
 
-
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.web'
@@ -12,35 +11,36 @@ sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
-    maven {
-        url = 'http://repo.maven.apache.org/maven2'
-    }
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-devtools'
 
-    implementation 'com.github.bluejoe2008:elfinder-servlet-2:1.1'
+    implementation 'org.springframework.boot:spring-boot-starter-web:1.4.0.RELEASE'
+    implementation 'com.alibaba:fastjson:1.2.15'
+    implementation 'org.apache.commons:commons-lang3:3.3.2'
+    implementation 'org.apache.commons:commons-compress:1.12'
+    implementation 'commons-fileupload:commons-fileupload:1.3.1'
+    implementation 'org.webjars:angularjs:1.5.0'
+    implementation 'org.webjars:angular-translate:2.9.1'
+    implementation 'org.webjars:ng-file-upload:12.0.1'
+    implementation 'org.webjars:jquery:2.2.0'
+    implementation 'org.webjars:bootstrap:3.3.6'
+    implementation 'org.webjars:bootswatch-paper:3.3.5+4'
+    implementation 'com.github.junrar:junrar:0.7'
+
+
+    implementation 'org.springframework.book:spring-boot-starter-parent:1.4.0.RELEASE'
 
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    compile 'org.springframework.boot:spring-boot-starter-web:1.4.0.RELEASE'
-    compile 'com.alibaba:fastjson:1.2.15'
-    compile 'org.apache.commons:commons-lang3:3.3.2'
-    compile 'org.apache.commons:commons-compress:1.12'
-    compile 'commons-fileupload:commons-fileupload:1.3.1'
-    compile 'org.webjars:angularjs:1.5.0'
-    compile 'org.webjars:angular-translate:2.9.1'
-    compile 'org.webjars:ng-file-upload:12.0.1'
-    compile 'org.webjars:jquery:2.2.0'
-    compile 'org.webjars:bootstrap:3.3.6'
-    compile 'org.webjars:bootswatch-paper:3.3.5+4'
-    compile 'com.github.junrar:junrar:0.7'
-    testCompile 'org.springframework.boot:spring-boot-starter-test:1.4.0.RELEASE'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:1.4.0.RELEASE'
+
 }
 
 group = 'org.shaofan'

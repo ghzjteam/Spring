@@ -28,3 +28,9 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+
+# Created by .ignore support plugin (hsz.mobi)
+.idea
+*.iml
+node_modules
+target/
