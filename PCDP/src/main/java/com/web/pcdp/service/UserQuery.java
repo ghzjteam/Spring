@@ -6,18 +6,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.web.pcdp.entity.Users;
-import com.web.pcdp.repository.UsersRepository;
+import com.web.pcdp.entity.User;
+import com.web.pcdp.repository.UserRepository;
 @Service
-public class UsersQuery {
+public class UserQuery {
 	@Autowired
-	UsersRepository usersRepository;
+	UserRepository usersRepository;
 	
-	public List<Users> findAll() {
-		List<Users> ul = new ArrayList<>();
+	public List<User> findAll() {
+		List<User> ul = new ArrayList<>();
 		usersRepository.findAll();
-		Iterable<Users> ui = usersRepository.findAll();
-		for(Users item :ui) {
+		Iterable<User> ui = usersRepository.findAll();
+		for(User item :ui) {
 			System.out.println(item.getUserId());
 		}
 		return ul;

@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 @Entity
-public class Teams {
+public class Team {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int teamId;

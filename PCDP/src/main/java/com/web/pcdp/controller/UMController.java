@@ -1,8 +1,8 @@
 package com.web.pcdp.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,26 +11,38 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.web.pcdp.Preferences;
-import com.web.pcdp.entity.Teams;
-import com.web.pcdp.entity.Users;
-import com.web.pcdp.repository.TeamsRepository;
-import com.web.pcdp.repository.UsersRepository;
+import com.web.pcdp.entity.User;
+import com.web.pcdp.repository.TeamRepository;
+import com.web.pcdp.repository.UserRepository;
+/**
+* Title: UMController.java 
 
+* Description:   
+
+* @author Guo_Jinhang  
+
+* @date 2019年6月13日  
+
+* @version 1.0  
+ */
 @Controller
 public class UMController {
 	@Autowired
-	UsersRepository userRepository;
+	UserRepository userRepository;
 	
 	@Autowired
-	TeamsRepository teamsRepository;
+	TeamRepository teamsRepository;
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpSession session) {
+		session.removeAttribute("currLoginUser");
+		
 		return "login";
 	}
 	@GetMapping("/settings")
-	public String settings(Model model) {
-		Optional<Users> oUser = userRepository.findById(1);
+	public String settings(Model model,HttpSession session) {
+		User users =(User) session.getAttribute("currLoginUser");
+		Optional<User> oUser = userRepository.findById(users.getUserId());
 		if(oUser.isPresent()) {
 			model.addAttribute("curruser", oUser.get());
 		}
@@ -38,18 +50,19 @@ public class UMController {
 		return "settings";
 	}
 	@PostMapping("/loginSubmit")
-	public String loginSubmit(String id,String password,Model model) {
+	public String loginSubmit(String id,String password,Model model,HttpSession session) {
 		System.out.println(id +"=" +password);
 		String message = "";
 		int idnum = -1;
 		boolean success = false;
-		Users users = new Users();
+		User users = new User();
 		try {
 			idnum = Integer.parseInt(id);
-			Optional<Users> oUser = userRepository.findById(idnum);
+			Optional<User> oUser = userRepository.findById(idnum);
 			if(oUser.isPresent()) {
 				if(password.equals(oUser.get().getPassword())) {
 					users = oUser.get();
+					session.setAttribute("currLoginUser", users);
 					success = true;
 				}
 				else {
@@ -78,7 +91,7 @@ public class UMController {
 	@PostMapping("/registerSubmit")
 	public String registerSubmit(String number,String name,String password,String email,String phone,String gender,Model model) {
 		String message = "";
-		Users user = new Users();
+		User user = new User();
 		boolean flag = false;
 		try {
 			int idnum = Integer.parseInt(number);
@@ -92,7 +105,7 @@ public class UMController {
 			user.setPhoto(Preferences.DEFAULT_PHOTO);
 			
 			System.out.println(user.toString());
-			Optional<Users> oUser = userRepository.findById(idnum);
+			Optional<User> oUser = userRepository.findById(idnum);
 			if(!oUser.isPresent()) {
 				userRepository.save(user);
 				flag = true;
@@ -117,12 +130,12 @@ public class UMController {
 	@PostMapping("/settingsSubmit")
 	public String settingsSubmit(String number,String name,String email,String phone,String gender,Model model) {
 		String message = "";
-		Users user = new Users();
+		User user = new User();
 		boolean flag = false;
 		try {
 			int idnum = Integer.parseInt(number);
 			user.setUserId(idnum);
-			Optional<Users> oUser = userRepository.findById(idnum);
+			Optional<User> oUser = userRepository.findById(idnum);
 			user=oUser.get();
 			user.setUserName(name);
 			user.setEmail(email);
@@ -148,12 +161,14 @@ public class UMController {
 	
 	@PostMapping("/changePasswordSubmit")
 	public String changePasswordSubmit(String number,String password,Model model) {
+		
+		System.out.println(number+"+"+password);
 		String message = "";
-		Users user = new Users();
+		User user = new User();
 		boolean flag = false;
 		try {
 			int idnum = Integer.parseInt(number);
-			Optional<Users> oUser = userRepository.findById(idnum);
+			Optional<User> oUser = userRepository.findById(idnum);
 			user = oUser.get();
 			user.setPassword(password);
 			System.out.println(user.toString());
@@ -170,39 +185,10 @@ public class UMController {
 			 e.printStackTrace();
 		}
 		System.out.println(message);
-
-		model.addAttribute("id", number);
+	
+		if(user!=null) {
+			model.addAttribute("curruser", user);
+		}
 		return "settings";
 	}
-	@GetMapping("/allteams")
-    public String allteams(Model model) {
-		List<Teams> ul = new ArrayList<>();
-
-		teamsRepository.findAll();
-		Iterable<Teams> ui = teamsRepository.findAll();
-		if(ui != null) {
-			for(Teams item :ui) {
-				ul.add(item);
-				System.out.println(item.getTeamId());
-			}
-		}
-		model.addAttribute("list", ul);
-    	return "query2";
-    }
-	@GetMapping("/allusers")
-    public String all(Model model) {
-    	
-		Iterable<Users> all = userRepository.findAll();
-		
-		List<Users> userList = new ArrayList<Users>();
-		if (all != null) {
-			for (Users item : all) {
-				String src = item.getPhoto();
-				item.setPhoto(Preferences.EXTERNAL_PATH+Preferences.HEAD_IMG_PATH+src);
-				userList.add(item);
-			}
-		}
-		model.addAttribute("userList", userList);
-    	return "query";
-    }
 }

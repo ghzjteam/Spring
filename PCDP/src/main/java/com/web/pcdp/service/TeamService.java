@@ -8,29 +8,29 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.web.pcdp.entity.Teams;
-import com.web.pcdp.repository.TeamsRepository;
+import com.web.pcdp.entity.Team;
+import com.web.pcdp.repository.TeamRepository;
 @Service
-public class TeamsService {
+public class TeamService {
 	@Autowired
-	TeamsRepository teamsRepository;
-	public List<Teams> findAll() {
-		List<Teams> ul = new ArrayList<>();
+	TeamRepository teamsRepository;
+	public List<Team> findAll() {
+		List<Team> ul = new ArrayList<>();
 		
 		
 		teamsRepository.findAll();
-		Iterable<Teams> ui = teamsRepository.findAll();
-		for(Teams item :ui) {
+		Iterable<Team> ui = teamsRepository.findAll();
+		for(Team item :ui) {
 			System.out.println(item.getTeamId());
 		}
 		return ul;
 	}
 	@Transactional
 	public void save() {
-		Teams t = new Teams();
+		Team t = new Team();
 		t.setTeamId(4);
 		t.setNote("fefew");
-		t.setTeamName("ÍõÕß");
+		t.setTeamName("ï¿½ï¿½ï¿½ï¿½");
 		teamsRepository.save(t);
 	}
 }
