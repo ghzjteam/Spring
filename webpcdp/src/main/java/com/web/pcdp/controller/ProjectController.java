@@ -7,6 +7,7 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.*;
 import java.text.*;
 import java.util.*;
 
@@ -22,6 +23,21 @@ public class ProjectController {
     private TeamService teamService;
 
     private Date date;
+
+    @RequestMapping("/fileManage")
+    public String fileManage(@RequestParam("project_id") int project_id,
+                             @RequestParam("position") int position,
+                             HttpServletRequest request, Model model) {
+
+        model.addAttribute("project_id", project_id);
+        model.addAttribute("position", position);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("project_id", project_id);
+        session.setAttribute("position", position);
+
+        return "fileManage";
+    }
 
     //根据id查询项目
     @GetMapping("/findProjectById")

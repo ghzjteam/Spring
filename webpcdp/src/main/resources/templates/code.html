@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:height="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>在线代码对比、代码比较、代码合并</title>
@@ -12,9 +13,16 @@
   <![endif]-->
 </head>
 <body>
+<div class="ToIndex">
+  <a th:href="@{'index?user_id='+${session.session_user_id}}">
+    <button class="btn btn-primary" style="width:100px; height:50px; margin:5px;">返回</button>
+  </a>
+</div>
+
 <div id="mainContent" class="wrapper" style="margin-left:400px">
   <div class="toolName">代码对比、代码比较、代码合并</div>
-  <div>
+
+  <div style="margin-top:10px;">
     <form class="form-inline well" style="margin:10px 0 0 0;">
       <div style="float:left;">
         <label>选择第一个文件：</label>
@@ -42,7 +50,8 @@
       </div>
     </form>
   </div>
-  <div style="display: block; width: 1000px; height: 853px; margin-bottom:80px" id="diff" class="toolUsing"></div>
+  <div style="display: block; width: 1000px; height: 700px; margin-bottom:80px" id="diff" class="toolUsing"></div>
+
 </div>
 <script type="text/javascript" src="js/jquery-1.js"></script>
 <script type="text/javascript" src="js/codemirror.js"></script>

@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CodeController {
@@ -18,6 +17,11 @@ public class CodeController {
 
     @GetMapping("/code")
     public String code(){
+        return "code";
+    }
+
+    @RequestMapping("/compare")
+    public String compare() {
         return "code";
     }
 }

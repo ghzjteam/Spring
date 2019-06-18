@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 会议service类
+ **/
+
+
 @Service("meeting")
 public class MeetingService {
     @Autowired
@@ -38,17 +43,7 @@ public class MeetingService {
         }
     }
 
-    //查询用户的所有团队的id
-    public List<Integer> findUserTeam(int user_id){
-        List<Integer> team = null;
-        team = meetingRepository.findUserTeam(user_id);
-        if (team==null){
-            return null;
-        }
-        else {
-            return team;
-        }
-    }
+
 
     //删除会议
     public void  deleteMeeting(int meeting_id){
@@ -56,17 +51,20 @@ public class MeetingService {
         //System.out.println("成功删除"+meeting_id);
     }
 
-    //添加会议
     public void insertMeeting(int team_id,String meeting_name,String note,String type,String file,String start_date,String place){
         meetingRepository.insertMeeting(team_id,meeting_name,note,type,file,start_date,place);
         //System.out.println("成功添加" + team_id + "||" + meeting_name);
     }
 
-    //修改会议信息
     public void updateMeeting(String meeting_name,String type,String place,String note,String start_date,int meeting_id){
         meetingRepository.updateMeeting(meeting_name,type,place,note,start_date,meeting_id);
         //System.out.println("成功修改" + meeting_name);
     }
+
+    public void updateMeetingFile(String file,int meeting_id){
+        meetingRepository.updateMeetingFile(file,meeting_id);
+    }
+
 
 
 }

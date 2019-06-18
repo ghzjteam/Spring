@@ -4,6 +4,7 @@ import com.web.pcdp.domain.Team;
 import com.web.pcdp.domain.User;
 import com.web.pcdp.domain.Teamposition;
 import com.web.pcdp.domain.User_team;
+import com.web.pcdp.repository.TeamRepository;
 import com.web.pcdp.service.TeamService;
 import com.web.pcdp.service.UserService;
 import com.web.pcdp.service.UserTeamService;
@@ -110,7 +111,7 @@ public class TeamController {
             //System.out.println(team_id+"\t"+team_name+"\t"+note+"\t"+date);
             teamService.insertTeam(team_id,team_name,note,date);
             teamService.insertUser_Team(create_user_id,team_id,0);
-            return "redirect:/team?user_id="+create_user_id;
+            return "redirect:/team?user_id=1";
         }
 
 
@@ -164,6 +165,21 @@ public class TeamController {
 
 //            users.add(user);
 //            System.out.println(users.get(i).toString());
+        }
+
+
+        Teamposition teamposition0 = new Teamposition();
+        Teamposition teamposition1 = new Teamposition();
+
+        teamposition1 = teampositions.get(0);
+        // 将队长设置置顶
+        for(int i=0;i<teampositions.size();i++){
+            if(teampositions.get(i).getUser_position() == "队长"){
+                teamposition0 = teampositions.get(i);
+                teampositions.set(i,teamposition1);
+                teampositions.set(0,teamposition0);
+                break;
+            }
         }
 
 
