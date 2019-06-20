@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static com.web.pcdp.constant.Preferences.MeetingFile_PATH;
+import static com.web.pcdp.config.Preferences.MeetingFile_PATH;
 
 @Controller
 public class MeetingController {
@@ -58,14 +58,14 @@ public class MeetingController {
 
     //删除会议 用的重定向 拼接地址
     @GetMapping("/DeleteMeeting")
-    public String DeleteMeeting(@RequestParam("user_id") int user_id,@RequestParam("meeting_id") int meeting_id){
+    public String deleteMeeting(@RequestParam("user_id") int user_id,@RequestParam("meeting_id") int meeting_id){
         meetingService.deleteMeeting(meeting_id);
         return "redirect:/GroupMeeting?user_id=" + user_id;
     }
 
 
     @PostMapping("/InsertMeeting")
-    public String InsertMeeting(@RequestParam("user_id") int user_id,
+    public String insertMeeting(@RequestParam("user_id") int user_id,
                                 @RequestParam("team_id") int team_id,
                                 @RequestParam("meeting_name") String meeting_name,
                                 @RequestParam("note") String note,
@@ -73,13 +73,12 @@ public class MeetingController {
                                 //@RequestParam("file") String file,
                                 @RequestParam("start_date") String start_date,
                                 @RequestParam("place") String place){
-        //System.out.println("From form:"+team_id+"|"+meeting_name+"|"+note+"|"+type+"|"+start_date+"|"+place);
         meetingService.insertMeeting(team_id,meeting_name,note,type,null,start_date,place);
         return "redirect:/GroupMeeting?user_id=" + user_id;
     }
 
     @PostMapping("/UpdateMeeting")
-    public String UpdateMeeting(@RequestParam("user_id") int user_id,
+    public String updateMeeting(@RequestParam("user_id") int user_id,
                                 @RequestParam("meeting_name") String meeting_name,
                                 @RequestParam("type") String type,
                                 @RequestParam("place") String place,
@@ -91,34 +90,30 @@ public class MeetingController {
     }
 
     @GetMapping("/GroupMeeting")
-    public String GroupMeeting(@RequestParam("user_id") int user_id,Model model){
+    public String groupMeeting(@RequestParam("user_id") int user_id,Model model){
 
         List<User_team> user_teamList = null;
         user_teamList = userTeamService.findPosition(user_id);
-        System.out.println(user_teamList.get(0).getTeam_id());
-        System.out.println(user_teamList.get(1).getTeam_id());
         model.addAttribute("user_teamLists",user_teamList);
 
-        List<Meeting> meeting=null;
-        meeting = meetingService.findUserAllMeeting(user_id);
+
 
         List<Integer> teamid = null;
         teamid = userTeamService.findUserTeam(user_id);
         model.addAttribute("teamids",teamid);
-        //System.out.println("team->"+team.get(0));
 
         List<Team> team =null;
         team = teamService.findUserAllTeam(user_id);
         model.addAttribute("teams",team);
 
+        List<Meeting> meeting=null;
+        meeting = meetingService.findUserAllMeeting(user_id);
 
         if(meeting == null){
             System.out.println("meeting is null");
         }
         else{
             model.addAttribute("meetings",meeting);
-            //System.out.println("name"+meeting.get(0).getMeeting_name());
-            //System.out.println("name"+meeting.get(1).getMeeting_name());
         }
         return "meetings";
     }
