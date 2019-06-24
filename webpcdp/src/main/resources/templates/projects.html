@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>项目协作开发平台</title>
+    <title>项目管理</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
+    <link rel="stylesheet" href="vendor/bootstrap/css/meeting.css">
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
@@ -28,81 +29,146 @@
 <body>
 <div class="page">
     <!-- Main Navbar-->
-    <header class="header">
-        <nav class="navbar">
-            <!-- Search Box-->
-            <div class="search-box">
-                <button class="dismiss"><i class="icon-close"></i></button>
-                <form id="searchForm" action="#" role="search">
-                    <input type="search" placeholder="What are you looking for..." class="form-control">
-                </form>
-            </div>
-            <div class="container-fluid">
-                <div class="navbar-holder d-flex align-items-center justify-content-between">
-                    <!-- Navbar Header-->
-                    <div class="navbar-header">
-                        <!-- Navbar Brand --><a href="index.html" class="navbar-brand d-none d-sm-inline-block">
-                        <div class="brand-text d-none d-lg-inline-block"><span>项目协作开发平台</span></div>
-                        <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div></a>
-                        <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+    <div class="page">
+        <!-- Main Navbar-->
+        <header class="header">
+            <nav class="navbar">
+                <!-- Search Box-->
+                <div class="search-box">
+                    <button class="dismiss"><i class="icon-close"></i></button>
+                    <form id="searchForm" action="#" role="search">
+                        <input type="search" placeholder="What are you looking for..." class="form-control">
+                    </form>
+                </div>
+                <div class="container-fluid">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between">
+                        <!-- Navbar Header-->
+                        <div class="navbar-header">
+                            <!-- Navbar Brand --><a href="/" class="navbar-brand d-none d-sm-inline-block">
+                            <div class="brand-text d-none d-lg-inline-block"><span>项目协作开发平台</span></div>
+                            <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div></a>
+                            <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                        </div>
+                        <!-- Navbar Menu -->
+                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                            <!-- Notifications-->
+                            <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell-o"></i><span class="badge bg-red badge-corner">1</span></a>
+
+                            </li>
+                            <!-- Messages                        -->
+                            <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope-o"></i><span class="badge bg-orange badge-corner">2</span></a>
+
+                            </li>
+
+                            <!-- Logout    -->
+                            <li class="nav-item"><a href="/login"
+                                                    class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i
+                                    class="fa fa-sign-out"></i></a></li>
+                        </ul>
                     </div>
-                    <!-- Navbar Menu -->
-                    <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                        <!-- Notifications-->
-                        <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell-o"></i><span class="badge bg-red badge-corner">1</span></a>
-
-                        </li>
-                        <!-- Messages                        -->
-                        <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope-o"></i><span class="badge bg-orange badge-corner">2</span></a>
-
-                        </li>
-
-                        <!-- Logout    -->
-                        <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
+                </div>
+            </nav>
+        </header>
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+                <div class="sidebar-header d-flex align-items-center">
+                    <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                    <div class="title">
+                        <h1 class="h4" th:text="${session.login_user.getUserName()}"></h1>
+                        <p th:text="${session.login_user.getEmail()}">Email</p>
+                    </div>
+                </div>
+                <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+                <ul class="list-unstyled">
+                    <li><a th:href="@{'index?user_id=1'}"> <i class="icon-home"></i>主界面 </a></li>
+                    <li><a th:href="@{'team?user_id=1'}"><i class="icon-grid"></i>团队 </a></li>
+                    <li class="active"><a th:href="@{'project?user_id=1'}"> <i
+                            class="fa fa-bar-chart"></i>项目
+                    </a></li>
+                    <li><a th:href="@{'GroupMeeting?user_id=1'}" > <i class="icon-padnote">
+                    </i>会议 </a></li>
+                    <li><a href="code" target="_blank"><i class="icon-screen"></i>代码</a></li>
+                </ul>
+            </nav>
+            <div class="content-inner">
+                <!-- Page Header-->
+                <header class="page-header">
+                    <div class="container-fluid">
+                        <h2 class="no-margin-bottom">项目</h2>
+                    </div>
+                </header>
+                <!-- Breadcrumb-->
+                <div class="breadcrumb-holder container-fluid">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{'index?user_id='+${session.session_user_id}}">主界面</a></li>
+                        <li class="breadcrumb-item active">个人项目</li>
                     </ul>
                 </div>
+
+                <section class="tables">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div th:each="team : ${teams}" class="col-lg-12">
+                                <div class="card">
+
+                                    <div class="card-header d-flex align-items-center">
+
+                                        <div style="width: 90% ">
+                                            <h3 th:text="${team.team_name}" class="h4"></h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr >
+                                                    <th>项目ID</th>
+                                                    <th>项目名称</th>
+                                                    <th>团队ID</th>
+                                                    <th>创建时间</th>
+                                                    <th>注释</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="project : ${projects}">
+                                                    <th th:if="${team.team_id==project.team_id}"
+                                                        th:text="${project.project_id}" scope="row"></th>
+                                                    <td th:if="${team.team_id==project.team_id}"
+                                                        th:text="${project.project_name}"></td>
+                                                    <td th:if="${team.team_id==project.team_id}"
+                                                        th:text="${project.team_id}"></td>
+                                                    <td th:if="${team.team_id==project.team_id}"
+                                                        th:text="${project.create_date}"></td>
+                                                    <td th:if="${team.team_id==project.team_id}"
+                                                        th:text="${project.note}"></td>
+
+                                                    <td th:if="${team.team_id==project.team_id}">
+
+                                                        <a
+                                                                th:href="@{'projectAdmin?project_id='+${project.project_id}+'&user_id='+${session.session_user_id}}">
+                                                        <button type="button">
+                                                            进入项目</button></a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
             </div>
-        </nav>
-    </header>
-    <div class="page-content d-flex align-items-stretch">
-        <!-- Side Navbar -->
-        <nav class="side-navbar">
-            <!-- Sidebar Header-->
-            <div class="sidebar-header d-flex align-items-center">
-                <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                <div class="title">
-                    <h1 class="h4">VVong Tory</h1>
-                    <p>个人签名</p>
-                </div>
-            </div>
-            <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
-            <ul class="list-unstyled">
-                <li><a href="index.html"> <i class="icon-home"></i>主界面 </a></li>
-                <li><a href="tables.html"> <i class="icon-grid"></i>团队信息 </a></li>
-                <li class="active"><a href="charts.html"> <i class="fa fa-bar-chart"></i>项目信息 </a></li>
-
-            </ul>
-
-        </nav>
-        <div class="content-inner">
-            <!-- Page Header-->
-            <header class="page-header">
-                <div class="container-fluid">
-                    <h2 class="no-margin-bottom">主界面</h2>
-                </div>
-            </header>
-            <!-- Breadcrumb-->
-            <div class="breadcrumb-holder container-fluid">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">主界面</a></li>
-                    <li class="breadcrumb-item active">项目信息           </li>
-                </ul>
-            </div>
-
-
         </div>
+
     </div>
 </div>
+
 <!-- JavaScript files-->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/popper.js/umd/popper.min.js"> </script>
@@ -110,7 +176,6 @@
 <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
 <script src="vendor/chart.js/Chart.min.js"></script>
 <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
-<script src="js/charts-home.js"></script>
 <!-- Main File-->
 <script src="js/front.js"></script>
 </body>

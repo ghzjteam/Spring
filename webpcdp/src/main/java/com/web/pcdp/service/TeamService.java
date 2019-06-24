@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 会议service类
+ **/
+
 @Service("team")
 public class TeamService {
 
@@ -51,15 +55,20 @@ public class TeamService {
     }
 
     //修改团队信息
-    public void updateteam(String team_name,String note,int team_id){
-        teamRepository.updateteam(team_name,note,team_id);
+    public void updateTeam(String team_name,String note,int team_id){
+        teamRepository.updateTeam(team_name,note,team_id);
     }
 
     //获取最大team_id
-    public int maxteam_id(){
-        int maxteam_id = teamRepository.selectmaxteam_id();
+    public int MaxTeam_id(){
+        int maxteam_id = teamRepository.selectMaxTeam_id();
 
         return maxteam_id;
+    }
+
+    //删除团队
+    public void deleteTeam(int team_id){
+        teamRepository.deleteTeam(team_id);
     }
 
 

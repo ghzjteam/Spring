@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bootstrap Material Admin by Bootstrapious.com</title>
+    <title>会议管理</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
@@ -61,7 +61,7 @@
                             </li>
 
                             <!-- Logout    -->
-                            <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
+                            <li class="nav-item"><a href="/login" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -71,19 +71,25 @@
             <!-- Side Navbar -->
             <nav class="side-navbar">
                 <!-- Sidebar Header-->
-                <div class="sidebar-header d-flex align-items-center">
-                    <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                    <div class="title">
-                        <h1 class="h4">VVong Tory</h1>
-                        <p>个人签名</p>
+                <a href="/settings">
+                    <div class="nav-link sidebar-header d-flex align-items-center ">
+                        <div class="avatar">
+                            <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle" />
+                        </div>
+                        <div class="title">
+                            <h1 class="h4" th:text="${session.login_user.getUserName()}"></h1>
+                            <p th:text="${session.login_user.getEmail()}">Email</p>
+                        </div>
+
                     </div>
-                </div>
+                </a>
                 <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
                 <ul class="list-unstyled">
                     <li><a th:href="@{'index?user_id='+${session.session_user_id}}"> <i class="icon-home"></i>主界面 </a></li>
                     <li><a th:href="@{'team?user_id='+${session.session_user_id}}"> <i class="icon-grid"></i>团队 </a></li>
-                    <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>项目 </a></li>
-                    <li class="active"><a href="forms.html"> <i class="icon-padnote"></i>会议 </a></li>
+                    <li><a th:href="@{'project?user_id='+${session.session_user_id}}"> <i class="fa fa-bar-chart"></i>项目</a></li>
+                    <li class="active"><a th:href="@{'GroupMeeting?user_id='+${session.session_user_id}}" > <i class="icon-padnote"></i>会议 </a></li>
+                    <li><a href="code" target="_blank"><i class="icon-screen"></i>代码</a></li>
                 </ul>
             </nav>
             <div class="content-inner">
@@ -128,11 +134,12 @@
                                             <table class="table">
                                                 <thead>
                                                 <tr >
-                                                    <th>序号ID</th>
+                                                    <th>序号</th>
                                                     <th>会议名称</th>
                                                     <th>会议类型</th>
                                                     <th>会议时间</th>
                                                     <th>会议地点</th>
+                                                    <th>会议文件</th>
                                                     <th>备注信息</th>
 
                                                     <th>操作</th>
@@ -140,11 +147,13 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr th:each="meeting : ${meetings}">
-                                                    <th th:if="${team.team_id==meeting.team_id}" th:text="${meeting.meeting_id}" scope="row"></th>
+                                                    <td th:if="${team.team_id==meeting.team_id}" th:text="${meetingStat.index+1}"></td>
+                                                    <td th:if="${team.team_id==meeting.team_id}" style="display: none" th:text="${meeting.meeting_id}"></td>
                                                     <td th:if="${team.team_id==meeting.team_id}" th:text="${meeting.meeting_name}"></td>
                                                     <td th:if="${team.team_id==meeting.team_id}" th:text="${meeting.type}"></td>
                                                     <td th:if="${team.team_id==meeting.team_id}" th:text="${meeting.start_date}"></td>
                                                     <td th:if="${team.team_id==meeting.team_id}" th:text="${meeting.place}"></td>
+                                                    <td th:if="${team.team_id==meeting.team_id}" th:text="${meeting.file}"></td>
                                                     <td th:if="${team.team_id==meeting.team_id}" th:text="${meeting.note}"></td>
 
                                                     <td th:if="${team.team_id==meeting.team_id}">
@@ -156,7 +165,7 @@
                                                                         <div th:if="${team.team_id==list.team_id&&list.position<2}">
                                                                         <a data-toggle="modal" th:attr="data-target=@{'#MyModal'+${team.team_id}+'and'+${meeting.meeting_id}}" class="dropdown-item edit">修改会议信息</a>
                                                                         <a data-toggle="modal" th:attr="data-target=@{'#UploadModal'+${team.team_id}+'and'+${meeting.meeting_id}}"  class="dropdown-item edit" >上传会议文件</a>
-                                                                        <a th:href="@{'DeleteMeeting?user_id=1&meeting_id='+${meeting.meeting_id}}" class="dropdown-item edit">删除会议</a>
+                                                                        <a th:href="@{'DeleteMeeting?user_id='+${session.session_user_id}+'&meeting_id='+${meeting.meeting_id}}" class="dropdown-item edit">删除会议</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>

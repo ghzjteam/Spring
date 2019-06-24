@@ -10,6 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
+/**
+ * 会议JPA接口
+ **/
+
 @Repository
 public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
 
@@ -20,10 +25,6 @@ public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
     //查询某用户所有团队的会议
     @Query(value = "select * from meeting  where team_id in(select team_id from user_team where user_id=?)",nativeQuery = true)
     List<Meeting> findUserAllMeeting(@Param("user_id") int id);
-
-
-
-
 
     //根据meeting_Id 删除会议信息
     @Modifying
@@ -54,6 +55,7 @@ public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
                        @Param("start_date") String start_date,
                        @Param("meeting_id") int meeting_id);
 
+    //上传文件时将数据库存取的字段更新
     @Modifying
     @Transactional
     @Query(value = "UPDATE meeting SET file=? WHERE meeting_id=?;",nativeQuery = true)

@@ -1,10 +1,10 @@
-package com.web.pcdp.constant;
+package com.web.pcdp.config;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Preferences {
-	public static String MeetingFile_PATH ="D:\\IdeaProjects\\webpcdp\\src\\main\\resources\\static\\MeetingFile\\";
+	public static String MeetingFile_PATH = "D:\\webpcdp\\src\\main\\resources\\static\\MeetingFile\\";
 	public static String EXTERNAL_PATH = "D:/TheCache/TEMP/PCDP";
 	public static String HEAD_IMG_PATH = "/images/head_img/";
 	public static String DEFAULT_PHOTO = "head.png";

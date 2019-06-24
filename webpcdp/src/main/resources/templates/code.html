@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:height="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>代码整合</title>
+  <meta name="keywords" content="代码对比,代码比较,代码合并">
+  <meta name="description" content="代码对比,代码比较,代码合并-WEB前端开发-关注常见的WEB前端开发问题、最新的WEB前端开发技术(webApp开发、移动网站开发)、最好的WEB前端开发工具和最全的WEB前端开发w3cschool手册">
+  <link href="/wp-content/uploads/2012/11/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+  <link rel="stylesheet" href="css/basic.css" type="text/css">
+  <!--[if lte IE 8]>
+  <script src="http://www.css119.com/iehtml5.js"></script>
+  <![endif]-->
+</head>
+<body>
+
+<div id="mainContent" class="wrapper" style="margin-left:120px;">
+  <div class="toolName">代码对比、代码比较、代码合并</div>
+
+  <div style="margin-top:10px;">
+    <form class="form-inline well" style="margin:10px 0 0 0;">
+      <div style="float:left;">
+        <label>选择第一个文件：</label>
+        <input id="file1" onchange="leftFileSelect(this.files)" single="" type="file">
+        <label>编码：</label>
+        <select id="l_encode" value="UTF-8" class="span1" onchange="setLeftCode();">
+          <option selected="selected" value="UTF-8">UTF-8</option>
+          <option value="GBK">GBK</option>
+          <option value="GB2312">GB2312</option>
+          <option value="GB18030">GB18030</option>
+          <option value="ISO-8859-2">ISO-8859-2</option>
+        </select>
+      </div>
+      <div style="float:right;">
+        <label>选择第二个文件：</label>
+        <input id="file2" onchange="rightFileSelect(this.files)" single="" type="file">
+        <label>编码：</label>
+        <select id="r_encode" value="UTF-8" class="span1" onchange="setRightCode();">
+          <option selected="selected" value="UTF-8">UTF-8</option>
+          <option value="GBK">GBK</option>
+          <option value="GB2312">GB2312</option>
+          <option value="GB18030">GB18030</option>
+          <option value="ISO-8859-2">ISO-8859-2</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div style="display: block; width: 1000px; height: 700px; margin-bottom:80px" id="diff" class="toolUsing"></div>
+
+</div>
+<script type="text/javascript" src="js/jquery-1.js"></script>
+<script type="text/javascript" src="js/codemirror.js"></script>
+<script type="text/javascript" src="js/mergely.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>
