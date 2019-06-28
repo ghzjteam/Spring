@@ -1,7 +1,10 @@
 package com.web.pcdp.domain;
 
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 @Entity
 public class FileSystem {
 	@Id
@@ -18,12 +21,21 @@ public class FileSystem {
 	public FileSystem() {
 		super();
 	}
+	public FileSystem(String name, String type, String parentID, String note) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.parentID = parentID;
+		this.note = note;
+	}
+	
 	public String getFileID() {
 		return fileID;
 	}
 	public void setFileID(String fileID) {
 		this.fileID = fileID;
 	}
+
 	public String getName() {
 		return name;
 	}

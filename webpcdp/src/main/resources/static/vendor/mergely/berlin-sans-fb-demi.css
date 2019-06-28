@@ -1,0 +1,6 @@
+@font-face
+{
+	font-family: BerlinSansFBDemi;
+	src: url("BRLNSDB.TTF"/*tpa=http://www.mergely.com/fonts/BRLNSDB.TTF*/), url("BRLNSDB.EOT"/*tpa=http://www.mergely.com/fonts/BRLNSDB.EOT*/); /* IE9 */
+	font-weight:400;
+}

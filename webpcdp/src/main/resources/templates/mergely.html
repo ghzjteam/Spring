@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8" />
+<title>代码差异合并</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="shortcut icon" href="img/favicon.ico">
+
+<script type="text/javascript" src="vendor/mergely/jquery-1.8.2.js"></script>
+<script type="text/javascript" src="vendor/mergely/jquery-ui.min.js"></script>
+<link type="text/css" rel="stylesheet"
+	href="vendor/mergely/jquery-ui-1.10.1.custom.css" />
+
+<link type='text/css' rel='stylesheet'
+	href="vendor/mergely/wicked-ui.css" />
+<script type="text/javascript" src="vendor/mergely/wicked-ui.js"></script>
+<script type="text/javascript" src="vendor/mergely/jquery.tipsy.js"></script>
+
+<link type='text/css' rel='stylesheet' href="vendor/mergely/tipsy.css" />
+
+<script type="text/javascript" src="vendor/mergely/codemirror.min.js"></script>
+<script type="text/javascript" src="vendor/mergely/mergely.min.js"></script>
+
+<link type="text/css" rel="stylesheet"
+	href="vendor/mergely/codemirror.css" />
+<link type="text/css" rel="stylesheet" href="vendor/mergely/mergely.css" />
+<link type='text/css' rel='stylesheet' href="vendor/mergely/editor.css" />
+<script type="text/javascript" src="vendor/mergely/searchcursor.js"></script>
+
+
+<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="vendor/font-awesome/css/font-awesome.min.css">
+<script type="text/javascript">
+        var key = '';
+        var isSample = key == 'usaindep';
+    </script>
+
+
+
+</head>
+<body style="visibility: hidden">
+
+	<!-- menu -->
+	<ul id="main-menu" style="position: absolute; top: 0px; right: 150px;">
+		<li accesskey="f">文件
+			<ul>
+				<li id="new_window" accesskey="n" data-hotkey="Alt+N" title="在新窗口中重新加载文件">打开新窗口</li>
+				<li id="code-import" data-icon="icon-import">导入...</li>
+				<li id="file-save" accesskey="s" data-hotkey="Alt+S"
+					data-icon="icon-save">保存为.diff文件</li>
+			</ul>
+		</li>
+		<li accesskey="l">左侧
+			<ul>
+				<li id="edit-left-undo" accesskey="z" data-hotkey="Ctrl+Z"
+					data-icon="icon-undo">撤销</li>
+				<li id="edit-left-redo" accesskey="y" data-hotkey="Ctrl+Y"
+					data-icon="icon-redo">重做</li>
+				<li id="edit-left-find">查找</li>
+				<li class="separator"></li>
+				<li id="edit-left-merge-right" data-hotkey="Alt+&rarr;"
+					data-icon="icon-arrow-right-v">合并到右侧</li>
+				<li id="edit-left-merge-right-file" data-icon="icon-arrow-right-vv">全部合并到右侧</li>
+				<li id="edit-left-readonly">设为只读</li>
+				<li class="separator"></li>
+				<li id="edit-left-clear">清空内容</li>
+				<li id="left_reimport">重新载入</li>
+				<li id="left_save_local">保存到本地</li>
+				<li id="left_save_server">保存到云</li>
+			</ul>
+		</li>
+		<li accesskey="r">右侧
+			<ul>
+				<li id="edit-right-undo" accesskey="z" data-hotkey="Ctrl+Z"
+					data-icon="icon-undo">撤销</li>
+				<li id="edit-right-redo" accesskey="y" data-hotkey="Ctrl+Y"
+					data-icon="icon-redo">重做</li>
+				<li id="edit-right-find">查找</li>
+				<li class="separator"></li>
+				<li id="edit-right-merge-left" data-hotkey="Alt+&larr;"
+					data-icon="icon-arrow-left-v">合并到左侧</li>
+				<li id="edit-right-merge-left-file" data-icon="icon-arrow-left-vv">全部合并到左侧</li>
+				<li id="edit-right-readonly">设为只读</li>
+				<li class="separator"></li>
+				<li id="edit-right-clear">清空内容</li>
+				<li id="right_reimport">重新载入</li>
+				<li id="right_save_local">保存到本地</li>
+				<li id="right_save_server">保存到云</li>
+			</ul>
+		</li>
+		<li accesskey="v">视图
+			<ul>
+				<li id="view-swap" data-icon="icon-swap">交换</li>
+				<li class="separator"></li>
+				<li id="view-refresh" accesskey="v" data-hotkey="Alt+V"
+					title="生成差异标记">显示差异</li>
+				<li id="view-clear" accesskey="c" data-hotkey="Alt+C" title="清空差异标记">清空差异</li>
+				<li class="separator"></li>
+				<li id="view-change-prev" data-hotkey="Alt+&uarr;"
+					title="View previous change">上一个差异</li>
+				<li id="view-change-next" data-hotkey="Alt+&darr;"
+					title="View next change">下一个差异</li>
+			</ul>
+		</li>
+		<li accesskey="o">选项
+			<ul>
+				<li id="options-wrap">换行显示</li>
+				<li id="options-ignorews">忽略空格</li>
+				<li id="options-ignorecase">忽略大小写</li>
+				<li class="separator"></li>
+				<li id="options-viewport" title="提高大文件的性能">启用视区</li>
+				<li id="options-sidebars" title="提高大文件的性能">启用侧栏</li>
+				<li id="options-swapmargin">切换右侧栏</li>
+				<li id="options-linenumbers">行号</li>
+				<li class="separator"></li>
+				<li id="options-autodiff" title="自动计算差异">自动计算差异</li>
+			</ul>
+		</li>
+	</ul>
+
+	<!-- toolbar -->
+	<ul id="toolbar">
+		<li class="separator"></li>
+		<li id="tb-file-save" data-icon="icon-save" title="保存为.diff文件">Save .diff</li>
+		<li class="separator"></li>
+		<li id="tb-view-change-prev" data-icon="icon-arrow-up" title="上一个差异">Previous
+			change</li>
+		<li id="tb-view-change-next" data-icon="icon-arrow-down" title="下一个差异">Next
+			change</li>
+		<li class="separator"></li>
+		<li id="tb-edit-right-merge-left" data-icon="icon-arrow-left-v"
+			title="合并到左侧">Merge change left</li>
+		<li id="tb-edit-left-merge-right" data-icon="icon-arrow-right-v"
+			title="合并到右侧">Merge change right</li>
+		<li class="separator"></li>
+		<li id="tb-view-swap" data-icon="icon-swap" title="左右交换代码">交换</li>
+	</ul>
+
+	<!-- find 查找框 -->
+	<div class="find">
+		<input type="text" />
+		<button class="find-prev">
+			<span class="icon icon-arrow-up"></span>
+		</button>
+		<button class="find-next">
+			<span class="icon icon-arrow-down"></span>
+		</button>
+		<button class="find-close">
+			<span class="icon icon-x-mark"></span>
+		</button>
+	</div>
+	<!-- 文件信息 -->
+	<div class="row col-12">
+		<div class="col-6">
+			<span id="fileNameL" th:text="${fileName1}">文件1</span> 
+			<i id="fileIDL" hidden th:text="${fileID1}">文件id1</i>
+		</div>
+		<div class=" col-6">
+			<span id="fileNameR" th:text="${fileName2}">文件2</span> 
+			<i id="fileIDR" hidden th:text="${fileID2}">文件id2</i>
+		</div>
+	</div>
+	<!-- editor -->
+	<div
+		style="position: absolute; top: 63px; bottom: 10px; left: 5px; right: 5px; overflow-y: hidden; padding-bottom: 2px;">
+		<div id="mergely"></div>
+	</div>
+	
+	<script type="text/javascript" src="js/my-mergely.js"></script>
+	<script type="text/javascript" src="vendor/mergely/editor.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+body { font-family: 'Noto Sans', sans-serif; margin: 0px; }
+#page { width: 994px; }
+#content  { width: 960px; }
+#page { margin: 0 auto; }
+#content { margin: 25px; border: 1px solid black; -webkit-box-shadow:  3px 4px 4px 2px rgba(0, 0, 0, .2); box-shadow:  3px 4px 4px 2px rgba(0, 0, 0, .2);}
+#windowbox { background: url("box.svg"/*tpa=http://www.mergely.com/images/box.svg*/) width: 960px; height: 300px; border: 1px solid black;}
+#header h1 { display: inline-block; margin: 20px 0 20px 20px; background-image: url("mergely.png"/*tpa=http://www.mergely.com/images/mergely.png*/); width: 266px; height: 72px; }
+#header h1 span { display: none; }
+#header { border-bottom: 1px solid black; }
+#options { float: right; position: relative; right: 40px; top: 40px; }
+
+#header nav ul { margin: 0; padding-left: 20px; margin-bottom: 20px; }
+#header nav ul li { display: inline-block; margin-right: 40px; }
+#header nav ul li a { color: black; text-decoration: none; }
+#header nav ul li a:hover { text-decoration: underline; }
+#canvas { display: block; }
+#sections { padding-top: 20px; border-top: 1px solid black; }
+#sections .section { width: 28%; display: inline-block; vertical-align: top; margin: 20px; }
+#main h1, #main h2, #sections .section h2 { color: #222; font-family: 'BerlinSansFBDemi', sans-serif; font-size: 29px; letter-spacing: -1px; }
+#main h1 { font-size: 2.5em; }
+#main { padding: 20px; }
+
+#main pre.code { border: 1px solid #37AFFF; background-color: #fafafa; padding: 12px; }
+#main dt { color: #3FA6EA; font-weight: bold; }
+#main dd { margin-bottom: 1em; }
+#main h1 { margin-top: 0px; font-size: 2.4em; display: inline-block;}
+#main .code { border-radius: 8px; }
+#main span.code { font-family: "courier new", courier, fixed }
+
+
+#marketing { display: block; width: 960px; height: 352px; background: 960px  url("background.png"/*tpa=http://www.mergely.com/images/background.png*/); }
+
+#blurb { font-family: sans-serif; font-size: 18px; color: #fff; background-color: #333; margin: 0px; width: 300px; height: 292px; float: right; padding: 30px; line-height: 2em; }
+#blurb .first { font-family: 'BerlinSansFBDemi', sans-serif; font-size: 25px; padding-right: 4px; }
+
+.button { display: inline-block; border: 3px solid #000; padding: 1px 6px; border-radius: 4px;text-decoration: none;color: #000;font-family: 'BerlinSansFBDemi';font-size: 32px;text-transform: lowercase;font-weight: bold;letter-spacing: -1px;
+	background: #7abcff;
+	background: -moz-linear-gradient(top,  #7abcff 0%, #60abf8 44%, #4096ee 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee));
+	background: -webkit-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%);
+	background: -o-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%);
+	background: -ms-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%);
+	background: linear-gradient(to bottom,  #7abcff 0%,#60abf8 44%,#4096ee 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 );
+}
+
+.button:hover {
+	background: #9dceff;
+	background: -moz-linear-gradient(top,  #9dceff 1%, #8ac2fa 44%, #72b2f2 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#9dceff), color-stop(44%,#8ac2fa), color-stop(100%,#72b2f2));
+	background: -webkit-linear-gradient(top,  #9dceff 1%,#8ac2fa 44%,#72b2f2 100%);
+	background: -o-linear-gradient(top,  #9dceff 1%,#8ac2fa 44%,#72b2f2 100%);
+	background: -ms-linear-gradient(top,  #9dceff 1%,#8ac2fa 44%,#72b2f2 100%);
+	background: linear-gradient(to bottom,  #9dceff 1%,#8ac2fa 44%,#72b2f2 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9dceff', endColorstr='#72b2f2',GradientType=0 );
+}
+.button + .button { margin-left: 25px; }
+
+#more { text-decoration: none; display: block; background: url("arrow-banner.png"/*tpa=http://www.mergely.com/images/arrow-banner.png*/) no-repeat;margin-left: auto;margin-right: auto;width: 900px;font-family: 'BerlinSansFBDemi';font-size: 37px;letter-spacing: -1px;color: #fff;margin-bottom: 60px;}
+#more > span {line-height: 100px;}
+#more :first-child {padding-left: 70px;}
+#more :last-child {float: right;padding-right: 40px;font-size: 32px;}
+
+#footer {position: relative;background-color: #333;padding: 40px;}
+#footer a.download { border-radius: 8px; border: 1px solid transparent; padding: 10px; display: block; text-decoration: none; color: #fff; position: absolute;right: 40px;top: 20px;font-family: 'BerlinSansFBDemi';color: #fff;font-size: 1.9em;background: url("download-cloud.png"/*tpa=http://www.mergely.com/images/download-cloud.png*/) center 55px no-repeat;height: 150px;}
+#footer a.download:hover { border: 1px solid #fff; }
+#footer ul {font-family: 'courier new', courier, fixed;color: #666; margin: 0; padding: 0;}
+#footer li {list-style-type: none;padding: 17px 5px 17px 64px;font-size: 1.2em;}
+#footer li#google-plus {background: url("google-plus.png"/*tpa=http://www.mergely.com/images/google-plus.png*/) left center no-repeat;}
+#footer li#github {background: url("github.png"/*tpa=http://www.mergely.com/images/github.png*/) left center no-repeat;}
+#footer li#email {background: url("email.png"/*tpa=http://www.mergely.com/images/email.png*/) left center no-repeat;}
+#footer a {color: #666;}
+#footer a:hover {color: #fff;}
+#copyright {	float: right;color: #e0e0e0;margin-bottom: 15px;}

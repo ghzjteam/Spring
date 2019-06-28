@@ -3,6 +3,9 @@ package com.web.pcdp.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.web.pcdp.config.Preferences;
+import com.web.pcdp.domain.FileSystem;
+import com.web.pcdp.service.FileSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -12,20 +15,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.web.pcdp.config.Preferences;
 import com.web.pcdp.domain.User;
 import com.web.pcdp.service.UserService;
 
 /**
- * Title: UserController.java
+* Title: UserController.java 
 
- * Description:   UserController
+* Description:   UserController
 
- * @author Guo_Jinhang
+* @author Guo_Jinhang  
 
- * @date 2019年6月16日
+* @date 2019年6月16日  
 
- * @version 1.0
+* @version 1.0  
  */
 @Controller
 public class UserController {
@@ -34,42 +36,43 @@ public class UserController {
     @Qualifier("user")
     private UserService userService;
 
+    @Autowired
+    @Qualifier("filesystem")
+    private FileSystemService fileSystemService;
     //login界面跳转
     @GetMapping("/login")
     public String login(HttpServletRequest request) {
-        request.getSession().removeAttribute("session_user_id");
-        request.getSession().removeAttribute("login_user");
-        return "login";
+    	request.getSession().removeAttribute("session_user_id");
+    	request.getSession().removeAttribute("login_user");
+        request.getSession().removeAttribute("curruser");
+    	return "login";
     }
-
     @GetMapping("/")
-    public String home(HttpServletRequest request){
-        return login(request);
+    public String home(HttpServletRequest request){  
+    	return login(request);
     }
-
     @GetMapping("/index")
     public String index(Model model,HttpServletRequest request){
         User user = (User)request.getSession().getAttribute("login_user");
-        if(user != null){
-            model.addAttribute("curruser", user);
+        if(user!=null){
+        	model.addAttribute("curruser", user);
             return "index";
         }
         else
             return "redirect:login";
     }
-
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("id", userService.getNextUserID()+1);
+    	model.addAttribute("id", userService.getNextUserID()+1);
         return "register";
     }
-
-
+    
+    
     //个人信息
     @GetMapping("/settings")
     public String settings(Model model,HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        int id = (int)session.getAttribute("session_user_id");
+    	HttpSession session = request.getSession();
+    	int id = (int)session.getAttribute("session_user_id");
         User oUser = userService.findUser(id);
         if(oUser!=null) {
             model.addAttribute("curruser", oUser);
@@ -80,10 +83,10 @@ public class UserController {
     //登陆
     @PostMapping("/Login")
     public String loginSubmit(String id, String password, Model model, HttpServletRequest request) {
-        //System.out.println(id + "=" + password);
+        System.out.println("ID：" +id +"	PSW：" +password);
         String message = "";
         int idnum = -1;
-
+       
         boolean success = false;
         User user = new User();
         try {
@@ -92,6 +95,7 @@ public class UserController {
             if(oUser != null) {
                 if(password.equals(oUser.getPassword())) {
                     user = oUser;
+                    System.out.println("登录成功");
                     success = true;
                 }
                 else {
@@ -108,14 +112,14 @@ public class UserController {
         model.addAttribute("id", id);
         model.addAttribute("success", success);
         if(success) {
-            //String src = users.getPhoto();
-            //users.setPhoto(Preferences.EXTERNAL_PATH+Preferences.HEAD_IMG_PATH+src);
-            //System.out.println(users.toString());
-            //session 传入了用户id  使用session.session_user_id调用
-            HttpSession session = request.getSession();
+//String src = users.getPhoto();
+//users.setPhoto(Preferences.EXTERNAL_PATH+Preferences.HEAD_IMG_PATH+src);
+//System.out.println(users.toString());
+//session 传入了用户id  使用session.session_user_id调用
+        	HttpSession session = request.getSession();
             session.setAttribute("session_user_id",idnum);
             session.setAttribute("login_user",user);
-
+            session.setAttribute("curruser",user);
             return "redirect:index";
         }
         else {
@@ -142,10 +146,18 @@ public class UserController {
 
             System.out.println(user.toString());
             User oUser = userService.findUser(idnum);
+
+            //{
+            FileSystem fs = new FileSystem();
+            fs.setFileID(number);
+            fs.setName("root");
+            fs.setType("folder");
+            fileSystemService.createFolder(fs);
+            //}
             if(oUser == null) {
-                //userService.insertUser(user);
-                System.out.println("注册");
-                success = true;
+                userService.insertUser(user);
+            	System.out.println("注册");
+            	success = true;
             }
             else {
                 message = "账号已存在";
@@ -168,7 +180,7 @@ public class UserController {
 
     //修改信息
     @PostMapping("/settingsSubmit")
-    public String settingsSubmit(String number,String name,String email,String phone,String gender,Model model) {
+    public String settingsSubmit(String number,String name,String email,String phone,String gender,Model model,HttpServletRequest request) {
         String message = "";
         User user = new User();
         try {
@@ -188,8 +200,10 @@ public class UserController {
             e.printStackTrace();
         }
         //System.out.println(message);
+        request.getSession().setAttribute("curruser",user);
+        request.getSession().setAttribute("login_user",user);
         model.addAttribute("curruser",user);
-        return "index";
+        return "redirect:index";
     }
 
     //修改密码
@@ -198,7 +212,7 @@ public class UserController {
         String message = "";
         //System.out.println("111----"+number+"\t"+password);
         try {
-            System.out.println();
+        	System.out.println();
             int idnum = Integer.parseInt(number);
             User user = userService.findUser(idnum);
 
@@ -216,11 +230,11 @@ public class UserController {
         model.addAttribute("id", number);
         return "login";
     }
-
+    
     //获得自动构建的用户ID值
     @RequestMapping("/getNextUserID")
     @ResponseBody
     public  int getNextUserID() {
-        return userService.getNextUserID()+1;
+		return userService.getNextUserID()+1;
     }
 }
