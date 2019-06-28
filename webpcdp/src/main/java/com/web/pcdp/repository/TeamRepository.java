@@ -18,7 +18,6 @@ import java.util.List;
 
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Integer> {
-
     //根据用户ID查询某用户的所有团队信息
     @Query(value = "SELECT * FROM team WHERE team_id IN(SELECT team_id FROM user_team WHERE user_id =?)", nativeQuery = true)
     List<Team> findUserAllTeam(@Param("user_id") int id);
